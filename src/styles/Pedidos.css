@@ -1,0 +1,130 @@
+.container-pedidos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+}
+
+.container-pedidos__data {
+    width: 100%;
+    padding: 0px 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -10px #ccc;
+}
+
+.container-pedidos__img {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.container-pedidos__img h3 {
+    margin: 10px;
+}
+
+.container-pedidos__img img {
+    width: 100%;
+    max-width: 400px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+.container-pedidos__eleccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+}
+
+.container-pedidos__description {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container-pedidos__description div {
+    flex-grow: 1;   
+}
+
+.container-pedidos__description div div {
+    display: flex;
+    gap: 10px;
+}
+.container-pedidos__description div div div {
+    display: flex;
+    align-items: center ;
+}
+
+.container-pedidos__description div div p {
+    flex-grow: 1;
+    text-align: end;
+}
+.container-pedidos__guarnicion  {
+    display: flex;
+    margin-top: 3px;
+    gap: 10px;
+}
+.container-pedidos__guarnicion div {
+    display: flex;
+}
+.guarnicion-price {
+    flex-grow: 1;
+    text-align: end;
+}
+
+.container-pedidos__description h5 {
+    font-weight: 100;
+}
+
+.seleccionar,
+.agregar {
+    padding: 5px 10px;
+    background-color: #ccc;
+    border-radius: 20px;
+    border: none;
+}
+
+.agregar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.agregar span {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.buton-agregar-pedido {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #dc3423;
+    color: #fff;
+    box-shadow: 0px 0px 15px -5px #666;
+
+}
+
+.container-pedidos .buton-agregar-pedido:hover {
+    background-color: #ac2413;
+}
+
+.simbolo-cant:hover {
+cursor: pointer;
+}

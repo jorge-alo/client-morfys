@@ -1,0 +1,164 @@
+.container-local {
+    position: relative;
+    flex-grow: 1;
+    background-color: #fdfafe;
+}
+
+.container-banner {
+
+    background-size: cover;
+    /* Ajusta la imagen al contenedor */
+    background-position: center;
+    /* Centra la imagen */
+    background-repeat: no-repeat;
+    /* Evita repetición */
+    width: 100%;
+    height: 20vh;
+
+    position: relative;
+}
+
+.container-banner__login:hover {
+    cursor: pointer;
+}
+.container-banner .container-baner__data {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.56), rgba(0, 0, 0, 0.8));
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+
+}
+.container-banner .container-abiertoHorarioEnvio {
+    background-color: none;
+    display: flex;
+    height: 100%;
+    justify-content: end;
+    align-items: end;
+}
+.container-abiertoHorarioEnvio div {
+    font-size: .7rem;
+    color: #fff;
+    text-align: end;
+    background-color: none;
+    width: fit-content;
+}
+
+.container-banner h2 {
+    color: #fff;
+    position: absolute;
+    bottom: 20px;
+}
+
+
+.container-local__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+}
+
+
+
+.container-local__flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 10px;
+    gap: 10px;
+    position: relative;
+}
+
+.container-boton-enviar {
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    bottom: 0px;
+    left: 0px;
+    padding: 20px;
+    width: 100vw;
+}
+.container-boton-enviar-none {
+    display: none;
+}
+.container-boton-enviar button {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+    color: #fff;
+    background-color: #dc3423;
+    font-size: 1rem;
+}
+
+.section-Card {
+    box-shadow: 0 0 3px #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    max-width: 800px;
+    scroll-margin-top: 80px;
+}
+
+.section-card__flex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.section-Card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+@media (max-width: 550px)  {
+    .container-local__flex {
+        flex-direction: column;
+    }
+    .container-boton-enviar {
+        display: block;
+        position: fixed;
+        background-color: #fff;
+        bottom: 0px;
+        left: 0px;
+        padding: 20px;
+        width: 100vw;
+    }
+    .container-boton-enviar-none {
+        display: none;
+    }
+    .container-boton-enviar button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border-radius: 50px;
+        border: none;
+        color: #fff;
+        background-color: #dc3423;
+        font-size: 1rem;
+    }
+    .container-boton-enviar button:hover {
+        background-color: #ad2334;
+    }
+    
+    .container-abiertoHorarioEnvio div {
+    font-size: .6rem;
+    color: #fff;
+    text-align: end;
+    background-color: none;
+    width: fit-content;
+}
+
+.container-banner h2 {
+    font-size: 1rem;
+}
+}

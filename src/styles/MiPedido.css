@@ -1,0 +1,239 @@
+.carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 400px;
+    min-height: 200px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.carrito__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.carrito__container-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    overflow: hidden;
+    gap: 10px;
+}
+
+.carrito__container-img p {
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.carrito__container-img img {
+    width: 100%;
+    max-width: 100px;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+.carrito__container-data-order {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+
+
+}
+
+.data-order {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.data-order div div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.data-order__guarnicion {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-enviar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subtotal {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+
+}
+
+.carrito__container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #dc3423;
+    color: #fff;
+}
+
+.carrito__container button:hover {
+background-color: #9c3423;
+}
+.boton-disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.carrito__container .boton-disabled {
+    background-color: #dc3423;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.eliminar:hover {
+    cursor: pointer;
+}
+
+.mobile {
+    display: none;
+}
+
+.container-confirmarPedido {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+.container-confirmarPedido select {
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    outline: none;
+}
+
+.container-confirmarPedido div {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-confirmarPedido input {
+    margin-left: 10px;
+    border: none;
+    outline: none;
+}
+
+.container-confirmarPedido h4 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container-confirmarPedido button {
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #4485ef;
+    color: #fff;
+}
+
+.container-confirmarPedido .container-confirmarPedido__cancelar {
+    background-color: #dc3423;
+}
+.container-confirmarPedido .container-confirmarPedido__cancelar:hover {
+    background-color: #9c3423;
+}
+@media (max-width: 550px) {
+    .carrito {
+        display: none;
+    }
+
+    .mobile {
+        z-index: 100000;
+        position: fixed;
+        top: 0px;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        min-width: 100dvw;
+        min-height: 100dvh;
+        border-radius: 8px;
+        background-color: #fff;
+    }
+
+    .mobile button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #dc3423;
+        color: #fff;
+    }
+
+    .mobile button:focus {
+        background-color: #ad2345;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    .mobile-header span {
+        flex-grow: 1;
+    }
+
+    .carrito__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        gap: 10px;
+        flex-grow: 1;
+
+
+    }
+
+    .subtotal {
+        border-top: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    .carrito__container-data-order {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        gap: 20px;
+    }
+}

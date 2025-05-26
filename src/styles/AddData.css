@@ -1,0 +1,137 @@
+
+.container-addData {
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    
+   flex-grow: 1;
+    background-color: #fdfafe;
+}
+
+
+.container-form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 30px 10px;
+    width: 100%;
+    max-width: 500px;
+    flex-grow: 1;
+    gap: 10px;
+    border-radius: 8px;
+}
+
+
+.container-form h2 {
+    text-align: center;
+}
+
+.container-form input {
+   outline: none;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.container-form textarea {
+    padding: 5px;
+    border-radius: 4px;
+    resize: none;
+   
+}
+form label {
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  padding: 3px;
+  border-radius: 4px;
+}
+form label select{
+  margin-left: 10px;
+  
+}
+.container-form select{
+  padding: 5px;
+  border-radius: 4px;
+}
+
+
+.container-form button {
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #4883ef;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #3863af;
+}
+
+.container-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+
+ .cerrar {
+    background-color: #ef3445;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .cerrar:hover {
+    background-color: #af3445;
+    cursor: pointer;
+  }
+
+  .modal-overlay {
+   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  }
+  .modal-content {
+    background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  }
+
+  .close-button {
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #999;
+    font-weight: 700;
+  }
+
+  .modal-content .close-button:hover {
+    background-color: #ccc;
+    color: #666;
+  }
+
+  .error {
+    color: red;
+    text-align: center;
+  }

@@ -1,0 +1,21 @@
+.container-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100000;
+    background-color: #fff;
+    box-shadow: 0 0px 10px #666;
+}
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+   
+}
+
+.nav a {
+    text-decoration: none;
+    color: #c12334;
+    font-weight: bold;
+    width: fit-content;
+}

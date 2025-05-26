@@ -1,0 +1,45 @@
+.container-card {
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+}
+.container-card:hover {
+    opacity: .8;
+    cursor: pointer;
+    box-shadow: 0 0 15px -5px #999;
+}
+
+.container-card__img {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.container-card__img img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100px;
+    max-width: 250px;
+}
+
+.container-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 10px;
+}
+.container-card__info h3 {
+    font-size: clamp(.5rem, 70%, .8rem);
+}
+
+.container-card__info p {
+    font-size: .6rem;
+}
+
+
+.container-card-button:hover {
+    opacity: .75;
+    cursor: pointer;
+}

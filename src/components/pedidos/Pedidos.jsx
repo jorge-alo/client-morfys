@@ -10,6 +10,8 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     }, [])
 
 
+    console.log("valor de valueInput.image", valueInput.image);
+
     const obtenerPreciosGuarniciones = () => {
         return (updateComida?.guarnicionesSeleccionadas || []).reduce(
             (acc, g) => acc + g.price,

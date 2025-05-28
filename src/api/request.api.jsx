@@ -80,6 +80,9 @@ export const loadApiCategory = async (category) => {
   return await api.post('/category', category);
 }
 
+export const logoutApi = async () => {
+  return await api.post('/logout');
+};
 
 
 

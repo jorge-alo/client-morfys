@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { newPasswordApi, updateForgotApi, updateLoginApi, verifyTokenApi } from '../api/request.api';
+import { logoutApi, newPasswordApi, updateForgotApi, updateLoginApi, verifyTokenApi } from '../api/request.api';
 import { AuthContext } from './AuthContext';
 import { useForm } from './FormProvider';
 
@@ -91,13 +91,18 @@ const handleResetPassword = async (token, newPassword) => {
     }
    
 }
-    const handleLogOut = (e) => {
-        e.preventDefault();
-        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        setAdmin(0);
-        setLogin(false);
-        navigate("/");
-    }
+  const handleLogOut = async (e) => {
+  e.preventDefault();
+
+  try {
+    await logoutApi(); // Elimina cookie desde el backend
+    setAdmin(0);
+    setLogin(false);
+    navigate("/");
+  } catch (err) {
+    console.error("Error al hacer logout:", err);
+  }
+};
 
     return (
         <AuthContext.Provider value={{handleResetPassword, success, setSuccess, showForgotPassword, setShowForgotPassword, emailForReset, setEmailForReset, handleForgotPassword, setAdmin, local, setLocal, error, setError, admin, handleLoginSubmit, handleLogOut, login, setLogin, userId, checkAuth}}>

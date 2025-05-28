@@ -53,6 +53,7 @@ export const Ajustes = () => {
                         name="file"
                         id='file'
                         onChange={handleChange}
+                         className="input-file"
                     />
                 </label>
 

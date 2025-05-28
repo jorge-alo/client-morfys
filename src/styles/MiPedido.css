@@ -236,4 +236,7 @@ background-color: #9c3423;
         justify-content: space-around;
         gap: 20px;
     }
+     .container-local__flex .modal-overlay {
+        z-index: 1000000;
+    }
 }

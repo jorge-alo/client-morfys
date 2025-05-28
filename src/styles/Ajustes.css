@@ -6,8 +6,8 @@
     margin-bottom: 10px;
 }
 
-.input-file {
-    font-size: clamp(10px, 2vw, 14px);
+.container-form .input-file {
+    font-size: clamp(14px, 2vw, 17px);
 }
 .container-horario h4 {
     text-align: center;

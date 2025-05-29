@@ -21,22 +21,13 @@
 .container-banner__login:hover {
     cursor: pointer;
 }
-
 .container-banner .container-baner__data {
-    background-image: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.8),
-            /* oscuro arriba */
-            rgba(255, 255, 255, 0.56),
-            /* claro en el medio */
-            rgba(0, 0, 0, 0.8)
-            /* oscuro abajo */
-        );
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.56), rgba(0, 0, 0, 0.8));
     width: 100%;
     height: 100%;
     padding: 20px;
 
 }
-
 .container-banner .container-abiertoHorarioEnvio {
     background-color: none;
     display: flex;
@@ -44,7 +35,6 @@
     justify-content: end;
     align-items: end;
 }
-
 .container-abiertoHorarioEnvio div {
     font-size: .7rem;
     color: #fff;
@@ -92,11 +82,9 @@
     padding: 20px;
     width: 100vw;
 }
-
 .container-boton-enviar-none {
     display: none;
 }
-
 .container-boton-enviar button {
     display: none;
     width: 100%;
@@ -132,11 +120,10 @@
 }
 
 
-@media (max-width: 550px) {
+@media (max-width: 550px)  {
     .container-local__flex {
         flex-direction: column;
     }
-
     .container-boton-enviar {
         display: block;
         position: fixed;
@@ -146,11 +133,9 @@
         padding: 20px;
         width: 100vw;
     }
-
     .container-boton-enviar-none {
         display: none;
     }
-
     .container-boton-enviar button {
         display: block;
         width: 100%;
@@ -161,22 +146,31 @@
         background-color: #dc3423;
         font-size: 1rem;
     }
-
     .container-boton-enviar button:hover {
         background-color: #ad2334;
     }
-
+    
     .container-abiertoHorarioEnvio div {
-        font-size: .6rem;
-        color: #fff;
-        text-align: end;
-        background-color: none;
-        width: fit-content;
-    }
+    font-size: .6rem;
+    color: #fff;
+    text-align: end;
+    background-color: none;
+    width: fit-content;
+}
 
-    .container-banner h2 {
-        font-size: 1.5rem;
-        color: #fff;
-        top: 10px;
-    }
+.container-banner h2 {
+    font-size: 1.5rem;
+    color: #fff;
+    top: 10px;
+}
+.container-banner .container-baner__data {
+    background-image: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.8),
+            /* oscuro arriba */
+            rgba(255, 255, 255, 0.56),
+            /* claro en el medio */
+            rgba(0, 0, 0, 0.8)
+            /* oscuro abajo */
+        );
+}
 }

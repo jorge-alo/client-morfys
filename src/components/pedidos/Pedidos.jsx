@@ -78,7 +78,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
                 <div className="container-pedidos__img">
                     <h3> {valueInput.name} </h3>
-                    <img src={pedidos.image} />
+                    <img src={valueInput.image} />
                 </div>
 
                 <div className='container-pedidos__description'>

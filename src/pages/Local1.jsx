@@ -42,7 +42,7 @@ export const Local1 = () => {
         setCel(arrayLocals.data.idVaner[0].cel);
         setLogin(arrayLocals.login);
         if (arrayLocals.data.idVaner?.[0]?.img_vaner) {
-          setVaner(`${import.meta.env.VITE_IMAGE_URL}/${arrayLocals.data.idVaner[0].img_vaner}`);
+          setVaner(arrayLocals.data.idVaner[0].img_vaner);
         }
       }
     } catch (error) {

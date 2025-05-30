@@ -2,7 +2,7 @@
 import '../../styles/Pedidos.css';
 import { useEffect, useState } from 'react';
 
-export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, contValue, setCheck, setPedidos, updateComida, guarnicion, setGuarnicion }) => {
+export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, contValue, setCheck, setPedidos, updateComida, guarnicion, setGuarnicion, pedidos }) => {
 
     useEffect(() => {
         setContValue(1);
@@ -78,7 +78,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
                 <div className="container-pedidos__img">
                     <h3> {valueInput.name} </h3>
-                    <img src={`${import.meta.env.VITE_IMAGE_URL}/${valueInput.image}`} />
+                    <img src={pedidos.image} />
                 </div>
 
                 <div className='container-pedidos__description'>

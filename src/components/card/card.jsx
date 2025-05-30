@@ -17,7 +17,7 @@ export const Card = ({ id, name, description, image, price, onClick }) => {
       >
         {image 
         ? <div className='container-card__img'>
-          <img src={`${import.meta.env.VITE_IMAGE_URL}/${image}`} alt={name} />
+          <img src={image} alt={name} />
         </div> 
         : ""
         }

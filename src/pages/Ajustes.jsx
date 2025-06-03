@@ -54,23 +54,9 @@ export const Ajustes = () => {
                         name="file"
                         id='file'
                         onChange={handleChange}
-                         className="input-file"
+                        className="input-file"
                     />
                 </label>
-
-                <div className='container-horario'>
-                    <div className='container-valor'>
-                        <label htmlFor="envio"> Ingrese valor de envio
-                            <input
-                                type="number"
-                                id='envio'
-                                name='envio'
-                                value={valueInput.envio}
-                                onChange={handleChange}
-                            />
-                        </label>
-                    </div>
-                </div>
                 <div className='container-horario'>
                     <div className='container-cel'>
                         <label htmlFor="cel"> Ingrese su celular
@@ -85,6 +71,20 @@ export const Ajustes = () => {
                         </label>
                     </div>
                 </div>
+                <div className='container-horario'>
+                    <div className='container-valor'>
+                        <label htmlFor="envio"> Ingrese valor de envio
+                            <input
+                                type="number"
+                                id='envio'
+                                name='envio'
+                                value={valueInput.envio}
+                                onChange={handleChange}
+                            />
+                        </label>
+                    </div>
+                </div>
+
                 <div className='container-horario'>
                     <div className='container-envioMinimo'>
                         <label htmlFor="envioMinimo"> Ingrese valor minimo de envio

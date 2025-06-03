@@ -19,6 +19,7 @@ export const Ajustes = () => {
         const formData = new FormData();
         formData.append('image', file);
         formData.append('envio', valueInput.envio);
+        formData.append('cel', valueInput.cel);
         formData.append('envioMinimo', valueInput.envioMinimo);
         formData.append('diaManianaEntrada', valueInput.diaMañanaEntrada);
         formData.append('diaManianaSalida', valueInput.diaMañanaSalida);
@@ -65,6 +66,19 @@ export const Ajustes = () => {
                                 id='envio'
                                 name='envio'
                                 value={valueInput.envio}
+                                onChange={handleChange}
+                            />
+                        </label>
+                    </div>
+                </div>
+                <div className='container-horario'>
+                    <div className='container-cel'>
+                        <label htmlFor="cel"> Ingrese su celular
+                            <input
+                                type="text"
+                                id='cel'
+                                name='cel'
+                                value={valueInput.cel}
                                 onChange={handleChange}
                             />
                         </label>

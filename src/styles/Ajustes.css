@@ -32,11 +32,11 @@
     width: 100%;
 }
 
-.container-valor label {
+.container-horario label {
     border: none;
 }
 
-.container-valor input {
+.container-horario input {
     margin-left: 10px;
 }
 

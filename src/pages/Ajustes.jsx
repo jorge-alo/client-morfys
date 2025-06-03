@@ -78,6 +78,7 @@ export const Ajustes = () => {
                                 type="text"
                                 id='cel'
                                 name='cel'
+                                placeholder='Ingrese con codigo de pais Ejemplo 541122334455'
                                 value={valueInput.cel}
                                 onChange={handleChange}
                             />

@@ -14,4 +14,7 @@ export default defineConfig({
     host: true,
     historyApiFallback: true, // Habilita el fallback a index.html en desarrollo
   },
+  optimizeDeps: {
+    include: ['@googlemaps/extended-component-library/loader']
+  },
 });

@@ -13,7 +13,9 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     const inputRef = useRef(null);
 
     console.log("valor de priceBase en mipedido:", price);
-
+    useEffect(() => {
+        loadGoogleMapsApi();
+    }, []);
     useEffect(() => {
         const subTotal = pedidos.reduce((total, pedido) => {
             return total + Number(pedido.priceTotal);

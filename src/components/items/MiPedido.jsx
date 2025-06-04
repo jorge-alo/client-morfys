@@ -8,6 +8,41 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     const [formaEntrega, setFormaEntrega] = useState('retiro'); // 'retiro' o 'envio'
     const [metodoPago, setMetodoPago] = useState('efectivo'); // 'efectivo' o 'transferencia'
     const [ubicacion, setUbicacion] = useState('');
+      const autocompleteRef = useRef(null);
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        // Cargar Google Maps cuando el componente se monta
+        LoadGoogleMaps('initMap');
+
+        // Función global que se llamará cuando Google Maps esté listo
+        window.initMap = () => {
+            if (window.google && inputRef.current) {
+                autocompleteRef.current = new window.google.maps.places.Autocomplete(
+                    inputRef.current,
+                    {
+                        types: ['address'],
+                        componentRestrictions: { country: 'ar' }, // Cambia 'ar' por tu país
+                        fields: ['formatted_address', 'geometry']
+                    }
+                );
+
+                autocompleteRef.current.addListener('place_changed', () => {
+                    const place = autocompleteRef.current.getPlace();
+                    if (place && place.formatted_address) {
+                        setUbicacion(place.formatted_address);
+                    }
+                });
+            }
+        };
+
+        return () => {
+            // Limpiar el listener cuando el componente se desmonta
+            if (autocompleteRef.current) {
+                window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
+            }
+        };
+    }, []);
     console.log("valor de priceBase en mipedido:", price);
 
     useEffect(() => {
@@ -241,6 +276,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                             <div>
                                 <label htmlFor='ubicacion'>Ubicación (si pidió envío): </label>
                                 <input
+                                    ref={inputRef}
                                     type="text"
                                     value={ubicacion}
                                     onChange={(e) => setUbicacion(e.target.value)}

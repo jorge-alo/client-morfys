@@ -174,7 +174,7 @@ background-color: #9c3423;
 
 /* Estilos para el dropdown de autocomplete */
 .pac-container {
-    z-index: 10000 !important;
+    z-index: 100000000 !important;
     font-family: inherit;
     border-radius: 0 0 4px 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);

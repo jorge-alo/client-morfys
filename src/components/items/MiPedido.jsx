@@ -2,6 +2,7 @@ import '../../styles/MiPedido.css';
 import useWhatsApp from '../../hook/useWhatsApp';
 import { useEffect, useRef, useState } from 'react';
 import { PlaceAutocomplete } from '../../utils/PlaceAutocomplete';
+import { loadGoogleMapsApi } from '../../utils/LoadGoogleMaps';
 
 
 export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck, cel, setSubtotalValue, checkMobile, setCheckMobile }) => {

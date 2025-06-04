@@ -171,6 +171,35 @@ background-color: #9c3423;
 .container-confirmarPedido .container-confirmarPedido__cancelar:hover {
     background-color: #9c3423;
 }
+
+/* Estilos para el dropdown de autocomplete */
+.pac-container {
+    z-index: 10000 !important;
+    font-family: inherit;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+.pac-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-top: 1px solid #f0f0f0;
+}
+
+.pac-item:hover {
+    background-color: #f5f5f5;
+}
+
+.pac-item-query {
+    font-size: 15px;
+    color: #333;
+}
+
+.pac-icon {
+    display: none;
+}
+
 @media (max-width: 550px) {
     .carrito {
         display: none;

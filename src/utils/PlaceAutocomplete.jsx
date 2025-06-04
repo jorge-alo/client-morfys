@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { setLoadScriptCallback } from '@googlemaps/extended-component-library';
+import { setLoadScriptCallback } from '@googlemaps/extended-component-library/loader';
 
 setLoadScriptCallback((src) => {
   const script = document.createElement('script');

@@ -286,4 +286,11 @@ gmpx-place-autocomplete {
     .inputAutocomplete {
        z-index: 1000000000 !important;
     }
+    .pac-container {
+    z-index: 100000000 !important;
+    font-family: inherit;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    border: none;
+}
 }

@@ -1,34 +1,39 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export const PlaceAutocomplete = ({ onPlaceSelected }) => {
-  const ref = useRef(null);
+  const inputRef = useRef(null);
+  const autocompleteRef = useRef(null);
 
   useEffect(() => {
-    const handlePlaceChange = (event) => {
-      const place = event.detail;
+    if (!window.google || !window.google.maps) return;
+
+    autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, {
+      componentRestrictions: { country: "ar" },
+      fields: ["formatted_address", "geometry", "name"],
+      types: ["address"], // solo direcciones
+    });
+
+    autocompleteRef.current.addListener("place_changed", () => {
+      const place = autocompleteRef.current.getPlace();
       if (place && onPlaceSelected) {
-        onPlaceSelected(place.formattedAddress || '');
+        onPlaceSelected(place.formatted_address || "");
       }
-    };
+    });
 
-    const element = ref.current;
-    if (element) {
-      element.addEventListener('gmpx-placechange', handlePlaceChange);
-    }
-
+    // cleanup
     return () => {
-      if (element) {
-        element.removeEventListener('gmpx-placechange', handlePlaceChange);
+      if (autocompleteRef.current) {
+        window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
       }
     };
   }, [onPlaceSelected]);
 
   return (
-    <gmpx-place-autocomplete
-      ref={ref}
-      style={{ width: '100%', height: '40px' }}
-      input-placeholder="Ingresa tu dirección"
-      country="AR"
-    ></gmpx-place-autocomplete>
+    <input
+      type="text"
+      ref={inputRef}
+      placeholder="Ingresa tu dirección"
+      style={{ width: "100%", height: "40px", padding: "8px" }}
+    />
   );
 };

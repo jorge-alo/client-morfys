@@ -246,9 +246,6 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                                 <div style={{ marginTop: '10px' }}>
                                     <label>Dirección:</label>
                                     <PlaceAutocomplete onPlaceSelected={setUbicacion} />
-                                    <p style={{ fontSize: '14px', marginTop: '5px' }}>
-                                        Dirección seleccionada: <strong>{ubicacion}</strong>
-                                    </p>
                                 </div>
                             )}
 

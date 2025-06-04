@@ -9,6 +9,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     const [formaEntrega, setFormaEntrega] = useState('retiro'); // 'retiro' o 'envio'
     const [metodoPago, setMetodoPago] = useState('efectivo'); // 'efectivo' o 'transferencia'
     const [ubicacion, setUbicacion] = useState('');
+     const [mapsLoaded, setMapsLoaded] = useState(false);
     const autocompleteRef = useRef(null);
     const inputRef = useRef(null);
 

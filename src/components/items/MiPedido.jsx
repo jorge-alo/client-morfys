@@ -1,6 +1,7 @@
 import '../../styles/MiPedido.css';
 import useWhatsApp from '../../hook/useWhatsApp';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { LoadGoogleMaps } from '../../utils/LoadGoogleMaps';
 
 export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck, cel, setSubtotalValue, checkMobile, setCheckMobile }) => {
     const { enviarPedido } = useWhatsApp();
@@ -8,7 +9,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     const [formaEntrega, setFormaEntrega] = useState('retiro'); // 'retiro' o 'envio'
     const [metodoPago, setMetodoPago] = useState('efectivo'); // 'efectivo' o 'transferencia'
     const [ubicacion, setUbicacion] = useState('');
-      const autocompleteRef = useRef(null);
+    const autocompleteRef = useRef(null);
     const inputRef = useRef(null);
 
     useEffect(() => {

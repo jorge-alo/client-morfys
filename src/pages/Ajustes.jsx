@@ -70,6 +70,7 @@ export const Ajustes = () => {
                             />
                         </label>
                     </div>
+                    <p>Ingrese su numero de celular con el codigo de pais ejemplo 541122334455</p>
                 </div>
                 <div className='container-horario'>
                     <div className='container-valor'>

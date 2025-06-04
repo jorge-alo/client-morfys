@@ -283,4 +283,7 @@ gmpx-place-autocomplete {
      .container-local__flex .modal-overlay {
         z-index: 1000000;
     }
+    .inputAutocomplete {
+        display: block;
+    }
 }

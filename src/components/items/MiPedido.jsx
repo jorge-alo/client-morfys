@@ -1,7 +1,8 @@
 import '../../styles/MiPedido.css';
 import useWhatsApp from '../../hook/useWhatsApp';
 import { useEffect, useRef, useState } from 'react';
-import { LoadGoogleMaps } from '../../utils/LoadGoogleMaps';
+import { PlaceAutocomplete } from '../../utils/PlaceAutocomplete';
+
 
 export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck, cel, setSubtotalValue, checkMobile, setCheckMobile }) => {
     const { enviarPedido } = useWhatsApp();
@@ -9,56 +10,8 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     const [formaEntrega, setFormaEntrega] = useState('retiro'); // 'retiro' o 'envio'
     const [metodoPago, setMetodoPago] = useState('efectivo'); // 'efectivo' o 'transferencia'
     const [ubicacion, setUbicacion] = useState('');
-     const [mapsLoaded, setMapsLoaded] = useState(false);
-    const autocompleteRef = useRef(null);
     const inputRef = useRef(null);
 
-      useEffect(() => {
-        // Solo cargar Google Maps cuando sea necesario
-        if (mostrarFormulario && !mapsLoaded) {
-            LoadGoogleMaps('initAutocomplete');
-            
-            window.initAutocomplete = () => {
-                setMapsLoaded(true);
-                if (window.google && inputRef.current) {
-                    initAutocomplete();
-                }
-            };
-        }
-        
-        // Inicializar autocomplete cuando el modal se muestra y maps está cargado
-        if (mostrarFormulario && mapsLoaded && inputRef.current) {
-            initAutocomplete();
-        }
-
-        return () => {
-            // Limpiar autocomplete cuando el modal se cierra
-            if (autocompleteRef.current) {
-                window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
-                autocompleteRef.current = null;
-            }
-        };
-    }, [mostrarFormulario, mapsLoaded]);
-
-    const initAutocomplete = () => {
-        if (!window.google || !inputRef.current || autocompleteRef.current) return;
-        
-        autocompleteRef.current = new window.google.maps.places.Autocomplete(
-            inputRef.current,
-            {
-                types: ['address'],
-                componentRestrictions: { country: 'ar' },
-                fields: ['formatted_address', 'geometry']
-            }
-        );
-
-        autocompleteRef.current.addListener('place_changed', () => {
-            const place = autocompleteRef.current.getPlace();
-            if (place && place.formatted_address) {
-                setUbicacion(place.formatted_address);
-            }
-        });
-    };
     console.log("valor de priceBase en mipedido:", price);
 
     useEffect(() => {
@@ -291,14 +244,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
 
                             <div>
                                 <label htmlFor='ubicacion'>Ubicación (si pidió envío): </label>
-                                <input
-                                    ref={inputRef}
-                                    type="text"
-                                    value={ubicacion}
-                                    onChange={(e) => setUbicacion(e.target.value)}
-                                    id='ubicacion'
-                                    placeholder="Ej: Calle Falsa 123"
-                                />
+                                <PlaceAutocomplete onPlaceSelected={(address) => setUbicacion(address)} />
                             </div>
 
 

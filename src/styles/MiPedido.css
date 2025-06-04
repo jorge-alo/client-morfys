@@ -200,6 +200,21 @@ background-color: #9c3423;
     display: none;
 }
 
+
+gmpx-place-autocomplete {
+  --gmpx-color-surface: #fff;
+  --gmpx-color-on-surface: #212121;
+  --gmpx-color-on-surface-variant: #757575;
+  --gmpx-color-primary: #1976d2;
+  --gmpx-font-family-base: inherit;
+  --gmpx-font-family-headings: inherit;
+  --gmpx-font-size-base: 1rem;
+  width: 100%;
+}
+
+.pac-container {
+  z-index: 10000 !important;
+}
 @media (max-width: 550px) {
     .carrito {
         display: none;

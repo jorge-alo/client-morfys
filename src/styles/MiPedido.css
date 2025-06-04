@@ -284,6 +284,6 @@ gmpx-place-autocomplete {
         z-index: 1000000;
     }
     .inputAutocomplete {
-        display: block;
+       z-index: 1000000000;
     }
 }

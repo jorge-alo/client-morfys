@@ -64,13 +64,13 @@ export const Ajustes = () => {
                                 type="text"
                                 id='cel'
                                 name='cel'
-                                placeholder='Cod. Pais + num 541122334455'
+                                placeholder='541122334455'
                                 value={valueInput.cel}
                                 onChange={handleChange}
                             />
                         </label>
                     </div>
-                    <p>Ingrese su numero de celular con el codigo de pais ejemplo 541122334455</p>
+                    <p className='pcel'>Ingrese su numero de celular con el codigo de pais ejemplo 541122334455</p>
                 </div>
                 <div className='container-horario'>
                     <div className='container-valor'>

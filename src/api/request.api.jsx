@@ -60,6 +60,15 @@ export const updateRegisterApi = async (user) => {
   })
 }
 
+export const updateRegisterActualizarApi = async (data) => {
+  return await api.put('/actualizar', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+
+}
+
 export const loadPage = async () => {
   return await api.get(`/`)
 }

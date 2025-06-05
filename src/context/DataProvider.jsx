@@ -61,6 +61,16 @@ const handleCargarHorario = async (formData) => {
     }
   }
 
+   const handleLoginRegisterUpdate = async (formData) => {
+    try {
+      const response = await updateRegisterActualizarApi(formData);
+      return response
+    } catch (error) {
+      console.error("Error:", error);
+      setError(error.response?.data?.message);
+    }
+  }
+
   
 
   const handleLoadPage = async () => {
@@ -109,7 +119,7 @@ const handleCargarHorario = async (formData) => {
   return response
  }
   return (
-   <DataContext.Provider value= {{handleCargarHorario, handleUpdateBanner, handleDestroy, loadCategory, error, setError, handleGetData, handleLoadPage, handleLoginRegister, handleCargarDatos, handleUpdate}}>
+   <DataContext.Provider value= {{handleLoginRegisterUpdate, handleCargarHorario, handleUpdateBanner, handleDestroy, loadCategory, error, setError, handleGetData, handleLoadPage, handleLoginRegister, handleCargarDatos, handleUpdate}}>
     {children}
    </DataContext.Provider>
   )

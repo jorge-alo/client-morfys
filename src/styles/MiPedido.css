@@ -164,9 +164,12 @@ background-color: #9c3423;
     background-color: #4485ef;
     color: #fff;
 }
-
+.container-confirmarPedido .container-confirmarPedido__confirmar {
+    padding: 10px;
+}
 .container-confirmarPedido .container-confirmarPedido__cancelar {
     background-color: #dc3423;
+    padding: 10px;
 }
 .container-confirmarPedido .container-confirmarPedido__cancelar:hover {
     background-color: #9c3423;

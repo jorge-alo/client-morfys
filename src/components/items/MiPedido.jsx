@@ -281,7 +281,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                             )}
 
 
-                            <button onClick={handleConfirmarEnvio}>Confirmar y enviar pedido</button>
+                            <button className='container-confirmarPedido__confirmar' onClick={handleConfirmarEnvio}>Confirmar y enviar pedido</button>
                             <button className='container-confirmarPedido__cancelar' onClick={() => setMostrarFormulario(false)}>Cancelar</button>
 
                         </div>

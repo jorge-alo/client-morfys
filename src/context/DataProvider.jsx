@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { cargarDatosApi, cargarHorariosApi, destroyApi, getDataApi, loadApiCategory, loadPage, updateBannerApi, updateDataApi, updateRegisterApi } from "../api/request.api";
+import { cargarDatosApi, cargarHorariosApi, destroyApi, getDataApi, loadApiCategory, loadPage, updateBannerApi, updateDataApi, updateRegisterActualizarApi, updateRegisterApi } from "../api/request.api";
 import { DataContext } from "./DatoContext";
 
 export const DataProvider = ( {children}) => {

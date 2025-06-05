@@ -9,7 +9,7 @@ export const Navbar = () => {
   return (
     <div className="container-navbar">
         <nav className="nav">
-            <Link to='/'>Morfis</Link>
+            <Link to='/'><img src="/images/logo-morfys.jpg" alt="" /></Link>
             {login && <Link to='/form'>Cargar datos</Link>}
             {login && <Link to='/ajustes'>Ajustes</Link>}
             {!login && <Link to='/login'>Login</Link>}

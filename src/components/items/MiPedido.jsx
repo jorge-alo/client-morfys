@@ -11,7 +11,33 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     const [formaEntrega, setFormaEntrega] = useState('retiro'); // 'retiro' o 'envio'
     const [metodoPago, setMetodoPago] = useState('efectivo'); // 'efectivo' o 'transferencia'
     const [ubicacion, setUbicacion] = useState('');
-    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (checkMobile) {
+            // Agregamos una entrada al historial cuando se abre el modal
+            window.history.pushState({ modalOpen: true }, '', window.location.pathname);
+
+            const handleBackButton = (event) => {
+                if (checkMobile) {
+                    event.preventDefault();
+                    setCheckMobile(false);
+                    // Reemplazamos la entrada actual para mantener la URL consistente
+                    window.history.replaceState({}, '', window.location.pathname);
+                }
+            };
+
+            window.addEventListener('popstate', handleBackButton);
+
+            return () => {
+                window.removeEventListener('popstate', handleBackButton);
+                // Si el modal estaba abierto cuando el componente se desmonta
+                if (window.history.state?.modalOpen) {
+                    // Simulamos un "back" para limpiar el estado
+                    window.history.back();
+                }
+            };
+        }
+    }, [checkMobile]);
 
     console.log("valor de priceBase en mipedido:", price);
     useEffect(() => {
@@ -107,6 +133,8 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
 
     const handleClickVolver = () => {
         setCheckMobile(false);
+        // Simulamos un "back" para mantener consistencia con el botón físico
+        window.history.replaceState({}, '', window.location.pathname);
     }
     return (
         <>

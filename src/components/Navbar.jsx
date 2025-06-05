@@ -12,7 +12,7 @@ export const Navbar = () => {
             <Link to='/'><img className="img-logo" src="/images/logo-morfys.jpg" alt="" /></Link>
             {login && <Link to='/form'>Cargar datos</Link>}
             {login && <Link to='/ajustes'>Ajustes</Link>}
-            {!login && admin && <Link to='/register'>Register</Link>}
+            {!login && admin ? <Link to='/register'>Register</Link> : ""}
             {!login && admin ? <Link to='/actualizar'>Actualizar</Link> : ""}
             {!login && <Link to='/login'>Login</Link>}
             

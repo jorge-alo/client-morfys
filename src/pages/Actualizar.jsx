@@ -34,7 +34,7 @@ export const Actualizar = () => {
         <div className="container-addData">
             <div className="container-register" >
                 <form className="container-form" onSubmit={handleSubmit}>
-                    <h2>Register</h2>
+                    <h2>Actualizar Datos</h2>
 
                     <input
 

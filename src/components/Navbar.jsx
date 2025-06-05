@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export const Navbar = () => {
-  const{login, handleLogOut} = useContext(AuthContext);
+  const{login, handleLogOut, admin} = useContext(AuthContext);
   console.log("valor de login en navbar:", login);
   return (
     <div className="container-navbar">
@@ -13,6 +13,7 @@ export const Navbar = () => {
             {login && <Link to='/form'>Cargar datos</Link>}
             {login && <Link to='/ajustes'>Ajustes</Link>}
             {!login && <Link to='/login'>Login</Link>}
+            {!login && admin && <Link to='/acualizar'>Actualizar</Link>}
             
             {login && <button className="cerrar" onClick={handleLogOut}>Logout</button> }
         </nav>

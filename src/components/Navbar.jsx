@@ -15,7 +15,6 @@ export const Navbar = () => {
             {!login && admin && <Link to='/register'>Register</Link>}
             {!login && admin && <Link to='/acualizar'>Actualizar</Link>}
             {!login && <Link to='/login'>Login</Link>}
-            {!login && admin && <Link to='/acualizar'>Actualizar</Link>}
             
             {login && <button className="cerrar" onClick={handleLogOut}>Logout</button> }
         </nav>

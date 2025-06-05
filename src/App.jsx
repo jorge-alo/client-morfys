@@ -32,7 +32,7 @@ export const App = () => {
               <Route path="/locales/:name" element={  <Local1/>  }></Route>
               <Route path="/form" element={<PrivatePage> <CargarDatos /> </PrivatePage>}></Route>
               <Route path="/ajustes" element={<PrivatePage> <Ajustes /> </PrivatePage>}></Route>
-              <Route path="/actualizar" element={<PrivatePage> <Actualizar /> </PrivatePage>}></Route>
+              <Route path="/actualizar" element={<Admin> <Actualizar /> </Admin>}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/register" element={<Admin> <Register /> </Admin>}></Route>
               <Route path="/reset-password" element={<ResetPassword />} />

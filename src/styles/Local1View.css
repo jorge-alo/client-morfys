@@ -12,20 +12,20 @@
 }
 
 .container-img {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 120px;
+    max-height: 120px;
     overflow: hidden;
     border: 1px solid #999;
 }
 
 .container-img img {
-    width: 90px;
-    height: 90px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 .container-img .container-img__img {
-    width: 90px;
-    height: 90px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 

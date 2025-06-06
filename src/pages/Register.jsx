@@ -63,7 +63,7 @@ export const Register = () => {
                     />
                     <input
                         type="text"
-                        name="direccion"
+                        name="domicilio"
                         placeholder='Ingrese direccion'
                         value={valueInput.domicilio}
                         onChange={handleChange}

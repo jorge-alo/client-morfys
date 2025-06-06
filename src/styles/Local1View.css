@@ -26,7 +26,7 @@
 .container-img .container-img__img {
     width: 100px;
     height: 100px;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .container-data h2 {

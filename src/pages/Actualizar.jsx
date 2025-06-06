@@ -24,7 +24,7 @@ export const Actualizar = () => {
         formData.append('lat', valueInput.latitud);
         formData.append('lng', valueInput.longitud);
         formData.append('cel', valueInput.cel);
-        formData.append('direccion', valueInput.direccion);
+        formData.append('direccion', valueInput.domicilio);
         formData.append('password', valueInput.password);
         console.log("formData:", formData);
         const result = await handleLoginRegisterUpdate(formData);
@@ -63,9 +63,9 @@ export const Actualizar = () => {
                     />
                      <input
                         type="text"
-                        name="direccion"
+                        name="domicilio"
                         placeholder='Ingrese direccion'
-                        value={valueInput.direccion}
+                        value={valueInput.domicilio}
                         onChange={handleChange}
                     />
                     <input

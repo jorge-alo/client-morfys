@@ -24,7 +24,7 @@ export const Register = () => {
         formData.append('lat', valueInput.latitud);
         formData.append('lng', valueInput.longitud);
         formData.append('cel', valueInput.cel);
-        formData.append('direccion', valueInput.direccion);
+        formData.append('direccion', valueInput.domicilio);
         formData.append('password', valueInput.password);
         console.log("formData:", formData);
         const result = await handleLoginRegister(formData);
@@ -65,7 +65,7 @@ export const Register = () => {
                         type="text"
                         name="direccion"
                         placeholder='Ingrese direccion'
-                        value={valueInput.direccion}
+                        value={valueInput.domicilio}
                         onChange={handleChange}
                     />
                     <input

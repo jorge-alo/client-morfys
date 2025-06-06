@@ -13,7 +13,7 @@ export const Local1View = ({ local }) => {
         </div>
         <div className="container-data">
           <h2>{local.local}</h2>
-          {local.direccion ? <h3>{local.direccion}</h3> : ""}
+          {local.domicilio ? <h3>{local.domicilio}</h3> : ""}
         </div>
       </div>
     </Link>

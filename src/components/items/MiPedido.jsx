@@ -102,6 +102,14 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
         };
 
         const estaEnHorario = (horaInicioStr, horaFinStr) => {
+
+            if (
+                typeof horaInicioStr !== 'string' || horaInicioStr.trim() === '' ||
+                typeof horaFinStr !== 'string' || horaFinStr.trim() === ''
+            ) {
+                return true; // Si no hay horario configurado, permitir el pedido
+            }
+            
             const [hInicio, mInicio] = horaInicioStr.split(':').map(Number);
             const [hFin, mFin] = horaFinStr.split(':').map(Number);
 

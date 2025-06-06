@@ -94,7 +94,7 @@ export const CargarDatos = () => {
                     value={customCategory ? "" : valueInput.categoria}
                 >
                     <option value="">Seleccione una categoria</option>
-                    <option value="empandas">Empandas</option>
+                    <option value="empanadas">Empanadas</option>
                     <option value="pizzas">Pizzas</option>
                     <option value="pizzas especiales">Pizzas especiales</option>
                     <option value="sandguches">Sandguches</option>

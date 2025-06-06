@@ -18,14 +18,9 @@
     border: 1px solid #999;
 }
 
-.container-img img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
 .container-img .container-img__img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
 }
 

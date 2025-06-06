@@ -12,7 +12,8 @@ export const Local1View = ({ local }) => {
           <img className={!local.logo && "container-img__img"} src={local.logo ? local.logo : "/banner/fondoBaner2.jpg"} />
         </div>
         <div className="container-data">
-          <h2>{local.local}</h2>  
+          <h2>{local.local}</h2>
+          {local.direccion ? <h3>{local.direccion}</h3> : ""}
         </div>
       </div>
     </Link>

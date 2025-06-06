@@ -86,8 +86,9 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
         const estaEnRangoDeDias = (diaInicio, diaFin) => {
 
             if (!diaInicio || !diaFin) {
-                return false; // Si alguno es null, no estamos en el rango
+                return true; // Si alguno es null, no estamos en el rango
             }
+
             const indexInicio = diasSemana.indexOf(diaInicio.toLowerCase());
             const indexFin = diasSemana.indexOf(diaFin.toLowerCase());
             const indexActual = diasSemana.indexOf(diaActual.toLowerCase());

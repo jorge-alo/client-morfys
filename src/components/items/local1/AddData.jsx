@@ -143,7 +143,7 @@ export const AddData = ({ onSuccess }) => {
                 )}
                 <button>Enviar</button>
                 {error && <p className='error'>{error}</p>}
-                <button type="button" onClick={handleDestoySubmit}>Eliminar comida</button>
+                <button className='eliminar-comida' type="button" onClick={handleDestoySubmit}>Eliminar comida</button>
             </form>
 
         </div>

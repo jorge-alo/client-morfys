@@ -69,6 +69,13 @@ button:hover {
     background-color: #3863af;
 }
 
+.container-form .eliminar-comida {
+  background-color: #ef3445;
+}
+
+.container-form .eliminar-comida:hover {
+  background-color: #af3445;
+}
 .container-register {
     display: flex;
     flex-direction: column;

@@ -14,7 +14,7 @@
 .container-img {
     max-width: 120px;
     max-height: 120px;
-    overflow: hidden;
+   
     border: 1px solid #999;
 }
 

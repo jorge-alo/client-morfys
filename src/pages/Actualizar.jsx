@@ -24,7 +24,7 @@ export const Actualizar = () => {
         formData.append('lat', valueInput.latitud);
         formData.append('lng', valueInput.longitud);
         formData.append('cel', valueInput.cel);
-        formData.append('direccion', valueInput.domicilio);
+        formData.append('domicilio', valueInput.domicilio);
         formData.append('password', valueInput.password);
         console.log("formData:", formData);
         const result = await handleLoginRegisterUpdate(formData);

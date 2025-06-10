@@ -50,7 +50,7 @@ export const SectionBaner = ({ idVaner, login, vaner, name, handleClickBaner }) 
                 </>
               )}
             </h3>
-            {idVaner.envio && <h3>Envio ${idVaner.envio} {idVaner.envioMinimo && `- Pedido minimo $${idVaner.envioMinimo}`}</h3>}
+            {idVaner.envio && <h3>Envio Mínimo ${idVaner.envio} {idVaner.envioMinimo && `- Pedido minimo $${idVaner.envioMinimo}`}</h3>}
           </div>
 
         </div>

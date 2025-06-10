@@ -13,7 +13,7 @@
     background-repeat: no-repeat;
     /* Evita repetición */
     width: 100%;
-    height: 40vh;
+    height: 100vh;
 
     position: relative;
 }
@@ -157,7 +157,9 @@
     background-color: none;
     width: fit-content;
 }
-
+.container-banner {
+    height: 40vh;
+}
 .container-banner h2 {
     font-size: 1.5rem;
     color: #fff;

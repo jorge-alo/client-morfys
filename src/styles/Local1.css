@@ -10,10 +10,10 @@
     /* Ajusta la imagen al contenedor */
     background-position: center;
     /* Centra la imagen */
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     /* Evita repetición */
     width: 100%;
-    height: 100vh;
+    height: 50vh;
 
     position: relative;
 }
@@ -159,6 +159,7 @@
 }
 .container-banner {
     height: 40vh;
+     background-repeat: no-repeat;
 }
 .container-banner h2 {
     font-size: 1.5rem;

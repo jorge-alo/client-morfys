@@ -27,7 +27,7 @@ export const Local1 = () => {
   const [subtotalValue, setSubtotalValue] = useState(0);
   const [checkMobile, setCheckMobile] = useState(false)
   const [cel, setCel] = useState(null);
-  const [guarnicion, setGuarnicion] = useState(false);
+  const [variante, setVariante] = useState(false);
   const [updateComida, setUpdateComida] = useState("");
   const [bannerValue, setBannerValue] = useState(false);
   const [idVaner, setIdVaner] = useState("");
@@ -54,8 +54,8 @@ export const Local1 = () => {
     forGetPage();
   }, [name])
 
-  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, guarnicion }) => {
-    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, image, guarnicion }
+  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes }) => {
+    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, image, variantes }
     setValueInput(newValueInput);
     setModal(true);
     const precioBase = Number(newValueInput.price);
@@ -69,11 +69,11 @@ export const Local1 = () => {
   }
 
   const closeModal = () => {
-    const newValueInput = { ...valueInput, comida_id: "", user_id: "", name: "", description: "", price: "", categoria: "", image: "", guarnicion: "" }
+    const newValueInput = { ...valueInput, comida_id: "", user_id: "", name: "", description: "", price: "", categoria: "", image: "", variantes: [] }
     setValueInput(newValueInput);
     setUpdateComida("");
     setModal(false);
-    setGuarnicion(false);
+    setVariante(false);
     setBannerValue(false);
   }
 
@@ -93,7 +93,7 @@ export const Local1 = () => {
           {check ? <button onClick={handleClickSubtotalPedido}> Ver mi pedido {subtotalValue} </button> : ""}
         </div>
       </section>
-      <ModalSection idVaner={idVaner} bannerValue={bannerValue} setUpdateComida={setUpdateComida} updateComida={updateComida} pedidosGuarnicion={pedidosGuarnicion} setPedidosGuarnicion={setPedidosGuarnicion} setComidas={setComidas} comidas={comidas} login={login} modal={modal} closeModal={closeModal} valueInput={valueInput} pedidos={pedidos} setPedidos={setPedidos} setCheck={setCheck} setPrice={setPrice} price={price} setContValue={setContValue} contValue={contValue} guarnicion={guarnicion} setGuarnicion={setGuarnicion} onSuccess />
+      <ModalSection idVaner={idVaner} bannerValue={bannerValue} setUpdateComida={setUpdateComida} updateComida={updateComida} pedidosGuarnicion={pedidosGuarnicion} setPedidosGuarnicion={setPedidosGuarnicion} setComidas={setComidas} comidas={comidas} login={login} modal={modal} closeModal={closeModal} valueInput={valueInput} pedidos={pedidos} setPedidos={setPedidos} setCheck={setCheck} setPrice={setPrice} price={price} setContValue={setContValue} contValue={contValue} variante={variante} setVariante={setVariante} onSuccess />
     </div>
   )
 }

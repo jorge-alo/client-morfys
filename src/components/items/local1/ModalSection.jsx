@@ -4,12 +4,13 @@ import { Pedidos } from '../../pedidos/Pedidos';
 import { Guarnicion } from '../../pedidos/Guarnicion';
 import { AddData } from './AddData';
 import { AddBanner } from './AddBanner';
+import { Variantes } from '../../pedidos/Variantes';
 
-export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComida, pedidosGuarnicion, setPedidosGuarnicion, comidas, setComidas, login, modal, closeModal, valueInput, pedidos, setPedidos, setCheck, setPrice, price, setContValue, contValue, guarnicion, setGuarnicion }) => {
+export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComida, pedidosGuarnicion, setPedidosGuarnicion, comidas, setComidas, login, modal, closeModal, valueInput, pedidos, setPedidos, setCheck, setPrice, price, setContValue, contValue, variante, setVariante}) => {
 
     if (!modal) return null;
     const addbanerORAddData = bannerValue ? AddBanner : AddData
-    const ContentComponent = login ? addbanerORAddData : guarnicion ? Guarnicion : Pedidos
+    const ContentComponent = login ? addbanerORAddData : variante ? Variantes : Pedidos
 
     return (
         <div className="modal-overlay" onClick={closeModal}>
@@ -30,8 +31,8 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
                     price={price}
                     setContValue={setContValue}
                     contValue={contValue}
-                    guarnicion={guarnicion}
-                    setGuarnicion={setGuarnicion}
+                    variante={variante}
+                    setVariante={setVariante}
                     pedidosGuarnicion={pedidosGuarnicion}
                     setPedidosGuarnicion={setPedidosGuarnicion}
                     onSuccess={() => {

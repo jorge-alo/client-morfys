@@ -6,7 +6,7 @@ import { DataContext } from '../../../context/DatoContext';
 
 export const AddData = ({ onSuccess }) => {
     const { handleUpdate, error, setError, handleDestroy } = useContext(DataContext);
-    const { handleChange, valueInput, inputRef, file } = useForm();
+    const { handleChange, valueInput, setValueInput, inputRef, file } = useForm();
     const [customCategory, setCustomCategory] = useState(false);
         const [newCategory, setNewCategory] = useState("");
     const { name } = useParams(); // Obtener el parámetro name
@@ -22,7 +22,7 @@ export const AddData = ({ onSuccess }) => {
         formData.append('description', valueInput.description);
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
-        formData.append('guarnicion', valueInput.guarnicion);
+        formData.append('variantes', JSON.stringify(valueInput.variantes));
         try {
             await handleUpdate(formData); // handleUpdate ya está en el contexto
             if (onSuccess) onSuccess(); // Notifica el éxito y Cierra el modal primero
@@ -141,6 +141,50 @@ export const AddData = ({ onSuccess }) => {
                         }}
                     />
                 )}
+                 <h3>Variantes</h3>
+                {valueInput.variantes.map((variante, i) => (
+                    <div key={i} className="variante-item">
+                        <input
+                            type="text"
+                            placeholder="Nombre de la variante (ej: Tamaño, Salsa, etc)"
+                            value={variante.nombre}
+                            onChange={(e) => {
+                                const nuevas = [...valueInput.variantes];
+                                nuevas[i].nombre = e.target.value;
+                                setValueInput({ ...valueInput, variantes: nuevas });
+                            }}
+                        />
+                        {variante.opciones.map((op, j) => (
+                            <div key={j}>
+                                <input
+                                    type="text"
+                                    placeholder="Nombre opción"
+                                    value={op.nombre}
+                                    onChange={(e) => {
+                                        const nuevas = [...valueInput.variantes];
+                                        nuevas[i].opciones[j].nombre = e.target.value;
+                                        setValueInput({ ...valueInput, variantes: nuevas });
+                                    }}
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Precio extra"
+                                    value={op.precioExtra}
+                                    onChange={(e) => {
+                                        const nuevas = [...valueInput.variantes];
+                                        nuevas[i].opciones[j].precioExtra = Number(e.target.value);
+                                        setValueInput({ ...valueInput, variantes: nuevas });
+                                    }}
+                                />
+                            </div>
+                        ))}
+                        <button type="button" onClick={() => {
+                            const nuevas = [...valueInput.variantes];
+                            nuevas[i].opciones.push({ nombre: "", precioExtra: 0 });
+                            setValueInput({ ...valueInput, variantes: nuevas });
+                        }}>+ Opción</button>
+                    </div>
+                ))}
                 <button>Enviar</button>
                 {error && <p className='error'>{error}</p>}
                 <button className='eliminar-comida' type="button" onClick={handleDestoySubmit}>Eliminar comida</button>

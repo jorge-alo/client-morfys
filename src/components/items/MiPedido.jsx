@@ -149,6 +149,42 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
         // Simulamos un "back" para mantener consistencia con el botón físico
         window.history.replaceState({}, '', window.location.pathname);
     }
+
+       const renderPedidoItem = (pedido, index) => (
+        <div key={index} className='data-order'>
+            <span>{pedido.cont}x</span>
+            <div>
+                <div>
+                    <h4>{pedido.name}</h4>
+                    <h6>(${pedido.price})</h6>
+                </div>
+                {pedido.variantes?.map((variante, idx) => (
+                    <div key={`${index}-${idx}`} className='data-order__guarnicion'>
+                        <h6>1x</h6>
+                        <h6>{variante.nombre}</h6>
+                        <h6>(${variante.precioExtra || 0})</h6>
+                    </div>
+                ))}
+            </div>
+            <h4>${pedido.priceTotal}</h4>
+            <span onClick={() => handleClickDelete(pedido.name)} className='eliminar'>❌</span>
+        </div>
+    );
+
+    const renderPedidos = () => (
+        <div className='carrito__container-data-order'>
+            {pedidos.map((pedido, index) => renderPedidoItem(pedido, index))}
+        </div>
+    );
+
+    const renderMobilePedidos = () => (
+        <div className='carrito__container-data-order'>
+            <h4>Estas llevando:</h4>
+            <div className='container-data-order'>
+                {pedidos.map((pedido, index) => renderPedidoItem(pedido, index))}
+            </div>
+        </div>
+    );
     return (
         <>
             {!check ? <div className='carrito'>
@@ -163,33 +199,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                 <div className='carrito'>
                     <h4>Mi pedido</h4>
                     <div className='carrito__container'>
-                        <div className='carrito__container-data-order'>
-                            {pedidos.map((pedido, index) => (
-                                <div key={index} className='data-order'>
-                                    <span>{pedido.cont}x</span>
-                                    <div>
-                                        <div>
-                                            <h4> {pedido.name} </h4>
-                                            <h6> (${pedido.price})</h6>
-                                        </div>
-
-                                        {pedido.guarnicionesSeleccionadas ? pedido.guarnicionesSeleccionadas.map((guarnicion, index) => (
-                                            <div key={index} className='data-order__guarnicion'>
-                                                <h6>{guarnicion.cont}x</h6>
-                                                <h6>{guarnicion.name}</h6>
-                                                <h6>(${guarnicion.price})</h6>
-                                            </div>
-                                        )
-                                        ) :
-                                            ""
-                                        }
-                                    </div>
-
-                                    <h4>${pedido.priceTotal}</h4>
-                                    <span onClick={() => handleClickDelete(pedido.name)} className='eliminar'>❌</span>
-                                </div>
-                            ))}
-                        </div>
+                        {renderPedidos()}
                         <div className='container-enviar'>
                             <div className='subtotal'>
                                 <h4>Subtotal</h4>
@@ -208,61 +218,32 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                     </div>
                 </div>}
 
-            {checkMobile &&
+            {checkMobile && (
                 <div className='mobile'>
                     <div className='mobile-header'>
                         <span onClick={handleClickVolver}>⬅️</span>
                         <h4>Mi pedido</h4>
                     </div>
                     <div className='carrito__container'>
-
-                        <div className='carrito__container-data-order'>
-                            <h4>Estas llevando:</h4>
-                            <div className='container-data-order'>
-                                {pedidos.map((pedido, index) => (
-                                    <div key={index} className='data-order'>
-                                        <span>{pedido.cont}x</span>
-                                        <div>
-                                            <div>
-                                                <h4> {pedido.name} </h4>
-                                                <h6> (${pedido.price})</h6>
-                                            </div>
-
-                                            {pedido.guarnicionesSeleccionadas ? pedido.guarnicionesSeleccionadas.map((guarnicion, index) => (
-                                                <div key={index} className='data-order__guarnicion'>
-                                                    <h6>{guarnicion.cont}x</h6>
-                                                    <h6>{guarnicion.name}</h6>
-                                                    <h6>(${guarnicion.price})</h6>
-                                                </div>
-                                            )
-                                            ) :
-                                                ""
-                                            }
-                                        </div>
-                                        <h4>${pedido.priceTotal}</h4>
-                                        <span onClick={() => handleClickDelete(pedido.name)} className='eliminar'>❌</span>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className='container-enviar'>
-                                <div className='subtotal'>
-                                    <h4>Subtotal</h4>
-                                    <h4>{subTotal}</h4>
-                                </div>
+                        {renderMobilePedidos()}
+                        <div className='container-enviar'>
+                            <div className='subtotal'>
+                                <h4>Subtotal</h4>
+                                <h4>${subTotal}</h4>
                             </div>
                         </div>
-
+                        <button
+                            onClick={handleClickEnviarPedido}
+                            disabled={subTotal < idVaner.envioMinimo}
+                            className={subTotal < idVaner.envioMinimo ? 'boton-disabled' : ''}
+                        >
+                            {subTotal < idVaner.envioMinimo
+                                ? `Te faltan $${idVaner.envioMinimo - subTotal} para hacer el pedido`
+                                : 'Enviar pedido'}
+                        </button>
                     </div>
-                    <button
-                        onClick={handleClickEnviarPedido}
-                        disabled={subTotal < idVaner.envioMinimo}
-                        className={subTotal < idVaner.envioMinimo ? 'boton-disabled' : ''}
-                    >
-                        {subTotal < idVaner.envioMinimo
-                            ? `Te faltan $${idVaner.envioMinimo - subTotal} para hacer el pedido`
-                            : 'Enviar pedido'}
-                    </button>
-                </div>}
+                </div>
+            )}
 
             {mostrarFormulario && (
                 <div className="modal-overlay">

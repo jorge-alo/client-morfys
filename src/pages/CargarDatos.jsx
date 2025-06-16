@@ -6,7 +6,7 @@ import { DataContext } from '../context/DatoContext';
 
 export const CargarDatos = () => {
     const { handleCargarDatos, error, setError } = useContext(DataContext);
-    const { resetForm, file, valueInput, inputRef, handleChange } = useForm();
+    const { resetForm, file, valueInput, setValueInput, inputRef, handleChange } = useForm();
 
     const [customCategory, setCustomCategory] = useState(false);
     const [newCategory, setNewCategory] = useState("");
@@ -25,7 +25,7 @@ export const CargarDatos = () => {
         formData.append('description', valueInput.description);
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
-        formData.append('guarnicion', valueInput.guarnicion);
+        formData.append('variantes', JSON.stringify(valueInput.variantes));
         await handleCargarDatos(formData);
         resetForm();
         setCustomCategory(false);
@@ -69,17 +69,6 @@ export const CargarDatos = () => {
                     value={valueInput.price}
                     onChange={handleChange}
                 />
-                <label htmlFor="guarnicion">Guarnicion
-                    <select
-                        name="guarnicion"
-                        id='guarnicion'
-                        onChange={handleChange}
-                        value={valueInput.guarnicion}
-                    >
-                        <option value="false">No</option>
-                        <option value="true">Si</option>
-                    </select>
-                </label>
                 <select
                     name="categoria"
                     onChange={(e) => {
@@ -119,6 +108,57 @@ export const CargarDatos = () => {
                         }}
                     />
                 )}
+                <h3>Variantes</h3>
+                {valueInput.variantes.map((variante, i) => (
+                    <div key={i} className="variante-item">
+                        <input
+                            type="text"
+                            placeholder="Nombre de la variante (ej: Tamaño, Salsa, etc)"
+                            value={variante.nombre}
+                            onChange={(e) => {
+                                const nuevas = [...valueInput.variantes];
+                                nuevas[i].nombre = e.target.value;
+                                setValueInput({ ...valueInput, variantes: nuevas });
+                            }}
+                        />
+                        {variante.opciones.map((op, j) => (
+                            <div key={j}>
+                                <input
+                                    type="text"
+                                    placeholder="Nombre opción"
+                                    value={op.nombre}
+                                    onChange={(e) => {
+                                        const nuevas = [...valueInput.variantes];
+                                        nuevas[i].opciones[j].nombre = e.target.value;
+                                        setValueInput({ ...valueInput, variantes: nuevas });
+                                    }}
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Precio extra"
+                                    value={op.precioExtra}
+                                    onChange={(e) => {
+                                        const nuevas = [...valueInput.variantes];
+                                        nuevas[i].opciones[j].precioExtra = Number(e.target.value);
+                                        setValueInput({ ...valueInput, variantes: nuevas });
+                                    }}
+                                />
+                            </div>
+                        ))}
+                        <button type="button" onClick={() => {
+                            const nuevas = [...valueInput.variantes];
+                            nuevas[i].opciones.push({ nombre: "", precioExtra: 0 });
+                            setValueInput({ ...valueInput, variantes: nuevas });
+                        }}>+ Opción</button>
+                    </div>
+                ))}
+
+                <button type="button" onClick={() => {
+                    setValueInput({
+                        ...valueInput,
+                        variantes: [...valueInput.variantes, { tipo: "", opciones: [{ nombre: "", precioExtra: 0 }] }]
+                    });
+                }}>+ Añadir Variante</button>
                 <button>Enviar</button>
                 {error && <p className='error'>{error}</p>}
 

@@ -10,6 +10,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
 
     console.log("valor de valueInput.image", valueInput.image);
+     console.log("valor de valueInput", valueInput);
 
     const calcularPrecio = (cantidadPlatos, variantesSeleccionadas = []) => {
         const precioBase = Number(valueInput.price);

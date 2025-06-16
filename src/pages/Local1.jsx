@@ -55,7 +55,7 @@ export const Local1 = () => {
   }, [name])
 
   const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes }) => {
-    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, image, variantes }
+    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, image, variantes: variantes || [] }
     setValueInput(newValueInput);
     setModal(true);
     const precioBase = Number(newValueInput.price);

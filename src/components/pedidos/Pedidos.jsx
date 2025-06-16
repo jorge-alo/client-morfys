@@ -11,6 +11,10 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
     console.log("valor de valueInput.image", valueInput.image);
      console.log("valor de valueInput", valueInput);
+     console.log("ValueInput en Pedidos:", {
+  ...valueInput,
+  variantes: valueInput.variantes
+});
 
     const calcularPrecio = (cantidadPlatos, variantesSeleccionadas = []) => {
         const precioBase = Number(valueInput.price);
@@ -124,10 +128,10 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                     </div>
                 </div>
             </div>
-            {valueInput.variantes ? <div className='container-pedidos__eleccion unidades'>
+            {valueInput.variantes?.length > 0 ? <div className='container-pedidos__eleccion unidades'>
                 <p>{valueInput?.variantes[0].nombre}</p>
                 <div className='seleccionar'><span onClick={handleClickSeleccionar}>Seleccionar</span></div>
-            </div> : ""}
+            </div> : null}
 
             <div className='container-pedidos__eleccion unidades'>
                 <p>Unidades</p>

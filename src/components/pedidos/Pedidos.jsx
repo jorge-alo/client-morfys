@@ -99,7 +99,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
                 <div className="container-pedidos__img">
                     <h3> {valueInput.name} </h3>
-                    <img src={`${import.meta.env.VITE_IMAGE_URL}/${valueInput.image}`} />
+                    <img src={valueInput.image} alt={valueInput.name}/>
                 </div>
 
                 <div className='container-pedidos__description'>

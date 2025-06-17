@@ -26,6 +26,16 @@
     padding: 5px;
     cursor: pointer;
 }
+
+.item-guarnicion p {
+    font-size: clamp(.7rem, 2.2vw, 10px);
+}
+.item-guarnicion h5 {
+    font-size: clamp(.7rem, 2.2vw, 10px);
+}
+.agregar span {
+    font-size: clamp(.7rem, 2.2vw, 10px);
+}
 .item-guarnicion.selected {
     background-color: #d1ffd1; /* verde claro */
     font-weight: bold;

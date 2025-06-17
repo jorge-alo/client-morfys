@@ -12,6 +12,8 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     const [metodoPago, setMetodoPago] = useState('efectivo'); // 'efectivo' o 'transferencia'
     const [ubicacion, setUbicacion] = useState('');
 
+
+    console.log("valor de pedidos en mipedido", pedidos);
     useEffect(() => {
         if (checkMobile) {
             // Agregamos una entrada al historial cuando se abre el modal

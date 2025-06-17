@@ -34,7 +34,7 @@ export const useWhatsApp = () => {
  `Pedido:\n${pedidos.map(p => {
    const lineaPrincipal = `  ${p.cont}x ${p.name} $${p.price * p.cont}`;
    const variantes = p.variantes?.length > 0
-   ? '${p.variantes[0]?.nombreGrupo}:\n' + p.variantes.map(g =>
+   ? `${p.variantes[0]?.nombreGrupo}:\n` + p.variantes.map(g =>
        `  ${g.cantidad}x ${g.nombre} $${g.precioExtra}`
      ).join('\n')
    : '';

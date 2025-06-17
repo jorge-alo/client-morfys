@@ -101,7 +101,7 @@ button:hover {
 
   .modal-overlay {
    position: fixed;
-  top: 20px;
+  top: 40px;
   left: 0;
   width: 100%;
   padding: 10px;

@@ -31,10 +31,10 @@
     font-size: clamp(.7rem, 2.2vw, 10px);
 }
 .item-guarnicion h5 {
-    font-size: clamp(.7rem, 2.2vw, 10px);
+    font-size: clamp(.7rem, 2.2vw, 15px);
 }
 .agregar span {
-    font-size: clamp(.7rem, 2.2vw, 10px);
+    font-size: clamp(.7rem, 2.2vw, 15px);
 }
 .item-guarnicion.selected {
     background-color: #d1ffd1; /* verde claro */
@@ -66,5 +66,11 @@
 .container-guarnicion .buton-selected:hover {
     background-color: #fc7463;
     cursor: default;
+}
+
+@media (max-width: 550px){
+    .container-guarnicion__items {
+    height: 20%;
+}
 }
 

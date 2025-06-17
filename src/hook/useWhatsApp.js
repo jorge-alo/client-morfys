@@ -13,12 +13,12 @@ export const useWhatsApp = () => {
     })
     
     const precioBaseComida = pedidos.map(pedido => {
-      if (pedido.guarnicionesSeleccionadas?.length > 0) {
-        const totalGuarniciones = pedido.guarnicionesSeleccionadas.reduce((total, guarnicion) => {
-          return total + guarnicion.price;
+      if (pedido.variantes?.length > 0) {
+        const totalGuarniciones = pedido.variantes.reduce((total, variante) => {
+          return total + variante.price;
         }, 0);
     
-        return pedido.price - totalGuarniciones;
+        return pedido.price + totalGuarniciones;
       }
     
       return pedido.pricetotal;
@@ -33,12 +33,12 @@ export const useWhatsApp = () => {
         (formaEntrega === 'envio' ? `Ubicación: ${ubicacion}\n` : '') +
  `Pedido:\n${pedidos.map(p => {
    const lineaPrincipal = `  ${p.cont}x ${p.name} $${p.price * p.cont}`;
-   const guarniciones = p.guarnicionesSeleccionadas?.length > 0
-   ? 'Guarniciones:\n' + p.guarnicionesSeleccionadas.map(g =>
-       `  ${g.cont}x ${g.name} $${g.price}`
+   const variantes = p.variantes?.length > 0
+   ? '${p.variantes.nombreGrupo}:\n' + p.variantes.map(g =>
+       `  ${g.cantidad}x ${g.nombre} $${g.precioExtra}`
      ).join('\n')
    : '';
-   return `${lineaPrincipal}${guarniciones ? '\n' + guarniciones : ''}`;
+   return `${lineaPrincipal}${variantes ? '\n' + variantes : ''}`;
  }).join('\n')}\n\n` +
  `Total: $${pedidos.reduce((sum, item) => sum + Number(item.priceTotal), 0)}`;
 

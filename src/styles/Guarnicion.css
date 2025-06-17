@@ -78,5 +78,9 @@
 .container-guarnicion h3 {
     font-size: clamp(.7rem, 2.2vw, 15px);
 }
+.item-guarnicion .agregar {
+font-size: clamp(.7rem, 2.2vw, 1.2rem);
+padding: 2px 5px;
+}
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pedidos } from '../../pedidos/Pedidos';
 
 import { Guarnicion } from '../../pedidos/Guarnicion';
@@ -31,7 +31,7 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
             };
         }
     }, [modal, variante]);
-    
+
     if (!modal) return null;
     const addbanerORAddData = bannerValue ? AddBanner : AddData
     const ContentComponent = login ? addbanerORAddData : variante ? Variantes : Pedidos

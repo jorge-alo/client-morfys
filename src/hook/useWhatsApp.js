@@ -24,7 +24,7 @@ export const useWhatsApp = () => {
       return pedido.pricetotal;
     });
  console.log("Valor de precioBaseComida", precioBaseComida);
- 
+ console.log("Valor de pedidos en useWhatsapp", pedidos);
  // Mensaje con emojis y saltos de línea (\n)
  const mensaje = `¡NUEVO PEDIDO!\n\n` +
  `Fecha: ${fecha}\n` +

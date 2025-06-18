@@ -9,44 +9,40 @@ import { Variantes } from '../../pedidos/Variantes';
 export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComida, pedidosGuarnicion, setPedidosGuarnicion, comidas, setComidas, login, modal, closeModal, valueInput, pedidos, setPedidos, setCheck, setPrice, price, setContValue, contValue, variante, setVariante}) => {
 
 
-     useEffect(() => {
-        if (!modal) return;
+    useEffect(() => {
+    if (!modal) return;
 
-        // ✅ Push al historial para manejar el botón "atrás"
-        window.history.pushState({ modalOpen: true }, '');
+    // Agregamos una entrada clara al historial
+    window.history.pushState({ modalOpen: true }, '', window.location.pathname);
 
-        const handlePopState = (e) => {
-            const state = e.state;
-            if (state?.modalOpen) {
-                if (variante) {
-                    setVariante(false);
-                } else {
-                    closeModal();
-                }
-            }
-        };
+    const handleBackButton = (event) => {
+        event.preventDefault(); // Evita que el navegador navegue atrás
 
-        window.addEventListener('popstate', handlePopState);
+        if (variante) {
+            setVariante(false); // Solo cierra la variante si está activa
+        } else {
+            closeModal(); // Si no, cierra el modal
+            window.history.replaceState({}, '', window.location.pathname); // Limpieza de URL
+        }
+    };
 
-        // ✅ Prevenir recarga si el modal está abierto
-        window.onbeforeunload = (e) => {
-            e.preventDefault();
-            e.returnValue = '';
-        };
+    window.addEventListener('popstate', handleBackButton);
 
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
+    // Bloquear recarga de página con el modal abierto (opcional pero recomendado)
+    window.onbeforeunload = (e) => {
+        e.preventDefault();
+        e.returnValue = '';
+    };
 
-            // ✅ Limpiar estado del historial
-            const currentState = window.history.state;
-            if (currentState?.modalOpen) {
-                window.history.replaceState({ ...currentState, modalOpen: false }, '');
-            }
+    return () => {
+        window.removeEventListener('popstate', handleBackButton);
+        window.onbeforeunload = null;
 
-            // ✅ Quitar bloqueo de recarga
-            window.onbeforeunload = null;
-        };
-    }, [modal]);
+        if (window.history.state?.modalOpen) {
+            window.history.back(); // Volvemos atrás solo si es necesario
+        }
+    };
+}, [modal, variante]);
 
     if (!modal) return null;
     const addbanerORAddData = bannerValue ? AddBanner : AddData

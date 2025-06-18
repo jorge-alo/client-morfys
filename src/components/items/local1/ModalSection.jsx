@@ -9,12 +9,14 @@ import { Variantes } from '../../pedidos/Variantes';
 export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComida, pedidosGuarnicion, setPedidosGuarnicion, comidas, setComidas, login, modal, closeModal, valueInput, pedidos, setPedidos, setCheck, setPrice, price, setContValue, contValue, variante, setVariante}) => {
 
 
-     useEffect(() => {
+    useEffect(() => {
     if (!modal) return;
 
-    window.history.pushState({ modalOpen: true }, '');
+    // En lugar de pushState, usamos replaceState para evitar acumular historial innecesario
+    const currentState = window.history.state;
+    window.history.replaceState({ ...currentState, modalOpen: true }, '');
 
-    const handlePopState = () => {
+    const handlePopState = (e) => {
         if (variante) {
             setVariante(false);
         } else {
@@ -26,7 +28,13 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
 
     return () => {
         window.removeEventListener('popstate', handlePopState);
-        window.history.back();
+
+        // 👇 IMPORTANTE: No hacemos history.back() aquí
+        // Solo limpiamos el estado, sin alterar el historial
+        const state = window.history.state;
+        if (state?.modalOpen) {
+            window.history.replaceState({ ...state, modalOpen: false }, '');
+        }
     };
 }, [modal]);
 

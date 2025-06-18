@@ -12,23 +12,27 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
     useEffect(() => {
     if (!modal) return;
 
-    // Agregamos una entrada clara al historial
-    window.history.pushState({ modalOpen: true }, '', window.location.pathname);
+    // Solo agregar una entrada nueva si no existe ya
+    if (!window.history.state?.modalOpen) {
+        window.history.pushState({ modalOpen: true }, '', window.location.pathname);
+    }
 
     const handleBackButton = (event) => {
-        event.preventDefault(); // Evita que el navegador navegue atrás
+        event.preventDefault();
 
         if (variante) {
-            setVariante(false); // Solo cierra la variante si está activa
+            // En lugar de cerrar directamente, agregamos un pequeño delay para evitar el rebote
+            setTimeout(() => {
+                setVariante(false);
+            }, 50);
         } else {
-            closeModal(); // Si no, cierra el modal
-            window.history.replaceState({}, '', window.location.pathname); // Limpieza de URL
+            closeModal();
+            window.history.replaceState({}, '', window.location.pathname);
         }
     };
 
     window.addEventListener('popstate', handleBackButton);
 
-    // Bloquear recarga de página con el modal abierto (opcional pero recomendado)
     window.onbeforeunload = (e) => {
         e.preventDefault();
         e.returnValue = '';
@@ -39,7 +43,7 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
         window.onbeforeunload = null;
 
         if (window.history.state?.modalOpen) {
-            window.history.back(); // Volvemos atrás solo si es necesario
+            window.history.back();
         }
     };
 }, [modal, variante]);

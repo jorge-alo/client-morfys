@@ -12,27 +12,26 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
     useEffect(() => {
     if (!modal) return;
 
-    // Solo agregar una entrada nueva si no existe ya
+    // Solo agregamos un estado si no existe uno previo
     if (!window.history.state?.modalOpen) {
         window.history.pushState({ modalOpen: true }, '', window.location.pathname);
     }
 
-    const handleBackButton = (event) => {
-        event.preventDefault();
+   const handleBackButton = (event) => {
+    event.preventDefault();
 
-        if (variante) {
-            // En lugar de cerrar directamente, agregamos un pequeño delay para evitar el rebote
-            setTimeout(() => {
-                setVariante(false);
-            }, 50);
-        } else {
-            closeModal();
-            window.history.replaceState({}, '', window.location.pathname);
-        }
-    };
+    if (variante && window.history.state?.varianteOpen) {
+        setVariante(false);
+        window.history.replaceState({ modalOpen: true }, '', window.location.pathname);
+    } else {
+        closeModal();
+        window.history.replaceState({}, '', window.location.pathname);
+    }
+};
 
     window.addEventListener('popstate', handleBackButton);
 
+    // Previene recarga de página con modal abierto
     window.onbeforeunload = (e) => {
         e.preventDefault();
         e.returnValue = '';
@@ -42,11 +41,10 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
         window.removeEventListener('popstate', handleBackButton);
         window.onbeforeunload = null;
 
-        if (window.history.state?.modalOpen) {
-            window.history.back();
-        }
+        // ⚠️ Evitar hacer `history.back()` acá. Deja que el usuario use el botón atrás naturalmente.
+        // Esto evita el "rebote" entre variantes y pedidos
     };
-}, [modal, variante]);
+}, [modal]); // 👈 Solo depende de modal, no de `variante`
 
     if (!modal) return null;
     const addbanerORAddData = bannerValue ? AddBanner : AddData

@@ -12,39 +12,36 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
     useEffect(() => {
     if (!modal) return;
 
-    // Solo agregamos un estado si no existe uno previo
-    if (!window.history.state?.modalOpen) {
-        window.history.pushState({ modalOpen: true }, '', window.location.pathname);
-    }
-
-   const handleBackButton = (event) => {
-    event.preventDefault();
-
-    if (variante && window.history.state?.varianteOpen) {
-        setVariante(false);
-        window.history.replaceState({ modalOpen: true }, '', window.location.pathname);
-    } else {
-        closeModal();
-        window.history.replaceState({}, '', window.location.pathname);
-    }
-};
+    const handleBackButton = (event) => {
+        if (variante) {
+            // Si estamos en variantes, solo retrocedemos a pedidos
+            event.preventDefault();
+            setVariante(false);
+            // Reemplazamos el estado para que el siguiente "atrás" cierre el modal
+            window.history.replaceState({ modalOpen: true }, '');
+        } else {
+            // Si estamos en pedidos, cerramos el modal
+            closeModal();
+            window.history.back(); // Limpiamos el estado extra que pusimos
+        }
+    };
 
     window.addEventListener('popstate', handleBackButton);
 
-    // Previene recarga de página con modal abierto
-    window.onbeforeunload = (e) => {
-        e.preventDefault();
-        e.returnValue = '';
-    };
+    // Configuramos el estado inicial
+    if (!window.history.state?.modalOpen) {
+        window.history.pushState({ modalOpen: true }, '');
+    }
 
     return () => {
         window.removeEventListener('popstate', handleBackButton);
-        window.onbeforeunload = null;
-
-        // ⚠️ Evitar hacer `history.back()` acá. Deja que el usuario use el botón atrás naturalmente.
-        // Esto evita el "rebote" entre variantes y pedidos
+        
+        // Limpiamos el estado si el modal se cierra por otro medio (no por el botón atrás)
+        if (!modal && window.history.state?.modalOpen) {
+            window.history.back();
+        }
     };
-}, [modal]); // 👈 Solo depende de modal, no de `variante`
+}, [modal, variante]); // Ahora depende de ambos
 
     if (!modal) return null;
     const addbanerORAddData = bannerValue ? AddBanner : AddData

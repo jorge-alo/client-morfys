@@ -87,7 +87,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         const priceValue = Number(valueInput.price);
         setPrice(priceValue);
         // Agregar nueva entrada en el historial para manejar el botón "atrás"
-        window.history.pushState({ varianteOpen: true }, '', window.location.pathname);
+        window.history.pushState({ varianteOpen: true }, '');
         setVariante(true);
     }
 

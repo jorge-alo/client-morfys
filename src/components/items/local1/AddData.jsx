@@ -8,7 +8,7 @@ export const AddData = ({ onSuccess }) => {
     const { handleUpdate, error, setError, handleDestroy } = useContext(DataContext);
     const { handleChange, valueInput, setValueInput, inputRef, file } = useForm();
     const [customCategory, setCustomCategory] = useState(false);
-        const [newCategory, setNewCategory] = useState("");
+    const [newCategory, setNewCategory] = useState("");
     const { name } = useParams(); // Obtener el parámetro name
     const navigate = useNavigate(); // Obtener la función navigate
 
@@ -92,7 +92,7 @@ export const AddData = ({ onSuccess }) => {
                     value={valueInput.price}
                     onChange={handleChange}
                 />
-                <label htmlFor="guarnicion">Guarnicion 
+                <label htmlFor="guarnicion">Guarnicion
                     <select
                         name="guarnicion"
                         id='guarnicion'
@@ -103,7 +103,7 @@ export const AddData = ({ onSuccess }) => {
                         <option value="true">Si</option>
                     </select>
                 </label>
-               <select
+                <select
                     name="categoria"
                     onChange={(e) => {
                         if (e.target.value === "custom") {
@@ -128,7 +128,7 @@ export const AddData = ({ onSuccess }) => {
                     <option value="promocion especial">Promocion especial</option>
                     <option value="menu del dia">Menu del dia</option>
                     <option value="guarnicion">Guarnicion</option>
-                  <option value="custom">✏️ Escribir nueva categoría</option>
+                    <option value="custom">✏️ Escribir nueva categoría</option>
                 </select>
                 {customCategory && (
                     <input
@@ -141,7 +141,7 @@ export const AddData = ({ onSuccess }) => {
                         }}
                     />
                 )}
-                 <h3>Variantes</h3>
+                <h3>Variantes</h3>
                 {valueInput.variantes.map((variante, i) => (
                     <div key={i} className="variante-item">
                         <input
@@ -185,6 +185,13 @@ export const AddData = ({ onSuccess }) => {
                         }}>+ Opción</button>
                     </div>
                 ))}
+
+                <button type="button" onClick={() => {
+                    setValueInput({
+                        ...valueInput,
+                        variantes: [...valueInput.variantes, { tipo: "", opciones: [{ nombre: "", precioExtra: 0 }] }]
+                    });
+                }}>+ Añadir Variante</button>
                 <button>Enviar</button>
                 {error && <p className='error'>{error}</p>}
                 <button className='eliminar-comida' type="button" onClick={handleDestoySubmit}>Eliminar comida</button>

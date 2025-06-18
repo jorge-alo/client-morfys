@@ -4,17 +4,17 @@ import { useEffect, useState } from 'react';
 
 export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, contValue, setCheck, setPedidos, updateComida, setVariante }) => {
 
-     useEffect(() => {
+    useEffect(() => {
         calcularPrecio(contValue, updateComida?.variantes || []);
     }, [contValue, updateComida]);
 
 
     console.log("valor de valueInput.image", valueInput.image);
-     console.log("valor de valueInput", valueInput);
-     console.log("ValueInput en Pedidos:", {
-  ...valueInput,
-  variantes: valueInput.variantes
-});
+    console.log("valor de valueInput", valueInput);
+    console.log("ValueInput en Pedidos:", {
+        ...valueInput,
+        variantes: valueInput.variantes
+    });
 
     const calcularPrecio = (cantidadPlatos, variantesSeleccionadas = []) => {
         const precioBase = Number(valueInput.price);
@@ -23,13 +23,13 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             0
         );
 
-        const totalUnitario = precioBase * cantidadPlatos ;
+        const totalUnitario = precioBase * cantidadPlatos;
         const totalFinal = totalUnitario + precioExtraTotal;
 
         setPrice(totalFinal);
     };
 
-     const handleSumar = () => {
+    const handleSumar = () => {
         const newValue = contValue + 1;
         setContValue(newValue);
         calcularPrecio(newValue, updateComida?.variantes || []);
@@ -86,12 +86,14 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     const handleClickSeleccionar = () => {
         const priceValue = Number(valueInput.price);
         setPrice(priceValue);
+        // Agregar nueva entrada en el historial para manejar el botón "atrás"
+        window.history.pushState({ varianteOpen: true }, '', window.location.pathname);
         setVariante(true);
     }
 
     const totalExtras = Array.isArray(updateComida?.variantes)
-  ? updateComida.variantes.reduce((acc, v) => acc + (v?.precioExtra || 0), 0)
-  : 0;
+        ? updateComida.variantes.reduce((acc, v) => acc + (v?.precioExtra || 0), 0)
+        : 0;
     return (
 
         <div className="container-pedidos">
@@ -99,7 +101,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
                 <div className="container-pedidos__img">
                     <h3> {valueInput.name} </h3>
-                    <img src={valueInput.image} alt={valueInput.name}/>
+                    <img src={valueInput.image} alt={valueInput.name} />
                 </div>
 
                 <div className='container-pedidos__description'>
@@ -109,7 +111,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                                 <h4>{contValue}x</h4>
                                 <h3>{valueInput.name}</h3>
                             </div>
-                           <p>${(Number(valueInput.price) * contValue )}</p>
+                            <p>${(Number(valueInput.price) * contValue)}</p>
                         </div>
 
                         <h5>{valueInput.description}</h5>

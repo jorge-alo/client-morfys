@@ -61,6 +61,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                             cont: contValue,
                             price: valueInput.price,
                             priceTotal: price,
+                            category: valueInput.categoria,
                             variantes: updateComida?.variantes
                         }
                         : pedido
@@ -73,6 +74,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                         name: valueInput.name,
                         price: valueInput.price,
                         priceTotal: price,
+                        category: valueInput.categoria,
                         variantes: updateComida?.variantes
                     },
                 ];

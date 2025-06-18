@@ -32,7 +32,7 @@ export const useWhatsApp = () => {
         `Método de pago: ${metodoPago}\n` +
         (formaEntrega === 'envio' ? `Ubicación: ${ubicacion}\n` : '') +
  `Pedido:\n${pedidos.map(p => {
-  const categoria = `${p.categoria}`;
+  const categoria = `${p.category}`;
    const lineaPrincipal = `  ${p.cont}x ${p.name} $${p.price * p.cont}`;
    const variantes = p.variantes?.length > 0
    ? `${p.variantes[0]?.nombreGrupo}:\n` + p.variantes.map(g =>

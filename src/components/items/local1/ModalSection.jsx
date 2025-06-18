@@ -10,27 +10,25 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
 
 
      useEffect(() => {
-        if (modal) {
-            // Cuando se abre el modal, agregamos un nuevo estado al historial
-            window.history.pushState({ modalOpen: true }, '');
+    if (!modal) return;
 
-            const handlePopState = (event) => {
-                if (variante) {
-                    setVariante(false); // Si está abierta la variante, la cerramos primero
-                } else {
-                    closeModal(); // Si no hay variante, cerramos el modal
-                }
-            };
+    window.history.pushState({ modalOpen: true }, '');
 
-            window.addEventListener('popstate', handlePopState);
-
-            return () => {
-                window.removeEventListener('popstate', handlePopState);
-                // Volvemos al estado anterior del historial
-                if (modal) window.history.back();
-            };
+    const handlePopState = () => {
+        if (variante) {
+            setVariante(false);
+        } else {
+            closeModal();
         }
-    }, [modal, variante]);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+        window.removeEventListener('popstate', handlePopState);
+        window.history.back();
+    };
+}, [modal]);
 
     if (!modal) return null;
     const addbanerORAddData = bannerValue ? AddBanner : AddData

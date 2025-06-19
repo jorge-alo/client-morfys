@@ -154,6 +154,19 @@ export const AddData = ({ onSuccess }) => {
                                 setValueInput({ ...valueInput, variantes: nuevas });
                             }}
                         />
+
+                        {/* 🔽 Campo para editar el límite de selección */}
+                        <input
+                            type="number"
+                            placeholder="Cantidad máxima que puede elegir"
+                            value={variante.limite || ""}
+                            onChange={(e) => {
+                                const nuevas = [...valueInput.variantes];
+                                nuevas[i].limite = Number(e.target.value);
+                                setValueInput({ ...valueInput, variantes: nuevas });
+                            }}
+                        />
+
                         {variante.opciones.map((op, j) => (
                             <div key={j}>
                                 <input
@@ -178,11 +191,17 @@ export const AddData = ({ onSuccess }) => {
                                 />
                             </div>
                         ))}
-                        <button type="button" onClick={() => {
-                            const nuevas = [...valueInput.variantes];
-                            nuevas[i].opciones.push({ nombre: "", precioExtra: 0 });
-                            setValueInput({ ...valueInput, variantes: nuevas });
-                        }}>+ Opción</button>
+
+                        <button
+                            type="button"
+                            onClick={() => {
+                                const nuevas = [...valueInput.variantes];
+                                nuevas[i].opciones.push({ nombre: "", precioExtra: 0 });
+                                setValueInput({ ...valueInput, variantes: nuevas });
+                            }}
+                        >
+                            + Opción
+                        </button>
                     </div>
                 ))}
 

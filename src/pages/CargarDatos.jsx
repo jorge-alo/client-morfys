@@ -121,6 +121,19 @@ export const CargarDatos = () => {
                                 setValueInput({ ...valueInput, variantes: nuevas });
                             }}
                         />
+
+                        {/* 🔽 Nuevo campo para ingresar el límite de selección */}
+                        <input
+                            type="number"
+                            placeholder="Cantidad máxima que puede elegir"
+                            value={variante.limite || ""}
+                            onChange={(e) => {
+                                const nuevas = [...valueInput.variantes];
+                                nuevas[i].limite = Number(e.target.value);
+                                setValueInput({ ...valueInput, variantes: nuevas });
+                            }}
+                        />
+
                         {variante.opciones.map((op, j) => (
                             <div key={j}>
                                 <input

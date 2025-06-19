@@ -1,5 +1,5 @@
 import { useState } from "react";
-import '../../styles/Guarnicion.css'
+import '../../styles/Guarnicion.css';
 
 export const Variantes = ({
     comidas,
@@ -10,37 +10,16 @@ export const Variantes = ({
     setUpdateComida
 }) => {
     const [seleccionadas, setSeleccionadas] = useState([]);
-    const [cantidades, setCantidades] = useState({}); // Nuevo estado por opción
-
-    const handleClickVolver = () => {
-        setVariante(false);
-    };
+    const [cantidades, setCantidades] = useState({});
 
     const comidaActual = comidas.find(comida => comida.name === valueInput.name);
     const variantes = comidaActual?.variantes || [];
 
-    const handleSumar = (opcionId) => {
-        const opcion = variantes.flatMap(v => v.opciones).find(o => o.id === opcionId);
+    const getCantidadTotalVariante = (variante) =>
+        variante.opciones.reduce((acc, op) => acc + (cantidades[op.id] || 0), 0);
 
-        if (opcion && !seleccionadas.some(s => s.id === opcion.id)) {
-            handleSelect(opcion); // Seleccionarlo si no está
-        }
-        setCantidades(prev => ({
-            ...prev,
-            [opcionId]: (prev[opcionId] || 1) + 1
-        }));
-    };
-
-    const handleRestar = (opcionId) => {
-        const opcion = variantes.flatMap(v => v.opciones).find(o => o.id === opcionId);
-
-        if (opcion && !seleccionadas.some(s => s.id === opcion.id)) {
-            handleSelect(opcion); // Seleccionarlo si no está
-        }
-        setCantidades(prev => ({
-            ...prev,
-            [opcionId]: Math.max((prev[opcionId] || 1) - 1, 1)
-        }));
+    const handleClickVolver = () => {
+        setVariante(false);
     };
 
     const handleSelect = (opcion) => {
@@ -57,17 +36,44 @@ export const Variantes = ({
             } else {
                 setCantidades(prev => ({
                     ...prev,
-                    [opcion.id]: prev[opcion.id] || 1
+                    [opcion.id]: 1
                 }));
                 return [...prev, opcion];
             }
         });
     };
 
+    const handleSumar = (opcionId, variante) => {
+        const totalActual = getCantidadTotalVariante(variante);
+        const limite = variante.limite ?? Infinity;
+
+        if (totalActual >= limite) return;
+
+        const opcion = variante.opciones.find(o => o.id === opcionId);
+        if (!seleccionadas.some(s => s.id === opcionId)) {
+            handleSelect(opcion);
+        }
+
+        setCantidades(prev => ({
+            ...prev,
+            [opcionId]: (prev[opcionId] || 1) + 1
+        }));
+    };
+
+    const handleRestar = (opcionId, variante) => {
+        const opcion = variante.opciones.find(o => o.id === opcionId);
+        if (!seleccionadas.some(s => s.id === opcionId)) {
+            handleSelect(opcion);
+        }
+
+        setCantidades(prev => ({
+            ...prev,
+            [opcionId]: Math.max((prev[opcionId] || 1) - 1, 1)
+        }));
+    };
+
     const handleAdd = () => {
         if (seleccionadas.length === 0) return;
-
-        setUpdateComida(null);
 
         const variantesSeleccionadas = seleccionadas.map(opcion => {
             const grupoVariante = variantes.find(v => v.opciones.some(op => op.id === opcion.id));
@@ -90,15 +96,11 @@ export const Variantes = ({
 
         const yaExiste = pedidos.some(p => p.name === valueInput.name);
 
-        setPedidos(prev => {
-            if (yaExiste) {
-                return prev.map(p =>
-                    p.name === valueInput.name ? comidaActualizada : p
-                );
-            } else {
-                return [...prev, comidaActualizada];
-            }
-        });
+        setPedidos(prev =>
+            yaExiste
+                ? prev.map(p => p.name === valueInput.name ? comidaActualizada : p)
+                : [...prev, comidaActualizada]
+        );
 
         setVariante(false);
     };
@@ -112,28 +114,50 @@ export const Variantes = ({
 
             <h3>Opciones disponibles</h3>
             <div className='container-guarnicion__items'>
-                {variantes.map((variante, index) => (
-                    <div key={index}>
-                        <h4>{variante.nombre}</h4>
-                        {variante.opciones.map((opcion, opcIndex) => (
-                            <div
-                                key={opcIndex}
-                                className={`item-guarnicion ${seleccionadas.some(s => s.id === opcion.id) ? 'selected' : ""}`}
-                                onClick={() => handleSelect(opcion)}
-                            >
-                                <div>
-                                    <p>{opcion.nombre} {seleccionadas.some(s => s.id === opcion.id) && '✔️'}</p>
-                                    <h5>+ ${opcion.precio_adicional}</h5>
+                {variantes.map((variante, index) => {
+                    const totalActual = getCantidadTotalVariante(variante);
+                    const limite = variante.limite ?? Infinity;
+
+                    return (
+                        <div key={index}>
+                            <h4>{variante.nombre} {Number.isFinite(limite) && `(máx: ${limite})`}</h4>
+
+                            {variante.opciones.map((opcion, opcIndex) => (
+                                <div
+                                    key={opcIndex}
+                                    className={`item-guarnicion ${seleccionadas.some(s => s.id === opcion.id) ? 'selected' : ""}`}
+                                    onClick={() => handleSelect(opcion)}
+                                >
+                                    <div>
+                                        <p>{opcion.nombre} {seleccionadas.some(s => s.id === opcion.id) && '✔️'}</p>
+                                        <h5>+ ${opcion.precio_adicional}</h5>
+                                    </div>
+                                    <div className='agregar'>
+                                        <span
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleRestar(opcion.id, variante);
+                                            }}
+                                            className='simbolo-cant'
+                                        >-</span>
+                                        <span>{cantidades[opcion.id] || 1}</span>
+                                        <span
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleSumar(opcion.id, variante);
+                                            }}
+                                            className='simbolo-cant'
+                                            style={{
+                                                color: totalActual >= limite ? 'gray' : 'inherit',
+                                                pointerEvents: totalActual >= limite ? 'none' : 'auto'
+                                            }}
+                                        >+</span>
+                                    </div>
                                 </div>
-                                <div className='agregar'>
-                                    <span onClick={(e) => { e.stopPropagation(); handleRestar(opcion.id); }} className='simbolo-cant'>-</span>
-                                    <span>{cantidades[opcion.id] || 1}</span>
-                                    <span onClick={(e) => { e.stopPropagation(); handleSumar(opcion.id); }} className='simbolo-cant'>+</span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                            ))}
+                        </div>
+                    );
+                })}
             </div>
 
             <button

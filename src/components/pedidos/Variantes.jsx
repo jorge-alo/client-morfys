@@ -105,6 +105,13 @@ export const Variantes = ({
         setVariante(false);
     };
 
+    // ✅ Comprobamos si todos los límites están cumplidos exactamente
+    const limiteCumplidoEnTodas = variantes.every(v => {
+        const limite = v.limite ?? Infinity;
+        if (!Number.isFinite(limite)) return true;
+        return getCantidadTotalVariante(v) === limite;
+    });
+
     return (
         <div className="container-guarnicion">
             <div className='eligeTuGuarnicion'>
@@ -121,40 +128,51 @@ export const Variantes = ({
                     return (
                         <div key={index}>
                             <h4>{variante.nombre} {Number.isFinite(limite) && `(máx: ${limite})`}</h4>
+                            {Number.isFinite(limite) && totalActual >= limite && (
+                                <p style={{ color: "red", fontSize: "0.9rem" }}>Límite alcanzado</p>
+                            )}
 
-                            {variante.opciones.map((opcion, opcIndex) => (
-                                <div
-                                    key={opcIndex}
-                                    className={`item-guarnicion ${seleccionadas.some(s => s.id === opcion.id) ? 'selected' : ""}`}
-                                    onClick={() => handleSelect(opcion)}
-                                >
-                                    <div>
-                                        <p>{opcion.nombre} {seleccionadas.some(s => s.id === opcion.id) && '✔️'}</p>
-                                        <h5>+ ${opcion.precio_adicional}</h5>
+                            {variante.opciones.map((opcion, opcIndex) => {
+                                const yaSeleccionada = seleccionadas.some(s => s.id === opcion.id);
+                                const seAlcanzoLimite = totalActual >= limite;
+
+                                return (
+                                    <div
+                                        key={opcIndex}
+                                        className={`item-guarnicion ${yaSeleccionada ? 'selected' : ""} ${!yaSeleccionada && seAlcanzoLimite ? 'disabled' : ""}`}
+                                        onClick={() => {
+                                            if (!yaSeleccionada && seAlcanzoLimite) return;
+                                            handleSelect(opcion);
+                                        }}
+                                    >
+                                        <div>
+                                            <p>{opcion.nombre} {yaSeleccionada && '✔️'}</p>
+                                            <h5>+ ${opcion.precio_adicional}</h5>
+                                        </div>
+                                        <div className='agregar'>
+                                            <span
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleRestar(opcion.id, variante);
+                                                }}
+                                                className='simbolo-cant'
+                                            >-</span>
+                                            <span>{cantidades[opcion.id] || 1}</span>
+                                            <span
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleSumar(opcion.id, variante);
+                                                }}
+                                                className='simbolo-cant'
+                                                style={{
+                                                    color: seAlcanzoLimite && !yaSeleccionada ? 'gray' : 'inherit',
+                                                    pointerEvents: seAlcanzoLimite && !yaSeleccionada ? 'none' : 'auto'
+                                                }}
+                                            >+</span>
+                                        </div>
                                     </div>
-                                    <div className='agregar'>
-                                        <span
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleRestar(opcion.id, variante);
-                                            }}
-                                            className='simbolo-cant'
-                                        >-</span>
-                                        <span>{cantidades[opcion.id] || 1}</span>
-                                        <span
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleSumar(opcion.id, variante);
-                                            }}
-                                            className='simbolo-cant'
-                                            style={{
-                                                color: totalActual >= limite ? 'gray' : 'inherit',
-                                                pointerEvents: totalActual >= limite ? 'none' : 'auto'
-                                            }}
-                                        >+</span>
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     );
                 })}
@@ -163,9 +181,9 @@ export const Variantes = ({
             <button
                 className='buton-aceptar-guarnicion'
                 onClick={handleAdd}
-                disabled={seleccionadas.length === 0}
+                disabled={!limiteCumplidoEnTodas}
             >
-                Aceptar
+                {limiteCumplidoEnTodas ? 'Aceptar' : 'Debe seleccionar todas las variantes'}
             </button>
         </div>
     );

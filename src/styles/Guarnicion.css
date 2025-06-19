@@ -25,7 +25,10 @@
     padding: 5px;
     cursor: pointer;
 }
-
+.item-guarnicion.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
 .item-guarnicion p {
     font-size: clamp(.7rem, 2.2vw, 10px);
 }

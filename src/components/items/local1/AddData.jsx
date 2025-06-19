@@ -92,17 +92,6 @@ export const AddData = ({ onSuccess }) => {
                     value={valueInput.price}
                     onChange={handleChange}
                 />
-                <label htmlFor="guarnicion">Guarnicion
-                    <select
-                        name="guarnicion"
-                        id='guarnicion'
-                        onChange={handleChange}
-                        value={valueInput.guarnicion}
-                    >
-                        <option value="false">No</option>
-                        <option value="true">Si</option>
-                    </select>
-                </label>
                 <select
                     name="categoria"
                     onChange={(e) => {

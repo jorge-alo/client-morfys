@@ -149,10 +149,10 @@ export const CargarDatos = () => {
                                 <input
                                     type="number"
                                     placeholder="Precio extra"
-                                    value={op.precioExtra}
+                                    value={op.precio_adicional}
                                     onChange={(e) => {
                                         const nuevas = [...valueInput.variantes];
-                                        nuevas[i].opciones[j].precioExtra = Number(e.target.value);
+                                        nuevas[i].opciones[j].precio_adicional = Number(e.target.value);
                                         setValueInput({ ...valueInput, variantes: nuevas });
                                     }}
                                 />
@@ -160,7 +160,7 @@ export const CargarDatos = () => {
                         ))}
                         <button type="button" onClick={() => {
                             const nuevas = [...valueInput.variantes];
-                            nuevas[i].opciones.push({ nombre: "", precioExtra: 0 });
+                            nuevas[i].opciones.push({ nombre: "", precio_adicional: 0 });
                             setValueInput({ ...valueInput, variantes: nuevas });
                         }}>+ Opción</button>
                     </div>
@@ -169,7 +169,7 @@ export const CargarDatos = () => {
                 <button type="button" onClick={() => {
                     setValueInput({
                         ...valueInput,
-                        variantes: [...valueInput.variantes, { tipo: "", opciones: [{ nombre: "", precioExtra: 0 }] }]
+                        variantes: [...valueInput.variantes, { tipo: "", opciones: [{ nombre: "", precio_adicional: 0 }] }]
                     });
                 }}>+ Añadir Variante</button>
                 <button>Enviar</button>

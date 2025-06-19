@@ -20,6 +20,11 @@ export const Variantes = ({
     const variantes = comidaActual?.variantes || [];
 
     const handleSumar = (opcionId) => {
+        const opcion = variantes.flatMap(v => v.opciones).find(o => o.id === opcionId);
+
+        if (opcion && !seleccionadas.some(s => s.id === opcion.id)) {
+            handleSelect(opcion); // Seleccionarlo si no está
+        }
         setCantidades(prev => ({
             ...prev,
             [opcionId]: (prev[opcionId] || 1) + 1
@@ -27,71 +32,76 @@ export const Variantes = ({
     };
 
     const handleRestar = (opcionId) => {
+        const opcion = variantes.flatMap(v => v.opciones).find(o => o.id === opcionId);
+
+        if (opcion && !seleccionadas.some(s => s.id === opcion.id)) {
+            handleSelect(opcion); // Seleccionarlo si no está
+        }
         setCantidades(prev => ({
             ...prev,
             [opcionId]: Math.max((prev[opcionId] || 1) - 1, 1)
         }));
     };
 
-   const handleSelect = (opcion) => {
-    setSeleccionadas(prev => {
-        const yaSeleccionada = prev.find(o => o.id === opcion.id);
+    const handleSelect = (opcion) => {
+        setSeleccionadas(prev => {
+            const yaSeleccionada = prev.find(o => o.id === opcion.id);
 
-        if (yaSeleccionada) {
-            setCantidades(prevCant => {
-                const newCant = { ...prevCant };
-                delete newCant[opcion.id];
-                return newCant;
-            });
-            return prev.filter(o => o.id !== opcion.id);
-        } else {
-            setCantidades(prev => ({
-                ...prev,
-                [opcion.id]: prev[opcion.id] || 1
-            }));
-            return [...prev, opcion];
-        }
-    });
-};
-
-    const handleAdd = () => {
-    if (seleccionadas.length === 0) return;
-
-    setUpdateComida(null);
-
-    const variantesSeleccionadas = seleccionadas.map(opcion => {
-        const grupoVariante = variantes.find(v => v.opciones.some(op => op.id === opcion.id));
-        const cantidad = cantidades[opcion.id] || 1;
-        return {
-            id: opcion.id,
-            nombre: opcion.nombre,
-            cantidad,
-            precioExtra: Number(opcion.precio_adicional) * cantidad,
-            nombreGrupo: grupoVariante?.nombre || "Variante"
-        };
-    });
-
-    const comidaActualizada = {
-        ...valueInput,
-        variantes: variantesSeleccionadas
+            if (yaSeleccionada) {
+                setCantidades(prevCant => {
+                    const newCant = { ...prevCant };
+                    delete newCant[opcion.id];
+                    return newCant;
+                });
+                return prev.filter(o => o.id !== opcion.id);
+            } else {
+                setCantidades(prev => ({
+                    ...prev,
+                    [opcion.id]: prev[opcion.id] || 1
+                }));
+                return [...prev, opcion];
+            }
+        });
     };
 
-    setUpdateComida(comidaActualizada);
+    const handleAdd = () => {
+        if (seleccionadas.length === 0) return;
 
-    const yaExiste = pedidos.some(p => p.name === valueInput.name);
+        setUpdateComida(null);
 
-    setPedidos(prev => {
-        if (yaExiste) {
-            return prev.map(p =>
-                p.name === valueInput.name ? comidaActualizada : p
-            );
-        } else {
-            return [...prev, comidaActualizada];
-        }
-    });
+        const variantesSeleccionadas = seleccionadas.map(opcion => {
+            const grupoVariante = variantes.find(v => v.opciones.some(op => op.id === opcion.id));
+            const cantidad = cantidades[opcion.id] || 1;
+            return {
+                id: opcion.id,
+                nombre: opcion.nombre,
+                cantidad,
+                precioExtra: Number(opcion.precio_adicional) * cantidad,
+                nombreGrupo: grupoVariante?.nombre || "Variante"
+            };
+        });
 
-    setVariante(false);
-};
+        const comidaActualizada = {
+            ...valueInput,
+            variantes: variantesSeleccionadas
+        };
+
+        setUpdateComida(comidaActualizada);
+
+        const yaExiste = pedidos.some(p => p.name === valueInput.name);
+
+        setPedidos(prev => {
+            if (yaExiste) {
+                return prev.map(p =>
+                    p.name === valueInput.name ? comidaActualizada : p
+                );
+            } else {
+                return [...prev, comidaActualizada];
+            }
+        });
+
+        setVariante(false);
+    };
 
     return (
         <div className="container-guarnicion">
@@ -108,7 +118,7 @@ export const Variantes = ({
                         {variante.opciones.map((opcion, opcIndex) => (
                             <div
                                 key={opcIndex}
-                               className={`item-guarnicion ${seleccionadas.some(s => s.id === opcion.id) ? 'selected' : ""}`}
+                                className={`item-guarnicion ${seleccionadas.some(s => s.id === opcion.id) ? 'selected' : ""}`}
                                 onClick={() => handleSelect(opcion)}
                             >
                                 <div>

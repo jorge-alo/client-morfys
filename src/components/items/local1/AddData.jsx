@@ -12,6 +12,8 @@ export const AddData = ({ onSuccess }) => {
     const { name } = useParams(); // Obtener el parámetro name
     const navigate = useNavigate(); // Obtener la función navigate
 
+    console.log("valor de valueInput en addDta", valueInput);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -171,10 +173,10 @@ export const AddData = ({ onSuccess }) => {
                                 <input
                                     type="number"
                                     placeholder="Precio extra"
-                                    value={op.precioExtra}
+                                    value={op.precio_adicional}
                                     onChange={(e) => {
                                         const nuevas = [...valueInput.variantes];
-                                        nuevas[i].opciones[j].precioExtra = Number(e.target.value);
+                                        nuevas[i].opciones[j].precio_adicional = Number(e.target.value);
                                         setValueInput({ ...valueInput, variantes: nuevas });
                                     }}
                                 />
@@ -185,7 +187,7 @@ export const AddData = ({ onSuccess }) => {
                             type="button"
                             onClick={() => {
                                 const nuevas = [...valueInput.variantes];
-                                nuevas[i].opciones.push({ nombre: "", precioExtra: 0 });
+                                nuevas[i].opciones.push({ nombre: "", precio_adicional: 0 });
                                 setValueInput({ ...valueInput, variantes: nuevas });
                             }}
                         >
@@ -197,7 +199,7 @@ export const AddData = ({ onSuccess }) => {
                 <button type="button" onClick={() => {
                     setValueInput({
                         ...valueInput,
-                        variantes: [...valueInput.variantes, { tipo: "", opciones: [{ nombre: "", precioExtra: 0 }] }]
+                        variantes: [...valueInput.variantes, { tipo: "", opciones: [{ nombre: "", precio_adicional: 0 }] }]
                     });
                 }}>+ Añadir Variante</button>
                 <button>Enviar</button>

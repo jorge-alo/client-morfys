@@ -102,7 +102,10 @@
     align-items: center;
     gap: 10px;
 }
-
+.seleccionar:hover {
+    background-color: #aaa;
+    cursor: pointer;
+}
 .agregar span {
     font-size: 1.2rem;
     font-weight: 700;

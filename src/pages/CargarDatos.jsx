@@ -25,6 +25,7 @@ export const CargarDatos = () => {
         formData.append('description', valueInput.description);
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
+        formData.append('tipoControl', valueInput.tipoControl);
         formData.append('variantes', JSON.stringify(valueInput.variantes));
         await handleCargarDatos(formData);
         resetForm();
@@ -108,6 +109,13 @@ export const CargarDatos = () => {
                         }}
                     />
                 )}
+
+                <select name="tipoControl" onChange={handleChange} value={valueInput.tipoControl || ""}>
+                    <option value="">Seleccione tipo de control</option>
+                    <option value="porciones">Porciones individuales</option>
+                    <option value="promo">Promoción/Menu</option>
+                </select>
+                
                 <h3>Variantes</h3>
                 {valueInput.variantes.map((variante, i) => (
                     <div key={i} className="variante-item">

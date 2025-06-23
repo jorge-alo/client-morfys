@@ -46,8 +46,8 @@ export const Variantes = ({
     const handleSumar = (opcionId, variante) => {
         const totalActual = getCantidadTotalVariante(variante);
         const limite = variante.limite ?? Infinity;
-
-        if (totalActual >= limite) return;
+        const tipoControl = comidaActual?.tipoControl || 'promo';
+        if (tipoControl === 'porciones' && totalActual >= limite) return;
 
         const opcion = variante.opciones.find(o => o.id === opcionId);
         if (!seleccionadas.some(s => s.id === opcionId)) {
@@ -106,11 +106,16 @@ export const Variantes = ({
     };
 
     // ✅ Comprobamos si todos los límites están cumplidos exactamente
+    const tipoControl = comidaActual?.tipoControl || 'promo';
+
     const limiteCumplidoEnTodas = variantes.every(v => {
+        if (tipoControl === 'promo') return true;
+
         const limite = v.limite ?? Infinity;
         if (!Number.isFinite(limite)) return true;
         return getCantidadTotalVariante(v) === limite;
     });
+
 
     return (
         <div className="container-guarnicion">
@@ -127,14 +132,14 @@ export const Variantes = ({
 
                     return (
                         <div key={index}>
-                            <h4>{variante.nombre} {Number.isFinite(limite) && `(máx: ${limite})`}</h4>
-                            {Number.isFinite(limite) && totalActual >= limite && (
+                            <h4>{variante.nombre} {Number.isFinite(limite) && tipoControl === 'porciones' && `(máx: ${limite})`}</h4>
+                            {Number.isFinite(limite) && tipoControl === 'porciones' && totalActual >= limite && (
                                 <p style={{ color: "red", fontSize: "0.9rem" }}>Límite alcanzado</p>
                             )}
 
                             {variante.opciones.map((opcion, opcIndex) => {
                                 const yaSeleccionada = seleccionadas.some(s => s.id === opcion.id);
-                                const seAlcanzoLimite = totalActual >= limite;
+                                const seAlcanzoLimite = tipoControl === 'porciones' && totalActual >= limite;
 
                                 return (
                                     <div
@@ -181,9 +186,9 @@ export const Variantes = ({
             <button
                 className='buton-aceptar-guarnicion'
                 onClick={handleAdd}
-                disabled={!limiteCumplidoEnTodas}
+                disabled={tipoControl === 'porciones' && !limiteCumplidoEnTodas}
             >
-                {limiteCumplidoEnTodas ? 'Aceptar' : 'Debe seleccionar todas las variantes'}
+                {tipoControl === 'promo' ? 'Aceptar' : (limiteCumplidoEnTodas ? 'Aceptar' : 'Debe seleccionar todas las variantes')}
             </button>
         </div>
     );

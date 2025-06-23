@@ -15,6 +15,8 @@ export const Variantes = ({
     const comidaActual = comidas.find(comida => comida.name === valueInput.name);
     const variantes = comidaActual?.variantes || [];
 
+    console.log("valor de comidas en variantes", comidas);
+
     const getCantidadTotalVariante = (variante) =>
         variante.opciones.reduce((acc, op) => acc + (cantidades[op.id] || 0), 0);
 

@@ -54,7 +54,7 @@ export const Local1 = () => {
     forGetPage();
   }, [name])
 
-  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes }) => {
+  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes, tipoControl }) => {
     const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, tipoControl, image, variantes: variantes || [] }
     setValueInput(newValueInput);
     setModal(true);

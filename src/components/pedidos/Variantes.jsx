@@ -51,23 +51,35 @@ export const Variantes = ({
         });
     };
 
-    const handleSumar = (opcionId, variante) => {
-        const totalActual = getCantidadTotalVariante(variante);
-        const limite = variante.limite ?? Infinity;
-        const tipoControl = comidaActual?.tipo_control || 'promo';
-        if (tipoControl === 'porciones' && totalActual >= limite) return;
+   const handleSumar = (opcionId, variante) => {
+    const totalActual = getCantidadTotalVariante(variante);
+    const limite = variante.limite ?? Infinity;
+    const tipoControl = comidaActual?.tipo_control || 'promo';
 
-        const opcion = variante.opciones.find(o => o.id === opcionId);
-        if (!seleccionadas.some(s => s.id === opcionId)) {
-            handleSelect(opcion);
+    // ✅ Bloqueamos si al sumar superamos el límite total
+    if (tipoControl === 'porciones' && totalActual >= limite) return;
+
+    const opcion = variante.opciones.find(o => o.id === opcionId);
+    if (!seleccionadas.some(s => s.id === opcionId)) {
+        handleSelect(opcion, variante);
+    }
+
+    // 🔧 Agrego una validación para que NO supere el límite
+    setCantidades(prev => {
+        const nuevaCantidad = (prev[opcionId] || 1) + 1;
+        const totalSinEsta = totalActual - (prev[opcionId] || 0);
+
+        // ✅ Si la nueva cantidad supera el límite, no lo permitimos
+        if (tipoControl === 'porciones' && (totalSinEsta + nuevaCantidad) > limite) {
+            return prev;
         }
 
-        setCantidades(prev => ({
+        return {
             ...prev,
-            [opcionId]: (prev[opcionId] || 1) + 1
-        }));
-    };
-
+            [opcionId]: nuevaCantidad
+        };
+    });
+};
     const handleRestar = (opcionId, variante) => {
         const opcion = variante.opciones.find(o => o.id === opcionId);
         if (!seleccionadas.some(s => s.id === opcionId)) {

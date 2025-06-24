@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 export const Card = ({ id, name, description, image, price, tamanio, opciones, onClick }) => {
   const { login } = useContext(AuthContext);
 
-console.log("valor de opciones en card", opciones.opciones);
+console.log("valor de opciones en card", opciones);
   const handleClick = () => {
     onClick({ id, name, description, price });
   };

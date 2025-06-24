@@ -68,6 +68,7 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
                     contValue={contValue}
                     variante={variante}
                     setVariante={setVariante}
+                    cantidadSeleccionada={variante.cantidad}
                     pedidosGuarnicion={pedidosGuarnicion}
                     setPedidosGuarnicion={setPedidosGuarnicion}
                     onSuccess={() => {

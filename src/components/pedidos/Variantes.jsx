@@ -7,7 +7,8 @@ export const Variantes = ({
     setPedidos,
     setVariante,
     valueInput,
-    setUpdateComida
+    setUpdateComida,
+    cantidadSeleccionada
 }) => {
     const [seleccionadas, setSeleccionadas] = useState([]);
     const [cantidades, setCantidades] = useState({});
@@ -20,11 +21,8 @@ export const Variantes = ({
     const getCantidadTotalGlobal = () =>
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);
 
-    const getLimiteGlobal = () => {
-        if (tipoControl === 'porciones') {
-            const pedidoActual = pedidos.find(p => p.name === valueInput.name);
-            return pedidoActual?.cont || 0;
-        }
+      const getLimiteGlobal = () => {
+        if (tipoControl === 'porciones') return cantidadSeleccionada;
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };
 

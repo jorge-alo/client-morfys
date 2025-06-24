@@ -90,7 +90,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         setPrice(priceValue);
         // Agregar nueva entrada en el historial para manejar el botón "atrás"
         window.history.pushState({ varianteOpen: true }, '');
-        setVariante(true);
+       setVariante({ open: true, cantidad: contValue });
     }
 
     const totalExtras = Array.isArray(updateComida?.variantes)

@@ -27,7 +27,7 @@ export const Local1 = () => {
   const [subtotalValue, setSubtotalValue] = useState(0);
   const [checkMobile, setCheckMobile] = useState(false)
   const [cel, setCel] = useState(null);
-  const [variante, setVariante] = useState(false);
+  const [variante, setVariante] = useState({ open: false, cantidad: 0 });
   const [updateComida, setUpdateComida] = useState("");
   const [bannerValue, setBannerValue] = useState(false);
   const [idVaner, setIdVaner] = useState("");

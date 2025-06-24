@@ -54,8 +54,8 @@ export const Local1 = () => {
     forGetPage();
   }, [name])
 
-  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes, tipoControl }) => {
-    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, tipoControl, image, variantes: variantes || [] }
+  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes, tipoControl, tamanio }) => {
+    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, tipoControl, tamanio, image, variantes: variantes || [] }
     setValueInput(newValueInput);
     setModal(true);
     const precioBase = Number(newValueInput.price);
@@ -69,7 +69,7 @@ export const Local1 = () => {
   }
 
   const closeModal = () => {
-    const newValueInput = { ...valueInput, comida_id: "", user_id: "", name: "", description: "", price: "", categoria: "", image: "", variantes: [] }
+    const newValueInput = { ...valueInput, comida_id: "", user_id: "", name: "", description: "", price: "", categoria: "", image: "", variantes: [], tamanio: "" }
     setValueInput(newValueInput);
     setUpdateComida("");
     setModal(false);

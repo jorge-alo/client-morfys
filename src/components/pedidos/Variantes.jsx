@@ -24,17 +24,10 @@ export const Variantes = ({
         setVariante(false);
     };
 
-    const handleSelect = (opcion, variante) => {
-        const totalActual = getCantidadTotalVariante(variante);
-        const limite = variante.limite ?? Infinity;
-        const tipoControl = comidaActual?.tipo_control || 'promo';
-
-        const yaSeleccionada = seleccionadas.find(o => o.id === opcion.id);
-
-        // Si no está seleccionada y ya se alcanzó el límite, no permitimos seleccionar
-        if (!yaSeleccionada && tipoControl === 'porciones' && totalActual >= limite) return;
-
+    const handleSelect = (opcion) => {
         setSeleccionadas(prev => {
+            const yaSeleccionada = prev.find(o => o.id === opcion.id);
+
             if (yaSeleccionada) {
                 setCantidades(prevCant => {
                     const newCant = { ...prevCant };
@@ -56,56 +49,29 @@ export const Variantes = ({
         const totalActual = getCantidadTotalVariante(variante);
         const limite = variante.limite ?? Infinity;
         const tipoControl = comidaActual?.tipo_control || 'promo';
-
         if (tipoControl === 'porciones' && totalActual >= limite) return;
 
         const opcion = variante.opciones.find(o => o.id === opcionId);
-
         if (!seleccionadas.some(s => s.id === opcionId)) {
-            // Si no está seleccionada, la seleccionamos
-            setSeleccionadas(prev => [...prev, opcion]);
-            setCantidades(prev => ({
-                ...prev,
-                [opcionId]: 1
-            }));
-            return;
+            handleSelect(opcion);
         }
 
-        // Si ya está seleccionada, sumamos controlando el límite
-        setCantidades(prev => {
-            const nuevaCantidad = (prev[opcionId] || 1) + 1;
-            const totalSinEsta = totalActual - (prev[opcionId] || 0);
-
-            if (tipoControl === 'porciones' && (totalSinEsta + nuevaCantidad) > limite) {
-                return prev;
-            }
-
-            return {
-                ...prev,
-                [opcionId]: nuevaCantidad
-            };
-        });
+        setCantidades(prev => ({
+            ...prev,
+            [opcionId]: (prev[opcionId] || 1) + 1
+        }));
     };
 
     const handleRestar = (opcionId, variante) => {
         const opcion = variante.opciones.find(o => o.id === opcionId);
-
         if (!seleccionadas.some(s => s.id === opcionId)) {
-            setSeleccionadas(prev => [...prev, opcion]);
-            setCantidades(prev => ({
-                ...prev,
-                [opcionId]: 1
-            }));
-            return;
+            handleSelect(opcion);
         }
 
-        setCantidades(prev => {
-            const nuevaCantidad = Math.max((prev[opcionId] || 1) - 1, 1);
-            return {
-                ...prev,
-                [opcionId]: nuevaCantidad
-            };
-        });
+        setCantidades(prev => ({
+            ...prev,
+            [opcionId]: Math.max((prev[opcionId] || 1) - 1, 1)
+        }));
     };
 
     const handleAdd = () => {
@@ -141,7 +107,8 @@ export const Variantes = ({
         setVariante(false);
     };
 
-    const tipoControl = comidaActual?.tipo_control || 'promo';
+    // ✅ Comprobamos si todos los límites están cumplidos exactamente
+    const tipoControl = comidaActual?.tipo_Control || 'promo';
 
     const limiteCumplidoEnTodas = variantes.every(v => {
         if (tipoControl === 'promo') return true;
@@ -150,6 +117,7 @@ export const Variantes = ({
         if (!Number.isFinite(limite)) return true;
         return getCantidadTotalVariante(v) === limite;
     });
+
 
     return (
         <div className="container-guarnicion">
@@ -181,7 +149,7 @@ export const Variantes = ({
                                         className={`item-guarnicion ${yaSeleccionada ? 'selected' : ""} ${!yaSeleccionada && seAlcanzoLimite ? 'disabled' : ""}`}
                                         onClick={() => {
                                             if (!yaSeleccionada && seAlcanzoLimite) return;
-                                            handleSelect(opcion, variante);
+                                            handleSelect(opcion);
                                         }}
                                     >
                                         <div>

@@ -22,6 +22,7 @@ export const Variantes = ({
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);
 
     const getLimiteGlobal = () => {
+        console.log("valor de cantidad en variedad", variante.cantidad);
         if (tipoControl === 'porciones') return variante.cantidad;
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };

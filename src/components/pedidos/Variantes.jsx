@@ -48,7 +48,7 @@ export const Variantes = ({
     const handleSumar = (opcionId, variante) => {
         const totalActual = getCantidadTotalVariante(variante);
         const limite = variante.limite ?? Infinity;
-        const tipoControl = comidaActual?.tipoControl || 'promo';
+        const tipoControl = comidaActual?.tipo_control || 'promo';
         if (tipoControl === 'porciones' && totalActual >= limite) return;
 
         const opcion = variante.opciones.find(o => o.id === opcionId);
@@ -108,7 +108,7 @@ export const Variantes = ({
     };
 
     // ✅ Comprobamos si todos los límites están cumplidos exactamente
-    const tipoControl = comidaActual?.tipoControl || 'promo';
+    const tipoControl = comidaActual?.tipo_control || 'promo';
 
     const limiteCumplidoEnTodas = variantes.every(v => {
         if (tipoControl === 'promo') return true;

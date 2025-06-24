@@ -29,11 +29,12 @@ export const Variantes = ({
         const limite = variante.limite ?? Infinity;
         const tipoControl = comidaActual?.tipo_control || 'promo';
 
-        if (tipoControl === 'porciones' && totalActual >= limite) return;
+        const yaSeleccionada = seleccionadas.find(o => o.id === opcion.id);
+
+        // Si no está seleccionada y ya se alcanzó el límite, no permitimos seleccionar
+        if (!yaSeleccionada && tipoControl === 'porciones' && totalActual >= limite) return;
 
         setSeleccionadas(prev => {
-            const yaSeleccionada = prev.find(o => o.id === opcion.id);
-
             if (yaSeleccionada) {
                 setCantidades(prevCant => {
                     const newCant = { ...prevCant };
@@ -51,45 +52,60 @@ export const Variantes = ({
         });
     };
 
-   const handleSumar = (opcionId, variante) => {
-    const totalActual = getCantidadTotalVariante(variante);
-    const limite = variante.limite ?? Infinity;
-    const tipoControl = comidaActual?.tipo_control || 'promo';
+    const handleSumar = (opcionId, variante) => {
+        const totalActual = getCantidadTotalVariante(variante);
+        const limite = variante.limite ?? Infinity;
+        const tipoControl = comidaActual?.tipo_control || 'promo';
 
-    // ✅ Bloqueamos si al sumar superamos el límite total
-    if (tipoControl === 'porciones' && totalActual >= limite) return;
+        if (tipoControl === 'porciones' && totalActual >= limite) return;
 
-    const opcion = variante.opciones.find(o => o.id === opcionId);
-    if (!seleccionadas.some(s => s.id === opcionId)) {
-        handleSelect(opcion, variante);
-    }
+        const opcion = variante.opciones.find(o => o.id === opcionId);
 
-    // 🔧 Agrego una validación para que NO supere el límite
-    setCantidades(prev => {
-        const nuevaCantidad = (prev[opcionId] || 1) + 1;
-        const totalSinEsta = totalActual - (prev[opcionId] || 0);
-
-        // ✅ Si la nueva cantidad supera el límite, no lo permitimos
-        if (tipoControl === 'porciones' && (totalSinEsta + nuevaCantidad) > limite) {
-            return prev;
+        if (!seleccionadas.some(s => s.id === opcionId)) {
+            // Si no está seleccionada, la seleccionamos
+            setSeleccionadas(prev => [...prev, opcion]);
+            setCantidades(prev => ({
+                ...prev,
+                [opcionId]: 1
+            }));
+            return;
         }
 
-        return {
-            ...prev,
-            [opcionId]: nuevaCantidad
-        };
-    });
-};
+        // Si ya está seleccionada, sumamos controlando el límite
+        setCantidades(prev => {
+            const nuevaCantidad = (prev[opcionId] || 1) + 1;
+            const totalSinEsta = totalActual - (prev[opcionId] || 0);
+
+            if (tipoControl === 'porciones' && (totalSinEsta + nuevaCantidad) > limite) {
+                return prev;
+            }
+
+            return {
+                ...prev,
+                [opcionId]: nuevaCantidad
+            };
+        });
+    };
+
     const handleRestar = (opcionId, variante) => {
         const opcion = variante.opciones.find(o => o.id === opcionId);
+
         if (!seleccionadas.some(s => s.id === opcionId)) {
-            handleSelect(opcion);
+            setSeleccionadas(prev => [...prev, opcion]);
+            setCantidades(prev => ({
+                ...prev,
+                [opcionId]: 1
+            }));
+            return;
         }
 
-        setCantidades(prev => ({
-            ...prev,
-            [opcionId]: Math.max((prev[opcionId] || 1) - 1, 1)
-        }));
+        setCantidades(prev => {
+            const nuevaCantidad = Math.max((prev[opcionId] || 1) - 1, 1);
+            return {
+                ...prev,
+                [opcionId]: nuevaCantidad
+            };
+        });
     };
 
     const handleAdd = () => {
@@ -125,7 +141,6 @@ export const Variantes = ({
         setVariante(false);
     };
 
-    // ✅ Comprobamos si todos los límites están cumplidos exactamente
     const tipoControl = comidaActual?.tipo_control || 'promo';
 
     const limiteCumplidoEnTodas = variantes.every(v => {
@@ -136,7 +151,6 @@ export const Variantes = ({
         return getCantidadTotalVariante(v) === limite;
     });
 
-    console.log("valor de tipoControl en variantes", tipoControl);
     return (
         <div className="container-guarnicion">
             <div className='eligeTuGuarnicion'>

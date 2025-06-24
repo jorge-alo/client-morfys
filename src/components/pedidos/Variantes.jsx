@@ -12,6 +12,7 @@ export const Variantes = ({
     const [seleccionadas, setSeleccionadas] = useState([]);
     const [cantidades, setCantidades] = useState({});
     console.log("valor de comidas en variantes", comidas);
+    console.log("valor de pedidos en variantes", pedidos);
     const comidaActual = comidas.find(comida => comida.name === valueInput.name);
     const variantes = comidaActual?.variantes || [];
     const tipoControl = comidaActual?.tipoControl || 'promo';
@@ -22,7 +23,7 @@ export const Variantes = ({
     const getLimiteGlobal = () => {
         if (tipoControl === 'porciones') {
             const pedidoActual = pedidos.find(p => p.name === valueInput.name);
-            return pedidoActual?.cant || 0;
+            return pedidoActual?.cont || 0;
         }
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };

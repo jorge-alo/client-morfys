@@ -11,7 +11,7 @@ export const CardSection = ({comidas, handleClickCard}) => {
                     <h2 >{categoria}</h2>
                     <div className="section-card__flex" >
                         {comidasDeCategoria.map((comida) => (
-                            <Card key={comida.id} onClick={() => handleClickCard(comida)} id={comida.id} name={comida.name} description={comida.description} image={comida.image} price={comida.price} categoria={comida.categoria} ></Card>
+                            <Card key={comida.id} onClick={() => handleClickCard(comida)} id={comida.id} name={comida.name} description={comida.description} image={comida.image} price={comida.price} categoria={comida.categoria} tamanio= {comida.tamanio} ></Card>
                         ))}
                     </div>
                 </section>

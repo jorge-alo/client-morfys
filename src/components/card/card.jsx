@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import '../../styles/card.css';
 import { AuthContext } from '../../context/AuthContext';
 
-export const Card = ({ id, name, description, image, price, onClick }) => {
+export const Card = ({ id, name, description, image, price, tamanio, onClick }) => {
   const { login } = useContext(AuthContext);
 
 
@@ -25,7 +25,8 @@ export const Card = ({ id, name, description, image, price, onClick }) => {
         <div className='container-card__info'>
           <h3>{name}</h3>
           <p>{description}</p>
-          <h3>${price}</h3>
+          {tamanio && <h3>${price}</h3>}
+          
         </div>
       </div>
   );

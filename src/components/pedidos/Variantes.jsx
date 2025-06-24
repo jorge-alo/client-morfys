@@ -5,10 +5,10 @@ export const Variantes = ({
     comidas,
     pedidos,
     setPedidos,
+    variante,
     setVariante,
     valueInput,
     setUpdateComida,
-    cantidadSeleccionada
 }) => {
     const [seleccionadas, setSeleccionadas] = useState([]);
     const [cantidades, setCantidades] = useState({});
@@ -22,7 +22,7 @@ export const Variantes = ({
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);
 
       const getLimiteGlobal = () => {
-        if (tipoControl === 'porciones') return cantidadSeleccionada;
+        if (tipoControl === 'porciones') return variante.cantidad;
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };
 

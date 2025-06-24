@@ -118,7 +118,7 @@ export const Variantes = ({
         return getCantidadTotalVariante(v) === limite;
     });
 
-
+    console.log("valor de tipoControl en variantes", tipoControl);
     return (
         <div className="container-guarnicion">
             <div className='eligeTuGuarnicion'>

@@ -13,7 +13,7 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
     if (!modal) return;
 
     const handleBackButton = (event) => {
-        if (variante) {
+        if (variante.open) {
             // Si estamos en variantes, solo retrocedemos a pedidos
             event.preventDefault();
              setVariante({ open: false, cantidad: 0 });
@@ -41,11 +41,11 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
             window.history.back();
         }
     };
-}, [modal, variante]); // Ahora depende de ambos
+}, [modal, variante.open]); // Ahora depende de ambos
 
     if (!modal) return null;
     const addbanerORAddData = bannerValue ? AddBanner : AddData
-    const ContentComponent = login ? addbanerORAddData : variante ? Variantes : Pedidos
+    const ContentComponent = login ? addbanerORAddData : variante.open ? Variantes : Pedidos
 
     return (
         <div className="modal-overlay" onClick={closeModal}>

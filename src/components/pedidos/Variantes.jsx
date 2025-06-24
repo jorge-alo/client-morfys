@@ -24,7 +24,13 @@ export const Variantes = ({
         setVariante(false);
     };
 
-    const handleSelect = (opcion) => {
+    const handleSelect = (opcion, variante) => {
+        const totalActual = getCantidadTotalVariante(variante);
+        const limite = variante.limite ?? Infinity;
+        const tipoControl = comidaActual?.tipo_control || 'promo';
+
+        if (tipoControl === 'porciones' && totalActual >= limite) return;
+
         setSeleccionadas(prev => {
             const yaSeleccionada = prev.find(o => o.id === opcion.id);
 
@@ -149,7 +155,7 @@ export const Variantes = ({
                                         className={`item-guarnicion ${yaSeleccionada ? 'selected' : ""} ${!yaSeleccionada && seAlcanzoLimite ? 'disabled' : ""}`}
                                         onClick={() => {
                                             if (!yaSeleccionada && seAlcanzoLimite) return;
-                                            handleSelect(opcion);
+                                            handleSelect(opcion, variante);
                                         }}
                                     >
                                         <div>

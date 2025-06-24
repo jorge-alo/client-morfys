@@ -20,8 +20,10 @@ export const Variantes = ({
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);
 
     const getLimiteGlobal = () => {
-        if (tipoControl === 'porciones') return valueInput.cantidad;
-        // Sumo los límites de todas las variantes
+        if (tipoControl === 'porciones') {
+            const pedidoActual = pedidos.find(p => p.name === valueInput.name);
+            return pedidoActual?.cant || 0;
+        }
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };
 
@@ -126,6 +128,9 @@ export const Variantes = ({
             </div>
 
             <h3>Opciones disponibles</h3>
+            {cantidadSeleccionada >= limiteGlobal && (
+                <p style={{ color: "red", fontSize: "0.9rem" }}>Límite alcanzado</p>
+            )}
             <div className='container-guarnicion__items'>
                 {variantes.map((variante, index) => (
                     <div key={index}>

@@ -21,13 +21,13 @@ export const Variantes = ({
     const getCantidadTotalGlobal = () =>
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);
 
-      const getLimiteGlobal = () => {
+    const getLimiteGlobal = () => {
         if (tipoControl === 'porciones') return variante.cantidad;
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };
 
     const handleClickVolver = () => {
-        setVariante(false);
+        setVariante({ open: false, cantidad: 0 });
     };
 
     const handleSelect = (opcion) => {
@@ -118,7 +118,8 @@ export const Variantes = ({
     const cantidadSeleccionada = getCantidadTotalGlobal();
     const limiteGlobal = getLimiteGlobal();
     const limiteCumplido = cantidadSeleccionada === limiteGlobal;
-
+    console.log("valor de cantidadSeleccionada en variantes", cantidadSeleccionada);
+    console.log("valor de limiteGlobal en variantes", limiteGlobal);
     return (
         <div className="container-guarnicion">
             <div className='eligeTuGuarnicion'>

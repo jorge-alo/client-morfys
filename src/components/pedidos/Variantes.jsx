@@ -16,7 +16,7 @@ export const Variantes = ({
     console.log("valor de variante en variantes", variante);
     const comidaActual = comidas.find(comida => comida.name === valueInput.name);
     const variantes = comidaActual?.variantes || [];
-    const tipoControl = comidaActual?.tipoControl || 'promo';
+    const tipoControl = comidaActual?.tipo_control || 'promo';
 
     const getCantidadTotalGlobal = () =>
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);

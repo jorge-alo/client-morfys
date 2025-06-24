@@ -26,6 +26,7 @@ export const CargarDatos = () => {
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
         formData.append('tipoControl', valueInput.tipoControl);
+        formData.append('tamano', valueInput.tamanio);
         formData.append('variantes', JSON.stringify(valueInput.variantes));
         await handleCargarDatos(formData);
         resetForm();
@@ -115,7 +116,14 @@ export const CargarDatos = () => {
                     <option value="porciones">Porciones individuales</option>
                     <option value="promo">Promoción/Menu</option>
                 </select>
-                
+                <label>
+                    ¿Este producto tiene tamaños?
+                    <input
+                        type="checkbox"
+                        checked={valueInput.tamanio || false}
+                        onChange={(e) => setValueInput({ ...valueInput, tamanio: e.target.checked })}
+                    />
+                </label>
                 <h3>Variantes</h3>
                 {valueInput.variantes.map((variante, i) => (
                     <div key={i} className="variante-item">

@@ -112,7 +112,7 @@ export const Variantes = ({
                 : [...prev, comidaActualizada]
         );
 
-        setVariante(false);
+        setVariante({ open: false, cantidad: 0 });
     };
 
     const cantidadSeleccionada = getCantidadTotalGlobal();

@@ -16,7 +16,7 @@ export const ModalSection = ({ idVaner, bannerValue, updateComida, setUpdateComi
         if (variante) {
             // Si estamos en variantes, solo retrocedemos a pedidos
             event.preventDefault();
-            setVariante(false);
+             setVariante({ open: false, cantidad: 0 });
             // Reemplazamos el estado para que el siguiente "atrás" cierre el modal
             window.history.replaceState({ modalOpen: true }, '');
         } else {

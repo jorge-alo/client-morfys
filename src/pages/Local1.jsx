@@ -73,7 +73,7 @@ export const Local1 = () => {
     setValueInput(newValueInput);
     setUpdateComida("");
     setModal(false);
-    setVariante(false);
+    setVariante({ open: false, cantidad: 0 });
     setBannerValue(false);
   }
 

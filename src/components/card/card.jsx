@@ -6,6 +6,7 @@ export const Card = ({ id, name, description, image, price, tamanio, opciones, o
   const { login } = useContext(AuthContext);
 
 console.log("valor de opciones en card", opciones);
+console.log("valor de tamanio en card", tamanio);
   const handleClick = () => {
     onClick({ id, name, description, price });
   };

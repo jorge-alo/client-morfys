@@ -109,16 +109,15 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     };
 
     const handleSeleccionarTamanio = (opcion) => {
-        const nuevaVariante = {
-            ...updateComida.variantes[0],
-            nombre: opcion.nombre,
-            precioExtra: Number(opcion.precio_adicional),
-            cantidad: 1
-        };
-
-        setOpcionSeleccionada(nuevaVariante);
-        calcularPrecio(contValue, [nuevaVariante]);
+    const nuevaVariante = {
+        nombre: opcion.nombre,
+        precioExtra: Number(opcion.precio_adicional),
+        cantidad: 1
     };
+
+    setOpcionSeleccionada(nuevaVariante);
+    calcularPrecio(contValue, [nuevaVariante]);
+};
 
     const totalExtras = Array.isArray(updateComida?.variantes)
         ? updateComida.variantes.reduce((acc, v) => acc + (v?.precioExtra || 0), 0)

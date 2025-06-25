@@ -28,10 +28,10 @@ export const Card = ({ id, name, description, image, price, tamanio, opciones, o
         <p>{description}</p>
         {tamanio
           ? (
-            <div>
+            <div className='nombreOpciones'>
               {opciones && opciones.length > 0 ? (
                 opciones.map(opcion => (
-                  <div key={opcion.id} className='nombreOpciones'>
+                  <div key={opcion.id} >
                     <h4>{opcion.nombre}</h4>
                     <p>${opcion.precio_adicional}</p>
                   </div>

@@ -1,13 +1,17 @@
-
 import '../../styles/Pedidos.css';
 import { useEffect, useState } from 'react';
 
 export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, contValue, setCheck, setPedidos, updateComida, setVariante }) => {
 
-    useEffect(() => {
-        calcularPrecio(contValue, updateComida?.variantes || []);
-    }, [contValue, updateComida]);
+    const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
+    useEffect(() => {
+        if (valueInput.tamanio === 1 && opcionSeleccionada) {
+            calcularPrecio(contValue, [opcionSeleccionada]);
+        } else {
+            calcularPrecio(contValue, updateComida?.variantes || []);
+        }
+    }, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
 
     console.log("valor de valueInput.image", valueInput.image);
     console.log("valor de updateComida en pedidos", updateComida);
@@ -33,14 +37,22 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     const handleSumar = () => {
         const newValue = contValue + 1;
         setContValue(newValue);
-        calcularPrecio(newValue, updateComida?.variantes || []);
+        if (valueInput.tamanio === 1 && opcionSeleccionada) {
+            calcularPrecio(newValue, [opcionSeleccionada]);
+        } else {
+            calcularPrecio(newValue, updateComida?.variantes || []);
+        }
     };
 
     const handleRestar = () => {
         if (contValue > 1) {
             const newValue = contValue - 1;
             setContValue(newValue);
-            calcularPrecio(newValue, updateComida?.variantes || []);
+            if (valueInput.tamanio === 1 && opcionSeleccionada) {
+                calcularPrecio(newValue, [opcionSeleccionada]);
+            } else {
+                calcularPrecio(newValue, updateComida?.variantes || []);
+            }
         }
     };
 
@@ -48,11 +60,13 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         setCheck(true);
 
         setPedidos((prevPedidos) => {
-            // Se compara por nombre + variantes para detectar si es el mismo pedido exacto
             const pedidoExistenteIndex = prevPedidos.findIndex(
-                (pedido) =>
-                    pedido.name === valueInput.name
+                (pedido) => pedido.name === valueInput.name
             );
+
+            const variantesFinal = valueInput.tamanio === 1
+                ? (opcionSeleccionada ? [opcionSeleccionada] : [])
+                : updateComida?.variantes || [];
 
             if (pedidoExistenteIndex >= 0) {
                 return prevPedidos.map((pedido, index) =>
@@ -63,7 +77,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                             price: valueInput.price,
                             priceTotal: price,
                             category: valueInput.categoria,
-                            variantes: updateComida?.variantes
+                            variantes: variantesFinal
                         }
                         : pedido
                 );
@@ -76,7 +90,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                         price: valueInput.price,
                         priceTotal: price,
                         category: valueInput.categoria,
-                        variantes: updateComida?.variantes
+                        variantes: variantesFinal
                     },
                 ];
             }
@@ -86,22 +100,33 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             onSuccess();
         }
     };
+
     const handleClickSeleccionar = () => {
         const priceValue = Number(valueInput.price);
         setPrice(priceValue);
-        // Agregar nueva entrada en el historial para manejar el botón "atrás"
         window.history.pushState({ varianteOpen: true }, '');
-       setVariante({ open: true, cantidad: contValue });
-    }
+        setVariante({ open: true, cantidad: contValue });
+    };
+
+    const handleSeleccionarTamanio = (opcion) => {
+        const nuevaVariante = {
+            ...updateComida.variantes[0],
+            nombre: opcion.nombre,
+            precioExtra: Number(opcion.precio_adicional),
+            cantidad: 1
+        };
+
+        setOpcionSeleccionada(nuevaVariante);
+        calcularPrecio(contValue, [nuevaVariante]);
+    };
 
     const totalExtras = Array.isArray(updateComida?.variantes)
         ? updateComida.variantes.reduce((acc, v) => acc + (v?.precioExtra || 0), 0)
         : 0;
-    return (
 
+    return (
         <div className="container-pedidos">
             <div className='container-pedidos__data'>
-
                 <div className="container-pedidos__img">
                     <h3> {valueInput.name} </h3>
                     <img src={valueInput.image} alt={valueInput.name} />
@@ -118,7 +143,17 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                         </div>
 
                         <h5>{valueInput.description}</h5>
-                        {updateComida?.variantes?.map((variante, index) => (
+                        {(valueInput.tamanio === 1 && opcionSeleccionada) && (
+                            <div className='container-pedidos__guarnicion'>
+                                <div>
+                                    <h6>{opcionSeleccionada.cantidad}x</h6>
+                                    <h6>{opcionSeleccionada.nombre}</h6>
+                                </div>
+                                <h6 className='guarnicion-price'>${opcionSeleccionada.precioExtra}</h6>
+                            </div>
+                        )}
+
+                        {(valueInput.tamanio !== 1) && updateComida?.variantes?.map((variante, index) => (
                             variante ? (
                                 <div key={index} className='container-pedidos__guarnicion'>
                                     <div>
@@ -129,21 +164,50 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                                 </div>
                             ) : null
                         ))}
-
                     </div>
                 </div>
             </div>
-            {valueInput.variantes?.length > 0 ? <div className='container-pedidos__eleccion unidades'>
-                <p>{valueInput?.variantes[0].nombre}</p>
-                <div className='seleccionar'><span onClick={handleClickSeleccionar}>Seleccionar</span></div>
-            </div> : null}
+
+            {/* Si es un producto con tamaños */}
+            {valueInput.variantes?.length > 0 && valueInput.tamanio === 1 && (
+                <div className='container-pedidos__eleccion tamanios'>
+                    <p>{valueInput?.variantes[0].nombre}</p>
+                    {valueInput.variantes[0].opciones?.map(opcion => (
+                        <div key={opcion.id} className='opcion-tamanio'>
+                            <input
+                                type="radio"
+                                name="tamanio"
+                                value={opcion.nombre}
+                                id={`opcion-${opcion.id}`}
+                                checked={opcionSeleccionada?.nombre === opcion.nombre}
+                                onChange={() => handleSeleccionarTamanio(opcion)}
+                            />
+                            <label htmlFor={`opcion-${opcion.id}`}>{opcion.nombre} - ${opcion.precio_adicional}</label>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/* Si no es un producto con tamaños */}
+            {valueInput.variantes?.length > 0 && valueInput.tamanio !== 1 && (
+                <div className='container-pedidos__eleccion unidades'>
+                    <p>{valueInput?.variantes[0].nombre}</p>
+                    <div className='seleccionar'><span onClick={handleClickSeleccionar}>Seleccionar</span></div>
+                </div>
+            )}
 
             <div className='container-pedidos__eleccion unidades'>
                 <p>Unidades</p>
-                <div className='agregar'> <span onClick={handleRestar} className='simbolo-cant' >-</span>  <span>{contValue}</span> <span onClick={handleSumar} className='simbolo-cant'>+</span>   </div>
+                <div className='agregar'>
+                    <span onClick={handleRestar} className='simbolo-cant'>-</span>
+                    <span>{contValue}</span>
+                    <span onClick={handleSumar} className='simbolo-cant'>+</span>
+                </div>
             </div>
-            <button className='buton-agregar-pedido' onClick={handleAdd}> <span> {contValue} </span> Agregar a mi pedido <span> ${price} </span> </button>
-        </div>
 
-    )
-}
+            <button className='buton-agregar-pedido' onClick={handleAdd}>
+                <span>{contValue}</span> Agregar a mi pedido <span>${price}</span>
+            </button>
+        </div>
+    );
+};

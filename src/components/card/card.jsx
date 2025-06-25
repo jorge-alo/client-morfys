@@ -26,7 +26,7 @@ export const Card = ({ id, name, description, image, price, tamanio, opciones, o
       <div className='container-card__info'>
         <h3>{name}</h3>
         <p>{description}</p>
-        {tamanio == 1
+        {tamanio
           ? (
             <div className='nombreOpciones'>
               {opciones && opciones.length > 0 ? (
@@ -41,7 +41,7 @@ export const Card = ({ id, name, description, image, price, tamanio, opciones, o
               )}
             </div>
           )
-          : <h3>${price}</h3>
+          : price > 0 ? <h3>${price}</h3> : ""
         }
 
 

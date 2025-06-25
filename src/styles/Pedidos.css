@@ -131,3 +131,8 @@
 .simbolo-cant:hover {
 cursor: pointer;
 }
+
+.tamanios {
+    display: flex;
+    flex-direction: column;
+}

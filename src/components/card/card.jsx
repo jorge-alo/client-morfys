@@ -25,7 +25,7 @@ console.log("valor de opciones en card", opciones);
         <div className='container-card__info'>
           <h3>{name}</h3>
           <p>{description}</p>
-          {tamanio && <h3>${price}</h3>}
+          <h3>${price}</h3>
           
         </div>
       </div>

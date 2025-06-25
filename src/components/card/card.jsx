@@ -31,7 +31,7 @@ export const Card = ({ id, name, description, image, price, tamanio, opciones, o
             <div>
               {opciones && opciones.length > 0 ? (
                 opciones.map(opcion => (
-                  <div key={opcion.id}>
+                  <div key={opcion.id} className='nombreOpciones'>
                     <h4>{opcion.nombre}</h4>
                     <p>${opcion.precio_adicional}</p>
                   </div>

@@ -43,3 +43,8 @@
     opacity: .75;
     cursor: pointer;
 }
+
+.nombreOpciones {
+    width: 100%;
+    background-color: red;
+}

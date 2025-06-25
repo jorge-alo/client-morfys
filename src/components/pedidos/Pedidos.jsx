@@ -14,7 +14,6 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     }, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
 
     console.log("valor de valueInput.image", valueInput.image);
-    console.log("valor de updateComida en pedidos", updateComida);
     console.log("valor de valueInput", valueInput);
     console.log("ValueInput en Pedidos:", {
         ...valueInput,
@@ -32,6 +31,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         const totalFinal = totalUnitario + precioExtraTotal;
 
         setPrice(totalFinal);
+        console.log("valor de updateComida en pedidos", updateComida);
     };
 
     const handleSumar = () => {

@@ -24,6 +24,7 @@ export const AddData = ({ onSuccess }) => {
         formData.append('description', valueInput.description);
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
+        formData.append('tamano', valueInput.tamanio);
         formData.append('variantes', JSON.stringify(valueInput.variantes));
         try {
             await handleUpdate(formData); // handleUpdate ya está en el contexto
@@ -132,6 +133,14 @@ export const AddData = ({ onSuccess }) => {
                         }}
                     />
                 )}
+                <label>
+                    ¿Este producto tiene tamaños?
+                    <input
+                        type="checkbox"
+                        checked={valueInput.tamanio || false}
+                        onChange={(e) => setValueInput({ ...valueInput, tamanio: e.target.checked })}
+                    />
+                </label>
                 <h3>Variantes</h3>
                 {valueInput.variantes.map((variante, i) => (
                     <div key={i} className="variante-item">

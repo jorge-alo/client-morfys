@@ -26,9 +26,12 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             (acc, variante) => acc + (variante.precioExtra || 0),
             0
         );
-
-        const totalUnitario = precioBase * cantidadPlatos;
-        const totalFinal = totalUnitario + precioExtraTotal;
+        if (valueInput.tamanio == 0) {
+            const totalUnitario = precioBase * cantidadPlatos;
+            const totalFinal = totalUnitario + precioExtraTotal;
+            setPrice(totalFinal);
+        }
+        const totalFinal = cantidadPlatos * precioExtraTotal;
 
         setPrice(totalFinal);
         console.log("valor de updateComida en pedidos", updateComida);
@@ -109,14 +112,15 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     };
 
     const handleSeleccionarTamanio = (opcion) => {
-    const nuevaVariante = {
-        nombre: opcion.nombre,
-        precioExtra: Number(opcion.precio_adicional),
-    };
+        const nuevaVariante = {
+            nombre: opcion.nombre,
+            precioExtra: Number(opcion.precio_adicional),
+            cont: contValue
+        };
 
-    setOpcionSeleccionada(nuevaVariante);
-    calcularPrecio(contValue, [nuevaVariante]);
-};
+        setOpcionSeleccionada(nuevaVariante);
+        calcularPrecio(contValue, [nuevaVariante]);
+    };
 
     const totalExtras = Array.isArray(updateComida?.variantes)
         ? updateComida.variantes.reduce((acc, v) => acc + (v?.precioExtra || 0), 0)
@@ -144,7 +148,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                         {(valueInput.tamanio === 1 && opcionSeleccionada) && (
                             <div className='container-pedidos__guarnicion'>
                                 <div>
-                                    <h6>{opcionSeleccionada.cantidad}x</h6>
+                                    <h6>{opcionSeleccionada.cont}x</h6>
                                     <h6>{opcionSeleccionada.nombre}</h6>
                                 </div>
                                 <h6 className='guarnicion-price'>${opcionSeleccionada.precioExtra}</h6>
@@ -155,7 +159,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                             variante ? (
                                 <div key={index} className='container-pedidos__guarnicion'>
                                     <div>
-                                        <h6>{variante.cantidad}x</h6>
+                                        <h6>{variante.cont}x</h6>
                                         <h6>{variante.nombre}</h6>
                                     </div>
                                     <h6 className='guarnicion-price'>${variante.precioExtra}</h6>

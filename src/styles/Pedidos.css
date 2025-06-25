@@ -145,5 +145,8 @@ cursor: pointer;
     align-items: center;
     gap: 10px;
     width: 100%;
-   
+}
+
+.tamanios p {
+    font-weight: bold;
 }

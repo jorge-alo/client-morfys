@@ -10,6 +10,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
 
     console.log("valor de valueInput.image", valueInput.image);
+    console.log("valor de updateComida en pedidos", updateComida);
     console.log("valor de valueInput", valueInput);
     console.log("ValueInput en Pedidos:", {
         ...valueInput,

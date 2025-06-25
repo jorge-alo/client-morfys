@@ -24,6 +24,7 @@ export const AddData = ({ onSuccess }) => {
         formData.append('description', valueInput.description);
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
+        formData.append('tipoControl', valueInput.tipoControl);
         formData.append('tamanio', valueInput.tamanio);
         formData.append('variantes', JSON.stringify(valueInput.variantes));
         try {
@@ -133,6 +134,11 @@ export const AddData = ({ onSuccess }) => {
                         }}
                     />
                 )}
+                <select name="tipoControl" onChange={handleChange} value={valueInput.tipoControl || ""}>
+                    <option value="">Seleccione tipo de control</option>
+                    <option value="porciones">Porciones individuales</option>
+                    <option value="promo">Promoción/Menu</option>
+                </select>
                 <label>
                     ¿Este producto tiene tamaños?
                     <input

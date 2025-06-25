@@ -30,10 +30,11 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             const totalUnitario = precioBase * cantidadPlatos;
             const totalFinal = totalUnitario + precioExtraTotal;
             setPrice(totalFinal);
+        } else {
+            const totalFinal = cantidadPlatos * precioExtraTotal;
+            setPrice(totalFinal);
         }
-        const totalFinal = cantidadPlatos * precioExtraTotal;
 
-        setPrice(totalFinal);
         console.log("valor de updateComida en pedidos", updateComida);
     };
 

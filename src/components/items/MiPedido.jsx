@@ -58,15 +58,14 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
 
     console.log("valor de subtotal:", subTotal);
 
-    const handleClickDelete = (name) => {
-
-        const newOrder = pedidos.filter(pedido => (pedido.name !== name));
-        setPedidos(newOrder);
-        if (pedidos.length <= 1) {
-            setCheck(false)
-            setCheckMobile(false);
-        }
+   const handleClickDelete = (id) => {
+    const newOrder = pedidos.filter(pedido => pedido.id !== id);
+    setPedidos(newOrder);
+    if (pedidos.length <= 1) {
+        setCheck(false)
+        setCheckMobile(false);
     }
+}
     const estaDentroDelHorario = () => {
         const {
             diaManianaEntrada,
@@ -169,7 +168,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                 ))}
             </div>
             <h4>${pedido.priceTotal}</h4>
-            <span onClick={() => handleClickDelete(pedido.name)} className='eliminar'>❌</span>
+            <span onClick={() => handleClickDelete(pedido.id)} className='eliminar'>❌</span>
         </div>
     );
 

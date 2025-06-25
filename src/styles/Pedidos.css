@@ -137,8 +137,10 @@ cursor: pointer;
     flex-direction: column;
 }
 .opcion-tamanio {
+    margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
+    background-color: red;
 }

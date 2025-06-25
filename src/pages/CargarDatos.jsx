@@ -26,7 +26,7 @@ export const CargarDatos = () => {
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
         formData.append('tipoControl', valueInput.tipoControl);
-        formData.append('tamano', valueInput.tamanio);
+        formData.append('tamanio', valueInput.tamanio);
         formData.append('variantes', JSON.stringify(valueInput.variantes));
         await handleCargarDatos(formData);
         resetForm();

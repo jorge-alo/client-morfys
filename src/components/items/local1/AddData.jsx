@@ -24,7 +24,7 @@ export const AddData = ({ onSuccess }) => {
         formData.append('description', valueInput.description);
         formData.append('price', valueInput.price);
         formData.append('categoria', valueInput.categoria);
-        formData.append('tamano', valueInput.tamanio);
+        formData.append('tamanio', valueInput.tamanio);
         formData.append('variantes', JSON.stringify(valueInput.variantes));
         try {
             await handleUpdate(formData); // handleUpdate ya está en el contexto

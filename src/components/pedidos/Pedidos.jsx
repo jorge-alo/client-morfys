@@ -12,6 +12,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             calcularPrecio(contValue, updateComida?.variantes || []);
         }
     }, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
+
     useEffect(() => {
         setContValue(1);
         setOpcionSeleccionada(null);
@@ -23,6 +24,17 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         ...valueInput,
         variantes: valueInput.variantes
     });
+
+    // ✅ Generador de ID único por combinación de producto + variantes
+    const generarIdPedido = () => {
+        if (valueInput.tamanio === 1 && opcionSeleccionada) {
+            return `${valueInput.name}-${opcionSeleccionada.nombre}`;
+        } else {
+            const variantesSeleccionadas = updateComida?.variantes || [];
+            const variantesNombres = variantesSeleccionadas.map(v => v.nombre).join('-');
+            return `${valueInput.name}-${variantesNombres}`;
+        }
+    };
 
     const calcularPrecio = (cantidadPlatos, variantesSeleccionadas = []) => {
         const precioBase = Number(valueInput.price);
@@ -67,9 +79,12 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     const handleAdd = () => {
         setCheck(true);
 
+        // ✅ Generamos el ID único para este pedido
+        const idPedidoActual = generarIdPedido();
+
         setPedidos((prevPedidos) => {
             const pedidoExistenteIndex = prevPedidos.findIndex(
-                (pedido) => pedido.name === valueInput.name
+                (pedido) => pedido.id === idPedidoActual
             );
 
             const variantesFinal = valueInput.tamanio === 1
@@ -93,6 +108,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                 return [
                     ...prevPedidos,
                     {
+                        id: idPedidoActual, // ✅ Agregamos el ID único al pedido
                         cont: contValue,
                         name: valueInput.name,
                         price: valueInput.price,
@@ -175,7 +191,6 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                 </div>
             </div>
 
-            {/* Si es un producto con tamaños */}
             {valueInput.variantes?.length > 0 && valueInput.tamanio === 1 && (
                 <div className='container-pedidos__eleccion tamanios'>
                     <p>{valueInput?.variantes[0].nombre}</p>
@@ -195,7 +210,6 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                 </div>
             )}
 
-            {/* Si no es un producto con tamaños */}
             {valueInput.variantes?.length > 0 && valueInput.tamanio !== 1 && (
                 <div className='container-pedidos__eleccion unidades'>
                     <p>{valueInput?.variantes[0].nombre}</p>

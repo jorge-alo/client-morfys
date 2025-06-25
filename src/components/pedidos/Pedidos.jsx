@@ -159,7 +159,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                             variante ? (
                                 <div key={index} className='container-pedidos__guarnicion'>
                                     <div>
-                                        <h6>{variante.cont}x</h6>
+                                        <h6>{variante.cantidad}x</h6>
                                         <h6>{variante.nombre}</h6>
                                     </div>
                                     <h6 className='guarnicion-price'>${variante.precioExtra}</h6>

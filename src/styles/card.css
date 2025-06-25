@@ -49,4 +49,9 @@
    display: flex;
    justify-content: center;
    align-items: center;
+   gap: 5px;
+}
+
+.nombreOpciones h4 {
+    font-size: clamp(.8rem, 2.2vw, 1rem);
 }

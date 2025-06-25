@@ -142,7 +142,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                                 <h4>{contValue}x</h4>
                                 <h3>{valueInput.name}</h3>
                             </div>
-                            <p>${(Number(valueInput.price) * contValue)}</p>
+                            <p>${price}</p>
                         </div>
 
                         <h5>{valueInput.description}</h5>

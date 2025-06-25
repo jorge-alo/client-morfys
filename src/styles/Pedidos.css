@@ -135,6 +135,7 @@ cursor: pointer;
 .tamanios {
     display: flex;
     flex-direction: column;
+    background-color: red;
 }
 .opcion-tamanio {
     margin-top: 5px;

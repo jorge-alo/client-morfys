@@ -104,15 +104,6 @@ export const Variantes = ({
         };
 
         setUpdateComida(comidaActualizada);
-
-        const yaExiste = pedidos.some(p => p.name === valueInput.name);
-
-        setPedidos(prev =>
-            yaExiste
-                ? prev.map(p => p.name === valueInput.name ? comidaActualizada : p)
-                : [...prev, comidaActualizada]
-        );
-
         setVariante({ open: false, cantidad: 0 });
     };
 

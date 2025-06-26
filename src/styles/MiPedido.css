@@ -219,7 +219,7 @@ gmpx-place-autocomplete {
   z-index: 10000 !important;
 }
 .mensajedeubicacion {
-    background-color: red;
+    background-color: #2a4;
 }
 .mensajedeubicacion p {
     font-size: clamp(.7rem, 2.2vw, 1rem);

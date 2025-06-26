@@ -110,7 +110,7 @@ export const Variantes = ({
 
     const cantidadSeleccionada = getCantidadTotalGlobal();
     const limiteGlobal = getLimiteGlobal();
-    const limiteCumplido = cantidadSeleccionada === limiteGlobal;
+    const limiteCumplido = tipoControl === 'promo' || cantidadSeleccionada === limiteGlobal;
     console.log("valor de cantidadSeleccionada en variantes", cantidadSeleccionada);
     console.log("valor de limiteGlobal en variantes", limiteGlobal);
     return (

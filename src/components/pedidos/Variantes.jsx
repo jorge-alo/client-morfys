@@ -24,6 +24,7 @@ export const Variantes = ({
     const getLimiteGlobal = () => {
         console.log("valor de cantidad en variedad", variante.cantidad);
         if (tipoControl === 'porciones') return variante.cantidad;
+        if (tipoControl === 'promo') return Infinity; // ✔️ Permitir cantidad ilimitada
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };
 

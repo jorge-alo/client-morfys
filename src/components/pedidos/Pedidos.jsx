@@ -127,7 +127,6 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
     const handleClickSeleccionar = () => {
         const priceValue = Number(valueInput.price);
-        setPrice(priceValue);
         window.history.pushState({ varianteOpen: true }, '');
         setVariante({ open: true, cantidad: contValue });
     };

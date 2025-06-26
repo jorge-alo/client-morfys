@@ -47,25 +47,27 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
     }, []);
     useEffect(() => {
         const subTotal = pedidos.reduce((total, pedido) => {
-            return total + Number(pedido.priceTotal);
+            const precio = Number(pedido.priceTotal);
+            return total + (isNaN(precio) ? 0 : precio);
         }, 0);
         setSubtotalValue(subTotal);
     }, [pedidos])
 
     const subTotal = pedidos.reduce((total, pedido) => {
-        return total + Number(pedido.priceTotal);
+        const precio = Number(pedido.priceTotal);
+        return total + (isNaN(precio) ? 0 : precio);
     }, 0);
 
     console.log("valor de subtotal:", subTotal);
 
-   const handleClickDelete = (id) => {
-    const newOrder = pedidos.filter(pedido => pedido.id !== id);
-    setPedidos(newOrder);
-    if (pedidos.length <= 1) {
-        setCheck(false)
-        setCheckMobile(false);
+    const handleClickDelete = (id) => {
+        const newOrder = pedidos.filter(pedido => pedido.id !== id);
+        setPedidos(newOrder);
+        if (pedidos.length <= 1) {
+            setCheck(false)
+            setCheckMobile(false);
+        }
     }
-}
     const estaDentroDelHorario = () => {
         const {
             diaManianaEntrada,
@@ -110,7 +112,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
             ) {
                 return true; // Si no hay horario configurado, permitir el pedido
             }
-            
+
             const [hInicio, mInicio] = horaInicioStr.split(':').map(Number);
             const [hFin, mFin] = horaFinStr.split(':').map(Number);
 
@@ -151,7 +153,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
         window.history.replaceState({}, '', window.location.pathname);
     }
 
-       const renderPedidoItem = (pedido, index) => (
+    const renderPedidoItem = (pedido, index) => (
         <div key={index} className='data-order'>
             <span>{pedido.cont}x</span>
             <div>

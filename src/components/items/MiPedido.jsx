@@ -274,10 +274,6 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                                 <div style={{ marginTop: '10px' }}>
                                     <label>Dirección:</label>
                                     <PlaceAutocomplete onPlaceSelected={setUbicacion} />
-
-                                    <div style={{ marginTop: '10px' }}>
-                                        <p>Por favor, envíe su ubicación actual desde WhatsApp para una mejor precisión.</p>
-                                    </div>
                                 </div>
                             )}
 

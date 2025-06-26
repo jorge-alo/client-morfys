@@ -77,6 +77,15 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     };
 
     const handleAdd = () => {
+         if (valueInput.tamanio !== 1 && (!updateComida || !updateComida.variantes || updateComida.variantes.length === 0)) {
+        alert("Por favor, seleccioná las variantes antes de agregar al pedido.");
+        return;
+    }
+
+    if (price <= 0) {
+        alert("El precio no puede ser cero.");
+        return;
+    }
         setCheck(true);
 
         // ✅ Generamos el ID único para este pedido

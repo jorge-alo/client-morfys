@@ -271,14 +271,15 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                             </div>
 
                             {formaEntrega === 'envio' && (
+                                <div className='mensajedeubicacion' style={{ marginTop: '10px' }}>
+                                    <p>Por favor, envíe su ubicación actual desde WhatsApp para mayor precisión en la entrega.</p>
+                                </div>
+                            )}
+                            
+                            {formaEntrega === 'envio' && (
                                 <div style={{ marginTop: '10px' }}>
                                     <label>Dirección:</label>
                                     <PlaceAutocomplete onPlaceSelected={setUbicacion} />
-                                </div>
-                            )}
-                             {formaEntrega === 'envio' && (
-                                <div className='mensajedeubicacion' style={{ marginTop: '10px' }}>
-                                     <p>Por favor, envíe su ubicación actual desde WhatsApp para mayor precisión en la entrega.</p>
                                 </div>
                             )}
 

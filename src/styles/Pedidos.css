@@ -156,4 +156,7 @@ cursor: pointer;
     max-width: 300px;
     max-height: 50px;
 }
+.datosenimagen {
+    font-size: .7rem;
+}
 }

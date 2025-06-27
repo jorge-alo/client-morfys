@@ -158,7 +158,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                 <div className='container-pedidos__description'>
                     <div>
                         <div>
-                            <div>
+                            <div className='datosenimagen'>
                               {valueInput.price == 0 ? "" : <h4>{contValue}x</h4>}  
                                 <h3>{valueInput.name}</h3>
                             </div>

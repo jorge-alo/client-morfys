@@ -110,18 +110,18 @@ export const AddData = ({ onSuccess }) => {
                     value={customCategory ? "" : valueInput.categoria}
                 >
                     <option value="">Seleccione una categoria</option>
-                    <option value="empandas">Empandas</option>
-                    <option value="pizzas">Pizzas</option>
-                    <option value="sandguches">Sandguches</option>
-                    <option value="hamburguesas">Hamburguesas</option>
-                    <option value="choripanes">Choripanes</option>
-                    <option value="bebidas">Bebidas</option>
-                    <option value="menu">Menu</option>
-                    <option value="promociones">Promociones</option>
-                    <option value="promocion especial">Promocion especial</option>
-                    <option value="menu del dia">Menu del dia</option>
-                    <option value="guarnicion">Guarnicion</option>
-                    <option value="custom">✏️ Escribir nueva categoría</option>
+                    <option value="Empanadas">Empandas</option>
+                    <option value="Pizzas">Pizzas</option>
+                    <option value="Sandguches">Sandguches</option>
+                    <option value="Hamburguesas">Hamburguesas</option>
+                    <option value="Choripanes">Choripanes</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Menu">Menu</option>
+                    <option value="Promociones">Promociones</option>
+                    <option value="Promocion especial">Promocion especial</option>
+                    <option value="Menu del dia">Menu del dia</option>
+                    <option value="Guarnicion">Guarnicion</option>
+                    <option value="Custom">✏️ Escribir nueva categoría</option>
                 </select>
                 {customCategory && (
                     <input

@@ -227,7 +227,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             </div>
 
             <button className='buton-agregar-pedido' onClick={handleAdd}>
-                <span>{contValue}</span> Agregar a mi pedido <span>${price}</span>
+                <span>{contValue}</span> Agregar a mi pedido {price == 0 ? "" : <span>${price}</span>} 
             </button>
         </div>
     );

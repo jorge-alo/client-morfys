@@ -77,7 +77,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     };
 
     const handleAdd = () => {
-         
+
         setCheck(true);
 
         // ✅ Generamos el ID único para este pedido
@@ -159,10 +159,10 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                     <div>
                         <div>
                             <div className='datosenimagen'>
-                              {valueInput.price == 0 ? "" : <h4>{contValue}x</h4>}  
+                                {valueInput.price == 0 ? "" : <h4>{contValue}x</h4>}
                                 <h3>{valueInput.name}</h3>
                             </div>
-                            {price == 0 ? "" : ( valueInput.tamanio ? <p>${price}</p> : (valueInput.price == 0 ? "" : <p>${valueInput.price}</p>) )}                           
+                            {price == 0 ? "" : (valueInput.tamanio ? <p>${price}</p> : (valueInput.price == 0 ? "" : <p>${valueInput.price}</p>))}
                         </div>
 
                         <h5>{valueInput.description}</h5>
@@ -217,17 +217,21 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                 </div>
             )}
 
-            <div className='container-pedidos__eleccion unidades'>
-                <p>Unidades</p>
-                <div className='agregar'>
-                    <span onClick={handleRestar} className='simbolo-cant'>-</span>
-                    <span>{contValue}</span>
-                    <span onClick={handleSumar} className='simbolo-cant'>+</span>
-                </div>
-            </div>
+            {
+                valueInput.tipoControl == "promo" || "" ? "" 
+                : (<div className='container-pedidos__eleccion unidades'>
+                    <p>Unidades</p>
+                    <div className='agregar'>
+                        <span onClick={handleRestar} className='simbolo-cant'>-</span>
+                        <span>{contValue}</span>
+                        <span onClick={handleSumar} className='simbolo-cant'>+</span>
+                    </div>
+                </div>)
+            }
+
 
             <button className='buton-agregar-pedido' onClick={handleAdd}>
-                <span>{contValue}</span> Agregar a mi pedido {price == 0 ? <span>0</span>  : <span>${price}</span>} 
+                <span>{contValue}</span> Agregar a mi pedido {price == 0 ? <span>0</span> : <span>${price}</span>}
             </button>
         </div>
     );

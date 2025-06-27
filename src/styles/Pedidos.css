@@ -156,6 +156,10 @@ cursor: pointer;
     max-width: 300px;
     max-height: 50px;
 }
+.container-pedidos__img h3 {
+    font-size: .7rem;
+    margin: 5px;
+}
 .datosenimagen {
     font-size: .7rem;
 }

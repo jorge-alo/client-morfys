@@ -273,6 +273,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                             {formaEntrega === 'envio' && (
                                 <div className='mensajedeubicacion' style={{ marginTop: '10px' }}>
                                     <p>Por favor, envíe su ubicación actual desde WhatsApp para mayor precisión en la entrega.</p>
+                                    <p>*Precio de envio no incluido en el total*</p>
                                 </div>
                             )}
                             

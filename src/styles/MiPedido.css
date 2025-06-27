@@ -225,6 +225,10 @@ gmpx-place-autocomplete {
     font-size: clamp(.7rem, 2.2vw, 1rem);
     color: #fff;
 }
+.precioenvio {
+    background-color: #238945;
+    border-radius: 4px;
+}
 @media (max-width: 550px) {
     .carrito {
         display: none;

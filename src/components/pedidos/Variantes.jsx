@@ -14,6 +14,7 @@ export const Variantes = ({
     const [cantidades, setCantidades] = useState({});
     console.log("valor de comidas en variantes", comidas);
     console.log("valor de variante en variantes", variante);
+    console.log("valor de valueInput en variantes", valueInput);
     const comidaActual = comidas.find(comida => comida.name === valueInput.name);
     const variantes = comidaActual?.variantes || [];
     const tipoControl = comidaActual?.tipo_control || 'promo';

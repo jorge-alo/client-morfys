@@ -226,8 +226,10 @@ gmpx-place-autocomplete {
     color: #fff;
 }
 .precioenvio {
-    background-color: #238945;
+    background-color: #237935;
+    border: 1px solid #fff;
     border-radius: 4px;
+    text-align: center;
 }
 @media (max-width: 550px) {
     .carrito {

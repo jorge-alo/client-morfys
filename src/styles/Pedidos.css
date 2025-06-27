@@ -154,6 +154,6 @@ cursor: pointer;
 @media (max-width: 550px) {
 .container-pedidos__img img {
     max-width: 300px;
-    max-height: 70px;
+    max-height: 50px;
 }
 }

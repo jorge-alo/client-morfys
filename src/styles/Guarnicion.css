@@ -74,6 +74,9 @@
     .container-guarnicion__items {
     height: 20%;
 }
+.container-guarnicion__items h4{
+display: none;
+}
 .eligeTuGuarnicion {
     margin-bottom: 5px;
 }

@@ -222,7 +222,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                     valueInput.tipoControl === undefined ||
                     valueInput.tipoControl === null ||
                     valueInput.tipoControl === "promos"
-                ) || valueInput.tamanio !== 0 ? (
+                ) && valueInput.tamanio !== 0 ? (
                     <div className='container-pedidos__eleccion unidades'>
                         <p>Unidades</p>
                         <div className='agregar'>

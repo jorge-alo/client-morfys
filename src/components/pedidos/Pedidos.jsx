@@ -97,7 +97,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                     index === pedidoExistenteIndex
                         ? {
                             ...pedido,
-                            cont: contValue,
+                            cont: updateComida?.cont || contValue,
                             price: valueInput.price,
                             priceTotal: price,
                             category: valueInput.categoria,
@@ -110,7 +110,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                     ...prevPedidos,
                     {
                         id: idPedidoActual, // ✅ Agregamos el ID único al pedido
-                        cont: contValue,
+                        cont: updateComida?.cont || contValue,
                         name: valueInput.name,
                         price: valueInput.price,
                         priceTotal: price,

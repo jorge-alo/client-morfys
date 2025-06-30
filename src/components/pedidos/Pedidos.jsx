@@ -218,13 +218,8 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             )}
 
             {
-                (
-                    valueInput.tipoControl === undefined ||
-                    valueInput.tipoControl === null ||
-                    valueInput.tipoControl === "promos"
-                ) && valueInput.tamanio == 0 && valueInput.variantes.length > 0 
-                ? valueInput.variantes[0].limite == null 
-                ? (
+                valueInput.controlunidad ? "" 
+                :
                         <div className='container-pedidos__eleccion unidades'>
                             <p>Unidades</p>
                             <div className='agregar'>
@@ -232,18 +227,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                                 <span>{contValue}</span>
                                 <span onClick={handleSumar} className='simbolo-cant'>+</span>
                             </div>
-                        </div>
-                    )  : null
-                    : (
-                        <div className='container-pedidos__eleccion unidades'>
-                            <p>Unidades</p>
-                            <div className='agregar'>
-                                <span onClick={handleRestar} className='simbolo-cant'>-</span>
-                                <span>{contValue}</span>
-                                <span onClick={handleSumar} className='simbolo-cant'>+</span>
-                            </div>
-                        </div>
-                    )
+                        </div>                    
             }
 
 

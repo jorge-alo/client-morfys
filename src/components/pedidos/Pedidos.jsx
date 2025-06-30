@@ -6,12 +6,12 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
     useEffect(() => {
-        if (valueInput.tamanio === 1 && opcionSeleccionada) {
-            calcularPrecio(contValue, [opcionSeleccionada]);
-        } else {
-            calcularPrecio(contValue, updateComida?.variantes || []);
-        }
-    }, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
+    if (valueInput.tamanio === 1 && opcionSeleccionada) {
+        calcularPrecio(contValue, [opcionSeleccionada]);
+    } else {
+        calcularPrecio(updateComida?.cont || contValue, updateComida?.variantes || []);
+    }
+}, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
 
    useEffect(() => {
     setContValue(1);

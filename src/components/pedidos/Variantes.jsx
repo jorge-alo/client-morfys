@@ -102,7 +102,8 @@ export const Variantes = ({
 
         const comidaActualizada = {
             ...valueInput,
-            variantes: variantesSeleccionadas
+            variantes: variantesSeleccionadas,
+            cont: variante.cantidad // 🔥 Guardás la cantidad que el usuario eligió
         };
 
         setUpdateComida(comidaActualizada);

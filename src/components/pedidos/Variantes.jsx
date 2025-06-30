@@ -27,7 +27,7 @@ export const Variantes = ({
         console.log("valor de cantidad en variedad", variante.cantidad);
         if (tipoControl === 'porciones') return variante.cantidad;
         if (tipoControl === 'promo') return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);  // ✔️ Permitir cantidad ilimitada
-        return Infinity;
+        return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };
 
     const handleClickVolver = () => {

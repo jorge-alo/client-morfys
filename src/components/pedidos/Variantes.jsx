@@ -24,12 +24,19 @@ export const Variantes = ({
     const getCantidadTotalGlobal = () =>
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);
 
-    const getLimiteGlobal = () => {
-        console.log("valor de cantidad en variedad", variante.cantidad);
-        if (tipoControl === 'porciones') return variante.cantidad;
-        if (tipoControl === 'promo') return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);  // 
+  const getLimiteGlobal = () => {
+    console.log("valor de cantidad en variedad", variante.cantidad);
+
+    if (tipoControl === 'porciones') return variante.cantidad;
+
+    if (tipoControl === 'promo') {
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
-    };
+    }
+
+    // 💥 Si no hay límites definidos, que sea infinito
+    const sumaLimites = variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
+    return sumaLimites === 0 ? Infinity : sumaLimites;
+};
 
     const handleClickVolver = () => {
         setVariante({ open: false, cantidad: 0 });
@@ -115,7 +122,7 @@ export const Variantes = ({
 
     const cantidadSeleccionada = getCantidadTotalGlobal();
     const limiteGlobal = getLimiteGlobal();
-    const limiteCumplido = tipoControl === 'promo' || cantidadSeleccionada === limiteGlobal;
+    const limiteCumplido = tipoControl === 'promo' || cantidadSeleccionada === limiteGlobal || limiteGlobal === Infinity;
     console.log("valor de cantidadSeleccionada en variantes", cantidadSeleccionada);
     console.log("valor de limiteGlobal en variantes", limiteGlobal);
     return (

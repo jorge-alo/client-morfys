@@ -13,10 +13,10 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         }
     }, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
 
-    useEffect(() => {
-        setContValue(1);
-        setOpcionSeleccionada(null);
-    }, [valueInput]);
+   useEffect(() => {
+    setContValue(1);
+    setOpcionSeleccionada(null);
+}, [valueInput.name]);
 
     console.log("valor de valueInput.image", valueInput.image);
     console.log("valor de valueInput", valueInput);

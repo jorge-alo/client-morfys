@@ -136,7 +136,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         const nuevaVariante = {
             nombre: opcion.nombre,
             precioExtra: Number(opcion.precio_adicional),
-            cont: contValue
+            cantidad: contValue
         };
 
         setOpcionSeleccionada(nuevaVariante);

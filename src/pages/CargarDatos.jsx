@@ -27,6 +27,7 @@ export const CargarDatos = () => {
         formData.append('categoria', valueInput.categoria);
         formData.append('tipoControl', valueInput.tipoControl);
         formData.append('tamanio', valueInput.tamanio);
+        formData.append('controlunidad', valueInput.controlunidad);
         formData.append('variantes', JSON.stringify(valueInput.variantes));
         await handleCargarDatos(formData);
         resetForm();
@@ -116,6 +117,14 @@ export const CargarDatos = () => {
                     <option value="porciones">Porciones individuales</option>
                     <option value="promo">Promoción/Menu</option>
                 </select>
+                <label>
+                    ¿Este producto tiene control de unidad?
+                    <input
+                        type="checkbox"
+                        checked={valueInput.controlunidad || false}
+                        onChange={(e) => setValueInput({ ...valueInput, controlunidad: e.target.checked })}
+                    />
+                </label>
                 <label>
                     ¿Este producto tiene tamaños?
                     <input

@@ -155,11 +155,19 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
 
     const renderPedidoItem = (pedido, index) => (
         <div key={index} className='data-order'>
-            <span>{pedido.cont}x</span>
+            {
+                pedido.price == 0 ? ""
+                    : <span>{pedido.cont}x</span>
+            }
+
             <div>
                 <div>
                     <h4>{pedido.name}</h4>
-                    <h6>(${pedido.price})</h6>
+                    {
+                        pedido.price == 0 ? ""
+                        : <h6>(${pedido.price})</h6>
+                    }
+                    
                 </div>
                 {pedido.variantes?.map((variante, idx) => (
                     <div key={`${index}-${idx}`} className='data-order__guarnicion'>
@@ -276,7 +284,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                                     <p className='precioenvio'>*Precio de envio no incluido en el total*</p>
                                 </div>
                             )}
-                            
+
                             {formaEntrega === 'envio' && (
                                 <div style={{ marginTop: '10px' }}>
                                     <label>Dirección:</label>

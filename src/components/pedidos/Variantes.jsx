@@ -31,11 +31,14 @@ export const Variantes = ({
 
     if (tipoControl === 'promo') {
         const sumaLimites = variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
-        return sumaLimites === 0 ? Infinity : sumaLimites; // ✅ En promo, si no hay límites, que sea infinito
+
+        // 💥 Acá multiplicamos el límite por la cantidad de unidades elegidas
+        if (sumaLimites === 0) return Infinity;
+
+        return sumaLimites * variante.cantidad; // 👈 Esto hace que el límite escale con la cantidad de promos
     }
 
-    // ✅ Para cualquier otro caso (por ejemplo, tipoControl vacío) no debe haber límite
-    return Infinity;
+    return Infinity; // 💥 Para las empanadas individuales o sin tipoControl, que sea sin límite
 };
 
     const handleClickVolver = () => {

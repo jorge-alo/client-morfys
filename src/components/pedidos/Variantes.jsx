@@ -3,6 +3,7 @@ import '../../styles/Guarnicion.css';
 
 export const Variantes = ({
     comidas,
+    setContValue,
     pedidos,
     setPedidos,
     variante,
@@ -107,6 +108,7 @@ export const Variantes = ({
         };
 
         setUpdateComida(comidaActualizada);
+        setContValue(variante.cantidad); // 👉 Esto sincroniza el valor
         setVariante({ open: false, cantidad: 0 });
     };
 

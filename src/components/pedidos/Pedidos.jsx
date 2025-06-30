@@ -159,7 +159,7 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                     <div>
                         <div>
                             <div className='datosenimagen'>
-                                {valueInput.price == 0 ? "" : <h4>{contValue}x</h4>}
+                                {valueInput.price == 0 ? "" : <h4>{updateComida?.cont || contValue}x</h4>}
                                 <h3>{valueInput.name}</h3>
                             </div>
                             {price == 0 ? "" : (valueInput.tamanio ? <p>${price}</p> : (valueInput.price == 0 ? "" : <p>${valueInput.price}</p>))}

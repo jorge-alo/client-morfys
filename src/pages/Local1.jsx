@@ -54,8 +54,8 @@ export const Local1 = () => {
     forGetPage();
   }, [name])
 
-  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes, tipoControl, tamanio, controlunidad }) => {
-    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, tipoControl, controlunidad, tamanio, image, variantes: variantes || [] }
+  const handleClickCard = ({ id, user_id, name, description, price, categoria, image, variantes, tipoControl, tamanio, controlUnidad }) => {
+    const newValueInput = { ...valueInput, comida_id: id, user_id, name, description, price, categoria, tipoControl, controlunidad: controlUnidad, tamanio, image, variantes: variantes || [] }
     console.log("valor de contrlunidad en local1", controlunidad);
     setValueInput(newValueInput);
     setModal(true);

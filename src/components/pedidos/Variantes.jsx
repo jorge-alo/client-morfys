@@ -19,6 +19,7 @@ export const Variantes = ({
     const comidaActual = comidas.find(comida => comida.name === valueInput.name);
     const variantes = comidaActual?.variantes || [];
     const tipoControl = comidaActual?.tipo_control || 'promo';
+    console.log("valor de tipo control en variantes", tipoControl);
 
     const getCantidadTotalGlobal = () =>
         Object.values(cantidades).reduce((acc, cant) => acc + cant, 0);
@@ -26,7 +27,7 @@ export const Variantes = ({
     const getLimiteGlobal = () => {
         console.log("valor de cantidad en variedad", variante.cantidad);
         if (tipoControl === 'porciones') return variante.cantidad;
-        if (tipoControl === 'promo') return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);  // ✔️ Permitir cantidad ilimitada
+        if (tipoControl === 'promo') return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);  // 
         return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
     };
 

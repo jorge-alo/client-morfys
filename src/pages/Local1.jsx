@@ -70,7 +70,7 @@ export const Local1 = () => {
   }
 
   const closeModal = () => {
-    const newValueInput = { ...valueInput, comida_id: "", user_id: "", name: "", description: "", price: "", categoria: "", image: "", variantes: [], tamanio: "", controlunidad: "" }
+    const newValueInput = { ...valueInput, comida_id: "", user_id: "", name: "", description: "", price: "", categoria: "", image: "", variantes: [], tamanio: "", controlunidad: "", tipoControl: "" }
     setValueInput(newValueInput);
     setUpdateComida("");
     setModal(false);

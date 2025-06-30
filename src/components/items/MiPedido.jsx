@@ -171,7 +171,7 @@ export const MiPedido = ({ idVaner, price, check, pedidos, setPedidos, setCheck,
                 </div>
                 {pedido.variantes?.map((variante, idx) => (
                     <div key={`${index}-${idx}`} className='data-order__guarnicion'>
-                        <h6>{variante.cantidad}</h6>
+                        <h6>{variante.cantidad}x</h6>
                         <h6>{variante.nombre}</h6>
                         <h6>(${variante.precioExtra || 0})</h6>
                     </div>

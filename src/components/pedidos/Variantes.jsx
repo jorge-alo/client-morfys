@@ -18,7 +18,7 @@ export const Variantes = ({
     console.log("valor de valueInput en variantes", valueInput);
     const comidaActual = comidas.find(comida => comida.name === valueInput.name);
     const variantes = comidaActual?.variantes || [];
-    const tipoControl = comidaActual?.tipo_control || 'promo';
+    const tipoControl = comidaActual?.tipo_control ?? '';
     console.log("valor de tipo control en variantes", tipoControl);
 
     const getCantidadTotalGlobal = () =>
@@ -30,12 +30,12 @@ export const Variantes = ({
     if (tipoControl === 'porciones') return variante.cantidad;
 
     if (tipoControl === 'promo') {
-        return variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
+        const sumaLimites = variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
+        return sumaLimites === 0 ? Infinity : sumaLimites; // ✅ En promo, si no hay límites, que sea infinito
     }
 
-    // 💥 Si no hay límites definidos, que sea infinito
-    const sumaLimites = variantes.reduce((acc, v) => acc + (v.limite ?? 0), 0);
-    return sumaLimites === 0 ? Infinity : sumaLimites;
+    // ✅ Para cualquier otro caso (por ejemplo, tipoControl vacío) no debe haber límite
+    return Infinity;
 };
 
     const handleClickVolver = () => {

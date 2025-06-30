@@ -6,17 +6,17 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
     useEffect(() => {
-    if (valueInput.tamanio === 1 && opcionSeleccionada) {
-        calcularPrecio(contValue, [opcionSeleccionada]);
-    } else {
-        calcularPrecio(updateComida?.cont || contValue, updateComida?.variantes || []);
-    }
-}, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
+        if (valueInput.tamanio === 1 && opcionSeleccionada) {
+            calcularPrecio(contValue, [opcionSeleccionada]);
+        } else {
+            calcularPrecio(updateComida?.cont || contValue, updateComida?.variantes || []);
+        }
+    }, [contValue, updateComida, opcionSeleccionada, valueInput.tamanio]);
 
-   useEffect(() => {
-    setContValue(1);
-    setOpcionSeleccionada(null);
-}, [valueInput.name]);
+    useEffect(() => {
+        setContValue(1);
+        setOpcionSeleccionada(null);
+    }, [valueInput.name]);
 
     console.log("valor de valueInput.image", valueInput.image);
     console.log("valor de valueInput", valueInput);
@@ -218,14 +218,20 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             )}
 
             {
-                <div className='container-pedidos__eleccion unidades'>
-                    <p>Unidades</p>
-                    <div className='agregar'>
-                        <span onClick={handleRestar} className='simbolo-cant'>-</span>
-                        <span>{contValue}</span>
-                        <span onClick={handleSumar} className='simbolo-cant'>+</span>
+                !(
+                    valueInput.tipoControl === undefined ||
+                    valueInput.tipoControl === null ||
+                    valueInput.tipoControl === "promos"
+                ) || valueInput.tamanio !== 0 ? (
+                    <div className='container-pedidos__eleccion unidades'>
+                        <p>Unidades</p>
+                        <div className='agregar'>
+                            <span onClick={handleRestar} className='simbolo-cant'>-</span>
+                            <span>{contValue}</span>
+                            <span onClick={handleSumar} className='simbolo-cant'>+</span>
+                        </div>
                     </div>
-                </div>
+                ) : null
             }
 
 

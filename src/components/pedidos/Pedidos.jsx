@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, contValue, setCheck, setPedidos, updateComida, setVariante }) => {
 
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
-    const [opcionesSeleccionadas, setOpcionesSeleccionadas] = useState([]);
     const [cantidades, setCantidades] = useState({});
     useEffect(() => {
         setContValue(1);
@@ -90,98 +89,71 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         }
     };
 
-    const recalcularPrecio = (opciones) => {
-        const total = opciones.reduce((acc, opcion) => acc + (opcion.precioExtra * opcion.cantidad), 0);
-        setPrice(total);
-    };
+    const handleSumarCantidad = (opcion) => {
+    setCantidades(prev => {
+        const nuevasCantidades = { ...prev, [opcion.id]: prev[opcion.id] + 1 };
 
-    const handleToggleSeleccion = (opcion) => {
-        const existe = opcionesSeleccionadas.some(op => op.id === opcion.id);
+        // Siempre seleccionar la opción cuando se suma
+        const nuevaVariante = {
+            id: opcion.id,
+            nombre: opcion.nombre,
+            precioExtra: Number(opcion.precio_adicional),
+            cantidad: nuevasCantidades[opcion.id],
+            nombreGrupo: opcion.nombre
+        };
 
-        if (existe) {
-            const nuevasOpciones = opcionesSeleccionadas.filter(op => op.id !== opcion.id);
-            setOpcionesSeleccionadas(nuevasOpciones);
-            recalcularPrecio(nuevasOpciones);
-        } else {
-            const nuevaOpcion = {
+        setOpcionSeleccionada(nuevaVariante);
+        setContValue(nuevasCantidades[opcion.id]);
+        calcularPrecio(nuevasCantidades[opcion.id], [nuevaVariante]);
+
+        return nuevasCantidades;
+    });
+};
+
+const handleRestarCantidad = (opcion) => {
+    setCantidades(prev => {
+        if (prev[opcion.id] > 1) {
+            const nuevasCantidades = { ...prev, [opcion.id]: prev[opcion.id] - 1 };
+
+            const nuevaVariante = {
                 id: opcion.id,
                 nombre: opcion.nombre,
                 precioExtra: Number(opcion.precio_adicional),
-                cantidad: cantidades[opcion.id],
+                cantidad: nuevasCantidades[opcion.id],
                 nombreGrupo: opcion.nombre
             };
-            const nuevasOpciones = [...opcionesSeleccionadas, nuevaOpcion];
-            setOpcionesSeleccionadas(nuevasOpciones);
-            recalcularPrecio(nuevasOpciones);
-        }
-    };
 
-    const handleSumarCantidad = (opcion) => {
-        setCantidades(prev => {
-            const nuevasCantidades = { ...prev, [opcion.id]: prev[opcion.id] + 1 };
-
-            if (opcionesSeleccionadas.some(op => op.id === opcion.id)) {
-                const nuevasOpciones = opcionesSeleccionadas.map(op =>
-                    op.id === opcion.id ? { ...op, cantidad: nuevasCantidades[opcion.id] } : op
-                );
-                setOpcionesSeleccionadas(nuevasOpciones);
-                recalcularPrecio(nuevasOpciones);
-            }
+            setOpcionSeleccionada(nuevaVariante);
+            setContValue(nuevasCantidades[opcion.id]);
+            calcularPrecio(nuevasCantidades[opcion.id], [nuevaVariante]);
 
             return nuevasCantidades;
-        });
-    };
-
-    const handleRestarCantidad = (opcion) => {
-        setCantidades(prev => {
-            if (prev[opcion.id] > 1) {
-                const nuevasCantidades = { ...prev, [opcion.id]: prev[opcion.id] - 1 };
-
-                if (opcionesSeleccionadas.some(op => op.id === opcion.id)) {
-                    const nuevasOpciones = opcionesSeleccionadas.map(op =>
-                        op.id === opcion.id ? { ...op, cantidad: nuevasCantidades[opcion.id] } : op
-                    );
-                    setOpcionesSeleccionadas(nuevasOpciones);
-                    recalcularPrecio(nuevasOpciones);
-                }
-
-                return nuevasCantidades;
-            }
-            return prev;
-        });
-    };
+        }
+        return prev;
+    });
+};
     const handleAdd = () => {
+
         setCheck(true);
 
-        let variantesFinal = [];
-        let cantidadFinal = 1; // Por defecto
-
-        if (valueInput.tamanio === 1 && opcionesSeleccionadas.length > 0) {
-            variantesFinal = opcionesSeleccionadas;
-            cantidadFinal = opcionesSeleccionadas.reduce((acc, opcion) => acc + opcion.cantidad, 0);
-        } else if (valueInput.tamanio === 1 && opcionSeleccionada) {
-            variantesFinal = [opcionSeleccionada];
-            cantidadFinal = contValue;
-        } else {
-            variantesFinal = updateComida?.variantes || [];
-            cantidadFinal = updateComida?.cont || contValue;
-        }
-
         // ✅ Generamos el ID único para este pedido
-        const idPedidoActual = `${valueInput.name}-${variantesFinal.map(op => `${op.nombre}-${op.cantidad}`).join('-')}`;
+        const idPedidoActual = generarIdPedido();
 
         setPedidos((prevPedidos) => {
             const pedidoExistenteIndex = prevPedidos.findIndex(
                 (pedido) => pedido.id === idPedidoActual
             );
 
+            const variantesFinal = valueInput.tamanio === 1
+                ? (opcionSeleccionada ? [opcionSeleccionada] : [])
+                : updateComida?.variantes || [];
+
             if (pedidoExistenteIndex >= 0) {
-                // Si ya existe, actualizo la cantidad y el precio total
                 return prevPedidos.map((pedido, index) =>
                     index === pedidoExistenteIndex
                         ? {
                             ...pedido,
-                            cont: cantidadFinal,
+                            cont: updateComida?.cont || contValue,
                             price: valueInput.price,
                             priceTotal: price,
                             category: valueInput.categoria,
@@ -190,12 +162,11 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                         : pedido
                 );
             } else {
-                // Si no existe, lo agrego como nuevo
                 return [
                     ...prevPedidos,
                     {
-                        id: idPedidoActual,
-                        cont: cantidadFinal,
+                        id: idPedidoActual, // ✅ Agregamos el ID único al pedido
+                        cont: updateComida?.cont || contValue,
                         name: valueInput.name,
                         price: valueInput.price,
                         priceTotal: price,
@@ -285,12 +256,12 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                     {valueInput.variantes[0].opciones?.map(opcion => (
                         <div key={opcion.id} className='opcion-tamanio'>
                             <input
-                                type="checkbox"
+                                type="radio"
                                 name="tamanio"
                                 value={opcion.nombre}
                                 id={`opcion-${opcion.id}`}
-                                checked={opcionesSeleccionadas.some(op => op.id === opcion.id)}
-                                onChange={() => handleToggleSeleccion(opcion)}
+                                checked={opcionSeleccionada?.nombre === opcion.nombre}
+                                onChange={() => handleSeleccionarTamanio(opcion)}
                             />
                             <label htmlFor={`opcion-${opcion.id}`}>{opcion.nombre} - ${opcion.precio_adicional}</label>
 

@@ -4,7 +4,20 @@ import { useEffect, useState } from 'react';
 export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, contValue, setCheck, setPedidos, updateComida, setVariante }) => {
 
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
+    const [cantidades, setCantidades] = useState({});
+    useEffect(() => {
+        setContValue(1);
+        setOpcionSeleccionada(null);
 
+        // Inicializar cantidades de cada opción en 1
+        if (valueInput.variantes?.[0]?.opciones) {
+            const nuevasCantidades = {};
+            valueInput.variantes[0].opciones.forEach(opcion => {
+                nuevasCantidades[opcion.id] = 1;
+            });
+            setCantidades(nuevasCantidades);
+        }
+    }, [valueInput.name]);
     useEffect(() => {
         if (valueInput.tamanio === 1 && opcionSeleccionada) {
             calcularPrecio(contValue, [opcionSeleccionada]);
@@ -76,6 +89,34 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         }
     };
 
+    const handleSumarCantidad = (opcionId) => {
+        setCantidades(prev => {
+            const nuevasCantidades = { ...prev, [opcionId]: prev[opcionId] + 1 };
+
+            // Si esta opción está seleccionada, actualizar el precio
+            if (opcionSeleccionada?.id === opcionId) {
+                setContValue(nuevasCantidades[opcionId]);
+                calcularPrecio(nuevasCantidades[opcionId], [opcionSeleccionada]);
+            }
+            return nuevasCantidades;
+        });
+    };
+
+    const handleRestarCantidad = (opcionId) => {
+        setCantidades(prev => {
+            if (prev[opcionId] > 1) {
+                const nuevasCantidades = { ...prev, [opcionId]: prev[opcionId] - 1 };
+
+                if (opcionSeleccionada?.id === opcionId) {
+                    setContValue(nuevasCantidades[opcionId]);
+                    calcularPrecio(nuevasCantidades[opcionId], [opcionSeleccionada]);
+                }
+                return nuevasCantidades;
+            }
+            return prev;
+        });
+    };
+
     const handleAdd = () => {
 
         setCheck(true);
@@ -134,14 +175,16 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
 
     const handleSeleccionarTamanio = (opcion) => {
         const nuevaVariante = {
+            id: opcion.id, // Agregamos el id
             nombre: opcion.nombre,
             precioExtra: Number(opcion.precio_adicional),
-            cantidad: contValue,
+            cantidad: cantidades[opcion.id],
             nombreGrupo: opcion.nombre
         };
 
         setOpcionSeleccionada(nuevaVariante);
-        calcularPrecio(contValue, [nuevaVariante]);
+        setContValue(cantidades[opcion.id]);
+        calcularPrecio(cantidades[opcion.id], [nuevaVariante]);
     };
 
     const totalExtras = Array.isArray(updateComida?.variantes)
@@ -206,6 +249,12 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                                 onChange={() => handleSeleccionarTamanio(opcion)}
                             />
                             <label htmlFor={`opcion-${opcion.id}`}>{opcion.nombre} - ${opcion.precio_adicional}</label>
+
+                            <div className='agregar'>
+                                <span onClick={() => handleRestarCantidad(opcion.id)} className='simbolo-cant'>-</span>
+                                <span>{cantidades[opcion.id] || 1}</span>
+                                <span onClick={() => handleSumarCantidad(opcion.id)} className='simbolo-cant'>+</span>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -219,16 +268,16 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
             )}
 
             {
-                valueInput.controlunidad ? "" 
-                :
-                        <div className='container-pedidos__eleccion unidades'>
-                            <p>Unidades</p>
-                            <div className='agregar'>
-                                <span onClick={handleRestar} className='simbolo-cant'>-</span>
-                                <span>{contValue}</span>
-                                <span onClick={handleSumar} className='simbolo-cant'>+</span>
-                            </div>
-                        </div>                    
+                valueInput.controlunidad ? ""
+                    :
+                    <div className='container-pedidos__eleccion unidades'>
+                        <p>Unidades</p>
+                        <div className='agregar'>
+                            <span onClick={handleRestar} className='simbolo-cant'>-</span>
+                            <span>{contValue}</span>
+                            <span onClick={handleSumar} className='simbolo-cant'>+</span>
+                        </div>
+                    </div>
             }
 
 

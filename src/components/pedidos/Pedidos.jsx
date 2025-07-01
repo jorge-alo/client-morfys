@@ -89,34 +89,49 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
         }
     };
 
-    const handleSumarCantidad = (opcionId) => {
-        setCantidades(prev => {
-            const nuevasCantidades = { ...prev, [opcionId]: prev[opcionId] + 1 };
+    const handleSumarCantidad = (opcion) => {
+    setCantidades(prev => {
+        const nuevasCantidades = { ...prev, [opcion.id]: prev[opcion.id] + 1 };
 
-            // Si esta opción está seleccionada, actualizar el precio
-            if (opcionSeleccionada?.id === opcionId) {
-                setContValue(nuevasCantidades[opcionId]);
-                calcularPrecio(nuevasCantidades[opcionId], [opcionSeleccionada]);
-            }
+        // Siempre seleccionar la opción cuando se suma
+        const nuevaVariante = {
+            id: opcion.id,
+            nombre: opcion.nombre,
+            precioExtra: Number(opcion.precio_adicional),
+            cantidad: nuevasCantidades[opcion.id],
+            nombreGrupo: opcion.nombre
+        };
+
+        setOpcionSeleccionada(nuevaVariante);
+        setContValue(nuevasCantidades[opcion.id]);
+        calcularPrecio(nuevasCantidades[opcion.id], [nuevaVariante]);
+
+        return nuevasCantidades;
+    });
+};
+
+const handleRestarCantidad = (opcion) => {
+    setCantidades(prev => {
+        if (prev[opcion.id] > 1) {
+            const nuevasCantidades = { ...prev, [opcion.id]: prev[opcion.id] - 1 };
+
+            const nuevaVariante = {
+                id: opcion.id,
+                nombre: opcion.nombre,
+                precioExtra: Number(opcion.precio_adicional),
+                cantidad: nuevasCantidades[opcion.id],
+                nombreGrupo: opcion.nombre
+            };
+
+            setOpcionSeleccionada(nuevaVariante);
+            setContValue(nuevasCantidades[opcion.id]);
+            calcularPrecio(nuevasCantidades[opcion.id], [nuevaVariante]);
+
             return nuevasCantidades;
-        });
-    };
-
-    const handleRestarCantidad = (opcionId) => {
-        setCantidades(prev => {
-            if (prev[opcionId] > 1) {
-                const nuevasCantidades = { ...prev, [opcionId]: prev[opcionId] - 1 };
-
-                if (opcionSeleccionada?.id === opcionId) {
-                    setContValue(nuevasCantidades[opcionId]);
-                    calcularPrecio(nuevasCantidades[opcionId], [opcionSeleccionada]);
-                }
-                return nuevasCantidades;
-            }
-            return prev;
-        });
-    };
-
+        }
+        return prev;
+    });
+};
     const handleAdd = () => {
 
         setCheck(true);
@@ -251,9 +266,9 @@ export const Pedidos = ({ onSuccess, valueInput, setPrice, price, setContValue, 
                             <label htmlFor={`opcion-${opcion.id}`}>{opcion.nombre} - ${opcion.precio_adicional}</label>
 
                             <div className='agregar'>
-                                <span onClick={() => handleRestarCantidad(opcion.id)} className='simbolo-cant'>-</span>
+                                <span onClick={() => handleRestarCantidad(opcion)} className='simbolo-cant'>-</span>
                                 <span>{cantidades[opcion.id] || 1}</span>
-                                <span onClick={() => handleSumarCantidad(opcion.id)} className='simbolo-cant'>+</span>
+                                <span onClick={() => handleSumarCantidad(opcion)} className='simbolo-cant'>+</span>
                             </div>
                         </div>
                     ))}
